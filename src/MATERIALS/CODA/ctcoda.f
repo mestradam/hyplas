@@ -1,0 +1,158 @@
+      SUBROUTINE CTCODA
+     1(   TREST      ,DMATX      ,EPFLAG     ,IPROPS     ,NTYPE      ,
+     2    RPROPS     ,RSTAVA     ,STRES      )
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+      PARAMETER(IPHARD=4  ,MSTRE=4)
+      LOGICAL EPFLAG
+C Array arguments
+      DIMENSION
+     1    DMATX(MSTRE,MSTRE),IPROPS(*)           ,RPROPS(*)          ,
+     2    RSTAVA(MSTRE+1)   ,STRAT(MSTRE)
+C Local arrays
+      DIMENSION
+     1    FOID(MSTRE,MSTRE)  ,SOID(MSTRE)        ,VEC(MSTRE)
+      DIMENSION
+     1    CELST(MSTRE,MSTRE), STREST(MSTRE), STRESTP(MSTRE)
+      DIMENSION
+     1    DEFI(MSTRE),   S(MSTRE)
+      DATA
+     1    FOID(1,1),FOID(1,2),FOID(1,3),FOID(1,4)/
+     2    1.0D0    ,0.0D0    ,0.0D0    ,0.0D0    /
+     3    FOID(2,1),FOID(2,2),FOID(2,3),FOID(2,4)/
+     4    0.0D0    ,1.0D0    ,0.0D0    ,0.0D0    /
+     5    FOID(3,1),FOID(3,2),FOID(3,3),FOID(3,4)/
+     6    0.0D0    ,0.0D0    ,0.5D0    ,0.0D0    /
+     7    FOID(4,1),FOID(4,2),FOID(4,3),FOID(4,4)/
+     8    0.0D0    ,0.0D0    ,0.0D0    ,1.0D0    /
+      DATA
+     1    SOID(1)  ,SOID(2)  ,SOID(3)  ,SOID(4)  /
+     2    1.0D0    ,1.0D0    ,0.0D0    ,1.0D0    /
+      DATA
+     1    RP5  ,R1   ,R2   ,R3   ,R4   /
+     2    0.5D0,1.0D0,2.0D0,3.0D0,4.0D0/
+C***********************************************************************
+C COMPUTATION OF THE CONSISTENT TANGENT MODULUS FOR VON MISES TYPE
+C ELASTO-PLASTIC MATERIAL WITH PIECE-WISE LINEAR ISOTROPIC HARDENING.
+C PLANE STRESS IMPLEMENTATION ONLY.
+C
+C REFERENCE: Section 9.4.5
+C***********************************************************************
+C Stops program if neither not plane stress
+      IF(NTYPE.NE.1)CALL ERRPRT('EI0032')
+C Current accumulated plastic strain
+      EPBAR=RSTAVA(MSTRE+1)
+C Set material properties
+      YOUNG=RPROPS(2)
+      POISS=RPROPS(3)
+      HINT=RPROPS(4)
+      SIGMU=RPROPS(5)  
+      ILAWT=RPROPS(6)
+      EXPDT=RPROPS(7)
+      NHARD=IPROPS(3)
+      Z=RPROPS(8)
+      GMODU=YOUNG/(R2*(R1+POISS))
+      BULK=YOUNG/(R3*(R1-R2*POISS))
+      R2G=R2*GMODU
+      R4G=R4*GMODU
+      R1D3=R1/R3
+      R1D6=R1/6.0
+      R2D3=R2*R1D3
+      SQR2D3=SQRT(R2D3)
+      R4GD3=R4G*R1D3
+C      EXPDT=0.5
+      RINTO=SIGMU/SQRT(YOUNG)
+      RINTP=TREST*RINTO
+C      HFACT=DPLFUN(EPBAR,NHARD,RPROPS(IPHARD))
+C      DPLFUN(EPBAR,NHARD,RPROPS(IPHARD))
+      HINT=C_HINT(RINTP,RINTO,ILAWT,EXPDT,HINT)
+      IF (RINTP.EQ.0.0)  RINTP=RINTO
+C      HFACT=C_HINT(RINTP,RINTO,ILAWT,EXPDT,HFACT)  
+      QINTR=C_QINT(RINTP,RINTO,ILAWT,EXPDT,HINT) 
+C      C_QINT(RINTP,RINTO,ILAWT,EXPDT,HFACT)    
+      FACQR=QINTR/RINTP
+      STRAT(1)=RSTAVA(1)
+      STRAT(2)=RSTAVA(2)
+      STRAT(3)=RSTAVA(3)
+      STRAT(4)=RSTAVA(4)
+C MATRIZ ELASTICA SECANTE
+      CALL C_CELS(MSTRE,CELST,YOUNG,POISS)
+      DO I=1, MSTRE
+        SUMA=0.0
+        DO J=1,MSTRE
+          SUMA=SUMA+(CELST(I,J))*(STRAT(J))
+        ENDDO
+        STREST(I)=SUMA  
+      ENDDO
+C
+C     TRACCIÓN Y COMPRESIÓN DIFERENCIADA
+      CALL TRPRIN(STREST,STRESTP)
+      STRESTR=SQRT(((STREST(1)-STREST(2))/2.0)**2+STREST(3)**2)
+C
+      IF(STRESTP(1).GT.0.AND.STRESTP(2).GT.0) THEN
+        FACTORFI=1
+      DO I=1, MSTRE
+      VEC(I)=0.0
+      ENDDO
+      ELSEIF(STRESTP(1).LT.0.AND.STRESTP(2).LT.0) THEN
+        FACTORFI=1/Z
+      DO I=1, MSTRE
+      VEC(I)=0.0
+      ENDDO
+      ELSEIF(STRESTP(1).GT.0.AND.STRESTP(2).LT.0.OR.STRESTP(1).LT.0.AND.
+     &STREST(2).GT.0  )THEN
+      FACTORFI=(1-1/Z)*(1/2+((STREST(1)+STREST(2)))/(4*STRESTR))+(1/Z)
+      FACTOR1=(STREST(1)-STREST(2))/(2*STRESTR)
+      FACTOR2=(STREST(1)+STREST(2))/(2*STRESTR)
+      FACTOR3=(STREST(1)+STREST(2))/STRESTR
+      DEFI(1)=(1-1/Z)*(1/4*STRESTR)*(1-FACTOR1*FACTOR2)
+      DEFI(2)=(1-1/Z)*(1/4*STRESTR)*(1+FACTOR1*FACTOR2)
+      DEFI(3)=-(1-1/Z)*(STREST(3)/4*(STRESTR**2))*FACTOR3
+      DO I=1, MSTRE
+        SUMA1=0.0
+        DO J=1, MSTRE
+        SUMA1=SUMA1+(CELST(I,J)*DEFI(J))
+      ENDDO
+        VEC(I)=SUMA1
+      ENDDO
+      ENDIF
+      IF(EPFLAG)THEN
+      F1=(QINTR-(HINT*RINTP))/(RINTP*RINTP*RINTP)
+      F2=(RINTP*RINTP)/FACTORFI
+      F3=FACTORFI*FACTORFI
+C  CARGA
+      S(1)=STREST(1)
+      S(2)=STREST(2)
+      S(3)=STREST(3)
+      S(4)=STREST(4)
+C  F=FACQR
+      CALL C_CELS(MSTRE,CELST,YOUNG,POISS)
+      DO I=1,MSTRE
+        DO J=1,MSTRE
+C  DMATX(I,J)=(F*CELST(I,J))-(F1*(F2*(S(I)*VEC(J)))+(S(I)*S(J)))
+      DMATX(I,J)=(FACQR*CELST(I,J))-(F1*(F3*S(I)*S(J)+F2*S(I)*VEC(J)))
+        ENDDO
+      ENDDO
+      ELSE
+C  RÉGIMEN ELÁSTICO
+C  DO I=1,MSTRE
+C    DO J=1,MSTRE
+C    DMATX(I,J)=FACQR*CELST(I,J)
+       NSTRE=3
+        R4GD3=R4*GMODU*R1D3
+        FACTOR=(BULK-R2G*R1D3)*(R2G/(BULK+R4GD3))
+       DO 20 I=1,NSTRE
+        DO 10 J=I,NSTRE
+          DMATX(I,J)=R2G*FOID(I,J)+FACTOR*SOID(I)*SOID(J)
+   10   CONTINUE
+   20 CONTINUE
+C lower triangle
+      DO 40 J=1,NSTRE-1
+        DO 30 I=J+1,NSTRE
+          DMATX(I,J)=FACQR*DMATX(J,I)
+   30   CONTINUE
+   40 CONTINUE
+C  ENDDO
+C  ENDDO
+      ENDIF
+      RETURN
+      END
