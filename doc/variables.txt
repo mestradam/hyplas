@@ -1,0 +1,126 @@
+========================================================================
+HYPLAS variables for composite material
+========================================================================
+
+mstre = 4
+
+------------------------------------------------------------------------    
+rprops(1)    :   matrix young modulus        :   youngm
+rprops(2)    :   matrix poisson ratio        :   poissm
+rprops(11)   :   fibers young modulus        :   youngf
+rprops(12)   :   fibers poisson ratio        :   poissf
+rprops(13)   :   fibers ultimate stress      :   sigmauf
+rprops(14)   :   fibers Weibull shape factor :   alphaf
+rprops(15)   :   fibers Weibull scale factor :   betaf
+rprops(16)   :   fibers volume fraction      :   volfrf
+rprops(17)   :   fibers inclination angle    :   anglef
+rprops(21)   rprops(22)   :   mhardstrain     mhardstress
+    .           .               .               .
+    .           .               .               .
+    .           .               .               .
+rprops(*)    rprops(*)    :   mhardstrain     mhardstress
+
+------------------------------------------------------------------------
+irops(3)    :   matrix num. hardening curve :   nhardm
+
+------------------------------------------------------------------------
+rstava(1)   :   composite updated strain xx
+rstava(2)   :   composite updated strain yy
+rstava(3)   :   composite updated strain xy
+rstava(4)   :   composite updated strain zz
+rstava(5)   :   matrix converged accumulated plastic strain
+rstava(6)   :   fibers converged accumulated damage variable
+
+------------------------------------------------------------------------
+lalgva(1)   :   matrix ifplas (plasticity flag)
+lalgva(2)   :   sufail (failure flag in State Update procedure)
+lalgva(3)   :   fibers ifdama (damage flag)
+
+------------------------------------------------------------------------
+ralgva(1)   :   dgama for matrix
+ralgva(2)   :   qmaxf : damage threshold
+
+
+========================================================================
+HYPLAS variables for elements with strong discontinuity (rsq4sd.f)
+========================================================================
+
+ielprp(1)   :   Type of element         :   ieltyp=qua4sd
+ielprp(2)   :   Class of element        :   ielcls=strdis
+ielprp(3)   :   Number of nodes         :   nnode
+ielprp(4)   :   Number of Gauss points  :   ngausp
+ielprp(5)   :   Num. degrees of freedom :   ndofel
+ielprp(6)   :   Num. of edges           :   nedgel
+ielprp(7)   :   Num. nodes per edge     :   mnodeg
+ielprp(8)   :   Num. GP boundary integr :   ngausb
+ielprp(9)   :   node num. order on bound:   nordeb(inode=1,iedgel=1)
+ielprp(10)  :   node num. order on bound:   nordeb(inode=2,iedgel=1)
+    .                                           .
+    .                                           .
+    .                                           .
+ielprp(16)  :   node num. order on bound:   nordeb(inode=4,iedgel=4)
+ielprp(17)  :   bifurcation state       :   ebif
+ielprp(18)  :                           :   etrack
+ielprp(19)  :   injection state         :   einj
+ielprp(20)  :                           :   eload
+ielprp(21)  :                           :   nselect
+
+------------------------------------------------------------------------
+relprp(1)   :   Gauss point x possition :   posgp(1,gp=1)
+relprp(2)   :   Gauss point y possition :   posgp(2,gp=1)
+relprp(3)   :   Gauss point x possition :   posgp(1,gp=2)
+relprp(4)   :   Gauss point y possition :   posgp(2,gp=2)
+relprp(5)   :   Gauss point x possition :   posgp(1,gp=3)
+relprp(6)   :   Gauss point y possition :   posgp(2,gp=3)
+relprp(7)   :   Gauss point x possition :   posgp(1,gp=4)
+relprp(8)   :   Gauss point y possition :   posgp(2,gp=4)
+relprp(9)   :   Gauss point x possition :   posgp(1,gp=5)
+relprp(10)  :   Gauss point y possition :   posgp(2,gp=5)
+relprp(11)  :   Gauss point x possition :   posgp(1,gp=6)
+relprp(12)  :   Gauss point y possition :   posgp(2,gp=6)
+relprp(13)  :   Gauss point weight      :   weigp(gp=1)
+relprp(14)  :   Gauss point weight      :   weigp(gp=2)
+relprp(15)  :   Gauss point weight      :   weigp(gp=3)
+relprp(16)  :   Gauss point weight      :   weigp(gp=4)
+relprp(17)  :   Gauss point weight      :   weigp(gp=5)
+relprp(18)  :   Gauss point weight      :   weigp(gp=6)
+relprp(19)  :   GP pos. boundary integr :   posgpb(gp=1)
+relprp(20)  :   GP wei. boundary integr :   weigpb(gp=1)
+relprp(21)  :   Element length          :   eleng
+relprp(22)  :   Strong disc. band width :   elk
+relprp(23)  :   de=dvol/elen for integr.:   eld
+relprp(24)  :   q at bifurcation time   :   qbif
+relprp(25)  :   q at 1st injection time :   qinj
+relprp(26)  :   q at strong disc. inj.  :   qsda
+relprp(27)  :   bif. analisys vector 1x :   vnbif1(1)
+relprp(28)  :   bif. analisys vector 1y :   vnbif1(2)
+relprp(29)  :   bif. analisys vector 2x :   vnbif2(1)
+relprp(30)  :   bif. analisys vector 2y :   vnbif2(2)
+relprp(31)  :   vector perpen. disc. x  :   vnn(1)
+relprp(32)  :   vector perpen. disc. y  :   vnn(2)
+relprp(33)  :   vector parall. disc. x  :   vnm(1)
+relprp(34)  :   vector parall. disc. y  :   vnm(2)
+relprp(35)  :   displ. gradient norm    :   graun
+relprp(36)  :   normalized disp. grad. x:   grau(1)
+relprp(37)  :   normalized disp. grad. y:   grau(2)
+relprp(38)  :   internal var. to smooth :   gn
+relprp(39)  :   gradient of phi x       :   graphi(1,1) & graphi(3,2)
+relprp(40)  :   gradient of phi y       :   graphi(2,2) & graphi(3,1)
+
+
+========================================================================
+HYPLAS common block for strong discontinuity (COMMON/LOCALIZA)
+========================================================================
+
+gamloc      :   Gamma for localization time
+gamwsd      :   Gamma weak/strong discontinuity
+vecnre(1)   :   Vector n of reference x
+vecnre(2)   :   Vector n of reference y
+tauloc      :   Tau for localization time
+taumxd      :   Tau for mixed formulation
+qinj        :   Q for first intection time
+qinf        :   Q at infinity
+parak       :   k parameter
+injtyp      :   Injection type
+
+

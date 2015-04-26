@@ -1,0 +1,2072 @@
+************************************************************************
+*----------------------------------------------------------------------*
+*                                                                      *
+*                                                                      *
+*               H Y P L A S  ERROR/WARNING MESSAGES                    *
+*                                                                      *
+*                                                                      *
+*----------------------------------------------------------------------*
+************************************************************************
+*                                                                      *
+*                                                                      *
+*  Summary:                                                            *
+*  --------                                                            *
+*                                                                      *
+*      This file contains all  HYPLAS  error messages printed by       *
+*      calling subroutine  ERRPRT (note that some messages printed by  *
+*      HYPLAS  are not issued through  ERRPRT).  Whenever  ERRPRT  is  *
+*      called, the error code character string passed as argument will *
+*      be searched for in the present file. If the error code string   *
+*      is found,  ERRPRT  will print the associated message to the     *
+*      results file and standard output and will take the appropriate  *
+*      measure (either leave  HYPLAS  running or abort its execution)  *
+*      associated with the error code (see "Error code convention"     *
+*      section below for details).                                     *
+*                                                                      *
+*      This file is expected (by  ERRPRT) to be kept in the directory  *
+*      defined by the  HYPLASHOME  environment variable.               *
+*                                                                      *
+*      An entry in the present file has the following format:          *
+*                                                                      *
+*                                                                      *
+*      <code_character_string>   <number_of_lines>                     *
+*      ............................................................    *
+*      ............................................................    *
+*      .............                             ..................    *
+*      .............   <error/warning  message>  ..................    *
+*      ............................................................    *
+*      ............................................................    *
+*                                                                      *
+*                                                                      *
+*      where <code_character_string> is a character string of the      *
+*      types discussed in the Error code convention section below,     *
+*      <number_of_line> is the integer defining the number of lines    *
+*      below the line containing <code_character_string> and           *
+*      <number_of_lines> which will be printed as error/warning        *
+*      message.                                                        *
+*                                                                      *
+*      To add a new error/warning message, you may create a completely *
+*      new entry defining a new <code_character_string> with the       *
+*      corresponding message or, alternatively, you may re-use a       *
+*      currently unused <code_character_string> and edit the           *
+*      corresponding message.  In doing so, make sure you follow the   *
+*      "error code convention" below so that other users will have a   *
+*      better idea of what is going on when error/warning messages are *
+*      issued by HYPLAS.                                               *
+*                                                                      *
+*                                                                      *
+*  Error code convention:                                              *
+*  ----------------------                                              *
+*                                                                      *
+*                                                                      *
+*      ED???? -> Errors of input data:                                 *
+*                For fatal errors detected in the input data file.     *
+*                Execution of HYPLAS is stopped by subroutine ERRPRT.  *
+*                                                                      *
+*      WD???? -> Input data warnings:                                  *
+*                For unusual non-fatal data in the input data file     *
+*                of which the user should be warned.                   *
+*                Execution of HYPLAS is NOT STOPPED by subroutine      *
+*                ERRPRT.                                               *
+*                                                                      *
+*      EI???? -> Internal errors:                                      *
+*                For errors in the code. Likely to happen during code  *
+*                development. Execution of HYPLAS is stopped by        *
+*                subroutine ERRPRT.                                    *
+*                Example: Subroutine calls with unacceptable arguments.*
+*                                                                      *
+*      EE???? -> Execution errors:                                     *
+*                For fatal errors occuring during the execution of     *
+*                HYPLAS such as division by zero, algorithm failures,  *
+*                etc. May require re-definition of the problem         *
+*                analysed. Execution of HYPLAS is stopped by           *
+*                subroutine ERRPRT.                                    *
+*                                                                      *
+*      WE???? -> Execution warnings:                                   *
+*                For non-fatal errors or circumstances, of which       *
+*                the user should be warned. Execution of HYPLAS is     *
+*                NOT stopped by subroutine ERRPRT.                     *
+*                Example: failure of return mapping algorithms for     *
+*                elasto-plastic materials.                             *
+*                                                                      *
+************************************************************************
+*
+*-----------------------------------------------------------------------
+*                                                                      |
+*                                                                      |
+*                       ERRORS IN INPUT DATA                           |
+*                                                                      |
+*                                                                      |
+*-----------------------------------------------------------------------
+
+ED0001   3
+ Description:  The specified total number of elements is less than or
+               equal to zero.
+ Action:       Correct input data file and re-run HYPLAS.
+
+ED0002   6
+ Description:  The specified total number of elements is greater than
+               the maximum allowed number.
+ Action:       If the specified number of elements is correct, change
+               the parameter MELEM in file MAXDIM.INC (MELEM must be
+               greater than or equal the required number of elements),
+               re-compile and re-run HYPLAS.
+
+ED0003   3
+ Description:  The specified total number of nodes is less than or
+               equal to zero.
+ Action:       Correct input data file and re-run HYPLAS.
+
+ED0004   6
+ Description:  The specified total number of nodes is greater than the
+               maximum allowed number.
+ Action:       If the specified number of nodes is correct, change the
+               parameter MPOIN in file MAXDIM.INC (MPOIN must be
+               greater than or equal the required number of nodes),
+               re-compile and re-run HYPLAS.
+
+ED0005   2
+ Description:  Flying structure. No constrained nodes specified.
+ Action:       Correct the input data file  and re-run HYPLAS.
+
+ED0006   6
+ Description:  The specified number of restrained nodes is greater than
+               the maximum allowed number.
+ Action:       If the specified number of restrained nodes is correct,
+               change the parameter MVFIX in file MAXDIM.INC (MVFIX
+               must be grater than or equal the number of restrained
+               nodes), re-compile and re-run HYPLAS.
+
+ED0007   6
+ Description:  Invalid specification of material type identification
+               number.
+ Action:       Correct input data file and re-run HYPLAS. Material type
+               identification numbers (defined in the materials
+               specification section) must be greater than 0 and less
+               than or equal the specified number of element groups.
+
+ED0008   5
+ Description:  Invalid specification of numerical integration rule for
+               element of type QUAD_8.
+ Action:       Correct input data file and re-run HYPLAS. Only 1, 4, 5
+               and 9 gauss point integration rules are allowed for this
+               type of element.
+
+ED0009   6
+ Description:  Analysis type flag not acceptable.
+ Action:       Correct input data file. The acceptable analysis type
+               flags are:
+                            1 - for plane stress;
+                            2 - for plane strain;
+                            3 - for axisymmetric problems.
+
+ED0010   11
+ Description:  Solution algorithm flag not acceptable.
+ Action:       Correct input data file. The acceptable solution
+               algorithm flags are:
+                          1 - Initial stiffness method;
+                          2 - Newton-Raphson tangent stiffness method;
+                          3 - Modified Newton KT1;
+                          4 - Modified Newton KT2;
+                          5 - Secant Newton - Initial stiffness;
+                          6 - Secant Newton - KT1;
+                          7 - Secant Newton - KT2,
+               with negative values for combined Arc-length method.
+
+ED0011   7
+ Description:  Error in definition of distributed edge loading.
+               Specified number of nodes in loaded edge is not
+               compatible with the type of the associated element.
+ Action:       Correct input data file and re-run HYPLAS. Make sure the
+               set of nodes with prescribed pressure loading matches
+               exactly one and only one of the boundaries of the
+               associated element.
+
+ED0012   7
+ Description:  Specified set of global node numbers with prescribed
+               distributed edge load does not match any boundary of
+               the specified element.
+ Action:       Correct input data file and re-run HYPLAS. Any set of
+               nodes with prescribed distributed edge loading must
+               match exactly one and only one of the boundaries of
+               the associated element.
+
+ED0013   4
+ Description:  The specified number of prescribed load increments is
+               less than or equal to 0.
+ Action:       Correct input data file (number of increments must be
+               greater than 0) and re-run HYPLAS.
+
+ED0014   5
+ Description:  Large strain formulation flag not acceptable.
+ Action:       Correct the input data file (the large strain flag, that
+               follows keyword LARGE_STRAIN_FORMULATION, must be either
+               'OFF', for small strain formulation, or 'ON', for large
+               strain formulation) and re-run HYPLAS.
+
+ED0015   3
+ Description:  Material type name not recognised (possible mispelling).
+ Action:       Correct the input data file. Check the source code of
+               routine MATIRD for currently acceptable names.
+
+ED0016   4
+ Description:  Axis of symmetry not defined.
+ Action:       Correct the input data file (the axis of symmetry must be
+               defined after keyword AXIS_OF_SYMMETRY as either X or Y)
+               and re-run HYPLAS.
+
+ED0017   4
+ Description:  Axis of symmetry not acceptable.
+ Action:       Correct the input data file (the axis of symmetry,
+               defined after keyword AXIS_OF_SYMMETRY, must be either
+               X or Y) and re-run HYPLAS.
+ED0018   3
+ Description:  Analysis type flag not defined.
+ Action:       Correct input data file and re-run HYPLAS. The analysis
+               type flag must be defined after keyword ANALYSIS_TYPE.
+
+ED0019   3
+ Description:  Error in definition of edge loading (pressure). Pressure
+               loading has been defined for an inexistent element.
+ Action:       Correct input data file and re-run HYPLAS.
+
+ED0020   3
+ Description:  Error in definition of edge loading (pressure). Pressure
+               loading has been defined for an inexistent global node.
+ Action:       Correct input data file and re-run HYPLAS.
+
+ED0021   4
+ Description:  Solution algorithm not defined.
+ Action:       Correct input data file and re-run HYPLAS. The solution
+               algorithm flag must be defined after keyword
+               SOLUTION_ALGORITHM.
+
+ED0022   4
+ Description:  Large strain formulation flag not defined.
+ Action:       Correct input data file and re-run HYPLAS. The large
+               strain formulation flag must be defined immediately
+               after keyword LARGE_STRAIN_FORMULATION.
+
+ED0023   3
+ Description:  Total number of elements not specified.
+ Action:       Correct input data file and re-run HYPLAS. The number of
+               elements must follow keyword ELEMENTS.
+
+ED0024   3
+ Description:  Total number of nodes not specified.
+ Action:       Correct input data file and re-run HYPLAS. The number of
+               nodes must follow keyword NODE_COORDINATES.
+
+ED0025   5
+ Description:  Number of nodes with prescribed displacements not
+               specified.
+ Action:       Correct input data file and re-run HYPLAS. The number of
+               nodes with prescribed displacements must follow keyword
+               NODES_WITH_PRESCRIBED_DISPLACEMENTS.
+
+ED0026   4
+ Description:  Number of Master/Slave sets not specified.
+ Action:       Correct input data file and re-run HYPLAS. The number of
+               master/slave sets (0 if no master/slave constraints are
+               defined) sets must follow keyword MASTER_SLAVE_SETS.
+
+ED0027   3
+ Description:  Number of different materials not specified.
+ Action:       Correct input data file and re-run HYPLAS. The number of
+               materials must be follow keyword MATERIALS.
+
+ED0028   5
+ Description:  Blank line in materials properties input section.
+ Action:       Correct input data file and re-run HYPLAS. Blank lines
+               are not allowed in materials properties input section
+               beginning in the line immediately after keyword
+               MATERIALS.
+
+ED0029   4
+ Description:  Materials properties not correctly specified.
+ Action:       Correct input data file and re-run HYPLAS. A material
+               number followed by its name was expected in the last
+               line read.
+
+ED0030   6
+ Description:  Load type name not recognised (possible mispelling).
+ Action:       Correct input data file and re-run HYPLAS. The
+               acceptable load type names are:
+                                    POINT;
+                                    EDGE;
+                                    GRAVITY.
+
+ED0031   3
+ Description:  Number of nodes with point load not specified.
+ Action:       Correct input data file and re-run HYPLAS. The mumber of
+               nodes with point load must be follow keyword POINT_LOADS.
+
+ED0032   3
+ Description:  Number loaded edges not specified.
+ Action:       Correct input data file and re-run HYPLAS. The mumber of
+               loaded edges must be follow keyword EDGE_LOADS.
+
+ED0033   5
+ Description:  Invalid specification of numerical integration rule for
+               element of type QUAD_4.
+ Action:       Correct input data file and re-run HYPLAS. Only 1 and 4
+               gauss point integration rules are allowed for this type
+               of element.
+
+ED0034   5
+ Description:  Number of prescribed load increments not specified.
+ Action:       Correct input data file and re-run HYPLAS. When
+               incrementation control with fixed load increments is
+               selected, the total number of prescribed load increments
+               must follow keyword INCREMENTS.
+
+ED0035   6
+ Description:  The specified number of load increments is greater
+               than the maximum allowed number.
+ Action:       If the specified number of load increments is correct,
+               change the parameter MINCS in file MAXDIM.INC (MINCS
+               must be greater than or equal the specified number of
+               load increments) re-compile and re-run HYPLAS.
+
+ED0036   3
+ Description:  The specified number of master/slave sets is negative.
+ Action:       Correctthe input data file and re-run HYPLAS. The number
+               of master/slave sets must be greater than or equal to 0.
+
+ED0037   8
+ Description:  Element with invalid group identification number. Last
+               element group identification number read is less than or
+               equal to 0 or greater than the specified number of
+               groups.
+ Action:       Correct input data file and re-run HYPLAS. Element group
+               identification numbers must be greater than zero and
+               less than or equal the specified number of element
+               groups.
+
+ED0038   6
+ Description:  Invalid node number in connectivity list. One or more
+               nodal connection numbers are less than or equal to 0 or
+               greater than the specified total number of nodes.
+ Action:       Correct input data file and re-run HYPLAS. Existing node
+               numbers are greater than 0 and less than or equal to the
+               specified total number of nodes.
+
+ED0039   4
+ Description:  Repeated node numbers.  One or more elements have
+               repetitions of the same node number within the element.
+ Action:       Correct node connectivities in input data file and
+               re-run HYPLAS.
+
+ED0040   5
+ Description:  Unused nodes.  Node numbers that exist in the list of
+               nodal points do not appear anywhere in the list of
+               elements connectivities.
+ Action:       Correct node numbering and/or connectivities in input
+               data file and re-run HYPLAS.
+
+ED0041   7
+ Description:  Frontwidth too large. The largest frontwidth encountered
+               in the present problem exceeds the maximum value
+               allowed.
+ Action:       Change the parameter MFRON in file MAXDIM.INC (MFRON
+               must be greater than or equal the required frontwidth -
+               see results file for exact frontwidth size), re-compile
+               and re-run HYPLAS.
+
+ED0042   6
+ Description:  Invalid restrained node number. One or more node with
+               prescribed displacement have node numbers less than or
+               equal to zero or greater than the specified total number
+               of nodes in the problem.
+ Action:       Correct constrained node numbers and/or delete invalid
+               constraints and re-run HYPLAS.
+
+ED0043   4
+ Description:  Repeated restrained nodes.  Repetitions in the list of
+               nodes with prescribed displacements have been detected.
+ Action:       Eliminate repetitions from input data file and re-run
+               HYPLAS.
+
+ED0044   6
+ Description:  Invalid specification of material property
+               identification number.
+ Action:       Correct input data file and re-run HYPLAS. Material
+               identification numbers (defined in material properties
+               input section) must be greater than 0 and less than or
+               equal the specified number of different materials.
+
+ED0045   6
+ Description:  Repeated specification of material property
+               identification number. 
+ Action:       Correct input data file and re-run HYPLAS. Each material
+               identification number (defined in material properties
+               input section) and the corresponding material properties
+               must be specified only once.
+
+ED0046   7
+ Description:  Incorrect element number. An element with identification
+               number less than or equal to 0 or greater than the
+               specified total number of elements has been detected.
+ Action:       Correct input data file and re-run HYPLAS. Element
+               numbers must be greater than 0 and less than or equal
+               to the specified total number of elements in the
+               structure.
+
+ED0047   4
+ Description:  Repeated specification of an element.
+ Action:       Delete repeated element or correct its number in the
+               element list of the input data file and re-run HYPLAS.
+               Elements must be defined only once.
+
+ED0048   6
+ Description:  Unacceptable number of restrained nodes. The specified
+               number nodes with prescribed displacements is greater
+               than the specified total number of nodes.
+ Action:       Correct input data file and re-run HYPLAS. The number of
+               nodes with prescribed displacements must be less than or
+               equal to the specified total number of nodes.
+
+ED0049   5
+ Description:  Mesh not properly defined. The specified number of nodes
+               in the structure is greater than the possible maximum
+               total number of nodes (given by the specified number of
+               elements times the number of nodes per element).
+ Action:       Correct input data file and re-run HYPLAS.
+
+ED0050   6
+ Description:  Error in the specification of Master/Slave kinematical
+               constraints. A slave node has been assigned to more than
+               one master/slave set with its first degree of freedom
+               constrained.
+ Action:       Correct Master/Slave constraint specification in input
+               data file and re-run HYPLAS.
+
+ED0051   6
+ Description:  Error in the specification of Master/Slave kinematical
+               constraints. A slave node has been assigned to more than
+               one master/slave set with its second degree of freedom
+               constrained.
+ Action:       Correct Master/Slave constraint specification in input
+               data file and re-run HYPLAS.
+
+ED0052   3
+ Description:  Number of element groups not specified.
+ Action:       Correct input data file and re-run HYPLAS. The number of
+               element groups must be follow keyword ELEMENT_GROUPS.
+
+ED0053   3
+ Description:  The specified number of element groups is less than 1. 
+ Action:       Correct input data file (at least 1 element group must
+               be defined) and re-run HYPLAS.
+
+ED0054   6
+ Description:  The specified number of element groups exceeds the
+               maximum allowed number.
+ Action:       If the specified number of element groups is correct,
+               change the parameter MGRUP in file MAXDIM.INC (MGRUP
+               must be greater than or equal the specified number of
+               element groups) re-compile and re-run HYPLAS.
+
+ED0055   3
+ Description:  Number of element types not specified.
+ Action:       Correct input data file and re-run HYPLAS. The number of
+               element types must be follow keyword ELEMENT_TYPES.
+
+ED0056   3
+ Description:  The specified number of element types is less than 1. 
+ Action:       Correct input data file (at least 1 element type must be
+               defined) and re-run HYPLAS.
+
+ED0057   6
+ Description:  The specified number of element types exceeds the
+               specified total number of element groups.
+ Action:       Correct input data file (the number of element types
+               must be greater than 0 and less than or equal the
+               specified total number of element groups) and re-run
+               HYPLAS.
+
+ED0058   5
+ Description:  Blank line in element types specification section.
+ Action:       Correct input data file and re-run HYPLAS. Blank lines
+               are not allowed in element types specification section,
+               which starts in the line immediately after keyword
+               ELEMENT_TYPES.
+
+ED0059   4
+ Description:  Element type not correctly specified.
+ Action:       Correct the input data file and re-run HYPLAS. An element
+               type number followed by a valid element type name was
+               expected in the last line read.
+
+ED0060   7
+ Description:  Invalid specification of element type identification
+               number.
+ Action:       Correct the input data file and re-run HYPLAS. Element
+               type identification numbers (defined in the ELEMENT_TYPES
+               specification section) must be greater than 0 and less
+               than or equal the specified total number of element
+               types.
+
+ED0061   6
+ Description:  Repeated specification of element type identification
+               number.
+ Action:       Correct the input data file and re-run HYPLAS. Each
+               element type identification number (defined in the
+               element types specification section) must be specified
+               only once.
+
+ED0062   7
+ Description:  Error in element group definition.
+ Action:       Correct the input data file and re-run HYPLAS. For any
+               element group, the group identification number, the
+               element type identification number and the material
+               type identification number must all be greater than 0
+               and less than or equal the specified total number of
+               element groups.
+
+ED0063   5
+ Description:  Repeated specification of element group identification
+               number.
+ Action:       Correct input data file and re-run HYPLAS. Each element
+               group identification number (defined in the element
+               groups specification section) must be defined only once.
+
+ED0064   7
+ Description:  Element type name not recgonised (possible mispelling).
+ Action:       Correct the input data file. The acceptable element type
+               names are:
+                             TRI_3;
+                             QUAD_4;
+                             QUAD_8;
+                             QUAD_4_FBAR.
+
+ED0065   7
+ Description:  The properties associated to an element type
+               identication number assigned to an element group have
+               not been defined.
+ Action:       Correct input data file and re-run HYPLAS. If an element
+               type identification number is assigned to an element
+               group in section ELEMENT_GROUPS, then the corresponding
+               element type must be specified in section ELEMENT_TYPES.
+
+ED0066   7
+ Description:  The properties associated to a material type
+               identication number assigned to an element group have
+               not been defined.
+ Action:       Correct input data file and re-run HYPLAS. If a material
+               type identification number is assigned to an element
+               group in section ELEMENT_GROUPS, then the corresponding
+               material type must be specified in section MATERIALS.
+
+ED0067   5
+ Description:  Incorrect number of terms in Ogden's strain-energy
+               function.
+ Action:       Correct input data file and re-run HYPLAS. The number of
+               terms in Ogden's strain energy function must be greater
+               than or equal to 1.
+
+ED0068   8
+ Description:  Thickness has been assigned to an inexistent element
+               (with identification number less than or equal to 0 or
+               greater than the specified total number of elements) in
+               section THICKNESS.
+ Action:       Correct input data file and re-run HYPLAS. Element
+               numbers must be greater than 0 and less than or equal
+               to the specified total number of elements in the
+               structure.
+
+ED0069   6
+ Description:  Repeated specification of thickness for an element.
+ Action:       Delete the repeated element thickness specification or
+               correct the element number in section THICKNESS of the
+               input data file and re-run HYPLAS. Under the option
+               DEFINED_BY_ELEMENT, the thickness of each element must
+               be defined only once.
+
+ED0070   7
+ Description:  Thickness has been assigned to an inexistent node (with
+               identification number less than or equal to 0 or greater
+               than the specified total number of nodes) in section
+               THICKNESS.
+ Action:       Correct input data file and re-run HYPLAS. Node numbers
+               must be greater than 0 and less than or equal to the
+               specified total number of nodes in the structure.
+
+ED0071   6
+ Description:  Repeated specification of thickness for a node.
+ Action:       Delete the repeated node thickness specification or
+               correct the node number in section THICKNESS of the
+               input data file and re-run HYPLAS. Under the option 
+               DEFINED_BY_NODE, the thickness of each node must be
+               defined only once.
+
+ED0072   9
+ Description:  Error in thickness input section. Another keyword,
+               specifying the type of initial thickness distribution,
+               was expected immediately after keyword THICKNESS.
+ Action:       Correct the input data file and re-run HYPLAS. One of
+               the following keywords must follow keyword THICKNESS:
+
+                                UNIFORM;
+                                DEFINED_BY_ELEMENT;
+                                DEFINED_BY_NODE.
+
+ED0073   9
+ Description:  Unacceptable keyword (possible mispelling) specifying
+               the type of initial thickness distribution in thickness
+               input section.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               acceptable keywords (to appear immediately after keyword
+               THICKNESS) are:
+                                UNIFORM;
+                                DEFINED_BY_ELEMENT;
+                                DEFINED_BY_NODE.
+
+ED0075   6
+ Description:  Thickness has not been specified for 1 or more elements.
+ Action:       Specify the thickness of the missing element(s) in the
+               input data file and re-run HYPLAS. Under the option
+               DEFINED_BY_ELEMENT in section THICKNESS, the thickness
+               (required in plane stress analysis only) must be defined
+               for all elements of the mesh.
+
+ED0076   6
+ Description:  Thickness has not been specified for 1 or more nodes.
+ Action:       Specify the thickness of the missing node(s) in the
+               input data file and re-run HYPLAS. Under the option
+               DEFINED_BY_NODE in section THICKNESS, the thickness
+               (required in plane stress analysis only) must be defined
+               for all nodes of the mesh.
+
+ED0077   4
+ Description:  A negative Young's modulus has been specified for a
+               linear elastic material.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               Young's must be positive.
+
+ED0078   4
+ Description:  Incorrect specification of Poison's ratio for linear
+               elastic material.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               Poisson's must be in the interval (-1,0.5).
+
+ED0079   2
+ Description:  Keyword INCREMENTS not found in input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0080   2
+ Description:  Keyword TITLE not found in input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0081   2
+ Description:  Keyword ANALYSIS_TYPE not found in input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0082   2
+ Description:  Keyword AXIS_OF_SYMMETRY not found in input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0083   3
+ Description:  Keyword LARGE_STRAIN_FORMULATION not found in input data
+               file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0084   2
+ Description:  Keyword SOLUTION_ALGORITHM not found in input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0085   2
+ Description:  Keyword ELEMENT_GROUPS not found in input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0086   2
+ Description:  Keyword ELEMENT_TYPES not found in input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0087   2
+ Description:  Keyword MATERIALS not found in input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0088   2
+ Description:  Keyword ELEMENTS not found in input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0089   2
+ Description:  Keyword NODE_COORDINATES not found in input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0090   2
+ Description:  Keyword THICKNESS not found in input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0091   3
+ Description:  Keyword NODES_WITH_PRESCRIBED_DISPLACEMENTS not found in
+               input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0092   2
+ Description:  Keyword LOADINGS not found in input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0093   2
+ Description:  Keyword POINT_LOADS not found in input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0094   2
+ Description:  Keyword GRAVITY_LOAD not found in input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0095   2
+ Description:  Keyword EDGE_LOADS not found in input data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0096   6
+ Description:  Re-start file not found.
+ Action:       Correct the input data file and re-run HYPLAS. Make sure
+               the re-start file, whose name is defined immediately
+               following keyword RESTART in the input data file, has
+               been previously generated by HYPLAS and is in the same
+               directory as the input data file.
+
+ED0097   6
+ Description:  Maximum allowed number of load increments for arc-length
+               incrementation control not specified.
+ Action:       Correct input data file and re-run HYPLAS. When
+               incrementation by the arc-length method is selected, the
+               maximum allowed number of load increments must follow
+               keyword INCREMENTS.
+
+ED0098   4
+ Description:  Maximum allowed number of load increments for arc-length
+               incrementation control is less than or equal to 0.
+ Action:       Correct input data file and re-run HYPLAS. The maximum
+               allowed number of increments must be greater than 0.
+
+ED0099   5
+ Description:  Invalid specification of numerical integration rule for
+               element of type QUAD_4_FBAR.
+ Action:       Correct the input data file and re-run HYPLAS. Only the
+               4 Gauss point integration rule is allowed for this type
+               of element.
+
+ED0100   4
+ Description:  Invalid specification of Young's modulus for VON_MISES
+               type elasto-plastic material.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               Young's modulus must be greater than zero.
+
+ED0101   4
+ Description:  Unacceptable number of points on hardening curve for
+               VON_MISES type elasto-plastic material.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               hardening curve must be defined by at least 2 points.
+
+ED0102   7
+ Description:  The maximum permissible number of integer material
+               properties, MIPROP, does not allow the use of the
+               VON_MISES type elasto-plastic material.
+ Action:       Change the dimensioning parameter MIPROP in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For the
+               VON_MISES type material, the minimum value of MIPROP
+               is 3. 
+
+ED0103   7
+ Description:  Number of real properties required by VON_MISES type
+               material exceeds the maximum permissible number.
+ Action:       If the data file is correct, change the dimensioning
+               parameter MRPROP in the file MATERIAL.INC, re-compile
+               and re-run HYPLAS. For this material, MRPROP must be
+               greater than or equal to  3+2*NHARD, where NHARD is the
+               specified number of points on the hardening curve.
+
+ED0104   5
+ Description:  Number of real state variables required by VON_MISES
+               type material exceeds the maximum permissible number.
+ Action:       Change the dimensioning parameter MRSTAV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRSTAV must be greater than or equal to 5.
+
+ED0105   6
+ Description:  Number of logical algorithmic variables required by
+               VON_MISES type material exceeds the maximum permissible
+               number.
+ Action:       Change the dimensioning parameter MLALGV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MLALGV must be greater than or equal to 2.
+
+ED0107   4
+ Description:  Invalid specification of Young's modulus for TRESCA
+               type elasto-plastic material.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               Young's modulus must be greater than zero.
+
+ED0108   4
+ Description:  Unacceptable number of points on hardening curve for
+               TRESCA type elasto-plastic material.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               hardening curve must be defined by at least 2 points.
+
+ED0109   6
+ Description:  The maximum permissible number of integer material
+               properties, MIPROP, does not allow the use of the
+               TRESCA type elasto-plastic material.
+ Action:       Change the dimensioning parameter MIPROP in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For the
+               TRESCA type material, the minimum value of MIPROP is 3. 
+
+ED0110   7
+ Description:  Number of real properties required by TRESCA type
+               material exceeds the maximum permissible number.
+ Action:       If the data file is correct, change the dimensioning
+               parameter MRPROP in the file MATERIAL.INC, re-compile
+               and re-run HYPLAS. For this material, MRPROP must be
+               greater than or equal to  3+2*NHARD, where NHARD is the
+               specified number of points on the hardening curve.
+
+ED0111   5
+ Description:  Number of real state variables required by TRESCA
+               type material exceeds the maximum permissible number.
+ Action:       Change the dimensioning parameter MRSTAV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRSTAV must be greater than or equal to 5.
+
+ED0112   6
+ Description:  Number of logical algorithmic variables required by
+               TRESCA type material exceeds the maximum permissible
+               number.
+ Action:       Change the dimensioning parameter MLALGV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MLALGV must be greater than or equal to 4.
+
+ED0113   6
+ Description:  Number of real algorithmic variables required by
+               TRESCA type material exceeds the maximum permissible
+               number.
+ Action:       Change the dimensioning parameter MRALGV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRALGV must be greater than or equal to 2.
+
+ED0114   4
+ Description:  Invalid specification of Young's modulus for
+               DRUCKER_PRAGER type elasto-plastic material.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               Young's modulus must be greater than zero.
+
+ED0115   5
+ Description:  Invalid specification of frictional and/or dilatancy
+               angle for DRUCKER_PRAGER type elasto-plastic material.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               frictional and dilatancy angles must be within the
+               interval [0,90) degrees.
+
+ED0116  11
+ Description:  Invalid flag for selection of Drucker-Prager
+               approximation to Mohr-Coulomb criterion.
+ Action:       Correct the input data file and re-run HYPLAS. The valid 
+               flags are:
+                          0 - Matching OUTER edges of M-C surface
+                          1 - Matching INNER edges of M-C surface
+                          2 - Plane strain match
+                          3 - Matching M-C criterion in uniaxial
+                              compression and uniaxial tension
+                          4 - Matching M-C criterion in biaxial
+                              compression and biaxial tension
+
+ED0117   4
+ Description:  Unacceptable number of points on hardening curve for
+               DRUCKER_PRAGER type elasto-plastic material.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               hardening curve must be defined by at least 2 points.
+
+ED0118   2
+ Description: ???? Unused code - developers may re-use this code
+ Action:       
+
+ED0119   2
+ Description: ???? Unused code - developers may re-use this code
+ Action:       
+
+ED0120   2
+ Description: ???? Unused code - developers may re-use this code
+ Action:       
+
+ED0121   2
+ Description: ???? Unused code - developers may re-use this code
+ Action:       
+
+ED0122   2
+ Description: ???? Unused code - developers may re-use this code
+ Action:       
+
+ED0123   2
+ Description: ???? Unused code - developers may re-use this code
+ Action:       
+
+ED0124   2
+ Description: ???? Unused code - developers may re-use this code
+ Action:       
+
+ED0125   3
+ Description:  One or more nodal coordinates have not been defined.
+ Action:       Correct NODE_COORDINATES section of input data file and
+               re-run HYPLAS.
+
+ED0126   3
+ Description:  Repeated node number has been detected.
+ Action:       Correct NODE_COORDINATES section of input data file and
+               re-run HYPLAS.
+
+ED0127   5
+ Description:  Invalid node number in NODE_COORDINATES section.
+ Action:       Correct NODE_COORDINATES section of input data file and
+               re-run HYPLAS. Node numbers must be greater than 0 and
+               less than or equal to the specified total number of
+               nodes.
+
+ED0128   0
+ Description: ???? Unused code - developers may re-use this code
+ Action:       
+
+ED0129   6
+ Description:  Error in the specification of Master/Slave kinematical
+               constraints. A slave node has been assigned to more than
+               one master/slave set with its third degree of freedom
+               constrained.
+ Action:       Correct Master/Slave constraint specification in input
+               data file and re-run HYPLAS.
+
+ED0130   2
+ Description: ???? Unused code - developers may re-use this code
+ Action:       
+
+ED0131   2
+ Description: ???? Unused code - developers may re-use this code
+ Action:       
+
+ED0132   2
+ Description: ???? Unused code - developers may re-use this code
+ Action:       
+
+ED0133   2
+ Description: ???? Unused code - developers may re-use this code
+ Action:       
+
+ED0134   7
+ Description:  Point load has been assigned to an inexistent node (with
+               identification number less than or equal to 0 or greater
+               than the specified total number of nodes) in section
+               POINT_LOADS of the data file.
+ Action:       Correct the input data file and re-run HYPLAS. Node
+               numbers must be greater than 0 and less than or equal to
+               the specified total number of nodes in the structure.
+
+ED0135   2
+ Description: ???? Unused code - developers may re-use this code
+ Action:       
+
+ED0136   5
+ Description:  Unacceptable material parameter for Mohr-Coulomb type
+               elasto-plastic material model. The specified Young's
+               modulus is non-positive. The Young's modulus must be
+               strictly positive.
+ Action:       Correct your data file and re-run HYPLAS.
+
+ED0137   6
+ Description:  Unacceptable material parameter for Mohr-Coulomb type
+               elasto-plastic material model. The specified frictional
+               angle is outside the acceptable interval.
+               The frictional angle must be within the interval [0,90)
+               degrees.
+ Action:       Correct your data file and re-run HYPLAS.
+
+ED0138   4
+ Description:  Unacceptable number of points on hardening curve for
+               MOHR_COULOMB type elasto-plastic material model.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               hardening curve must be defined by at least 2 points.
+
+ED0139   3
+ Description:  Keyword ARC_LENGTH_PREDICTOR_OPTION not found in input
+               data file.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0140  11
+ Description:  Missing option in ARC_LENGTH_PREDICTOR_OPTION section.
+ Action:       Correct the input data file and re-run HYPLAS.
+               The acceptable predictor options (one of which must
+               follow keyword ARC_LENGTH_PREDICTOR_OPTION in the same
+               line) are:
+
+                    SECANT_PATH     - Uses secant path predictor
+                                      criterion.
+
+                    STIFFNESS_SIGN  - Follows sign of stiffness
+                                      determinant.
+
+ED0141  12
+ Description:  Unacceptable option in ARC_LENGTH_PREDICTOR_OPTION
+               section.
+ Action:       Correct the input data file and re-run HYPLAS.
+               The acceptable predictor options (one of which must
+               follow keyword ARC_LENGTH_PREDICTOR_OPTION in the same
+               line) are:
+
+                    SECANT_PATH     - Uses secant path predictor
+                                      criterion.
+
+                    STIFFNESS_SIGN  - Follows sign of stiffness
+                                      determinant.
+
+ED0142   4
+ Description:  Unacceptable convergence tolerance prescribed for the
+               global equilibrium iterations.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               convergence must be greater than zero.
+
+ED0143   4
+ Description:  Unacceptable desired number of equilibrium iterations for
+               automatic load control with the arc-length method.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               desired number of iterations must be greater than zero.
+
+ED0144  14
+ Description:  Coordinate system type not defined in NODE_COORDINATES
+               section of input data file.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               coordinate system to be used must be specified in the
+               input data file immediately after (in the same line) the
+               keyword NODE_COORDINATES and the number of nodes as
+               follows:
+
+                NODE_COORDINATES <number_of_nodes> <coordinate_system>
+
+               where <coordinate_system> can be one of the following
+               strings:
+                                CARTESIAN;
+                                CYLINDRICAL.
+
+ED0145  14
+ Description:  Unacceptable coordinate system type in NODE_COORDINATES
+               section of input data file.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               coordinate system to be used must be specified in the
+               input data file immediately after (in the same line) the
+               keyword NODE_COORDINATES and the number of nodes as
+               follows:
+
+                NODE_COORDINATES <number_of_nodes> <coordinate_system>
+
+               where <coordinate_system> can be one of the following
+               strings:
+                                CARTESIAN;
+                                CYLINDRICAL.
+
+ED0146  6
+ Description:  Maximum prescribed number of equilibrium iterations is
+               less than 1.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               maximum number of equilirium iterations prescribed in
+               section INCREMENTS of the data file must be greater
+               or equal to 1.
+
+ED0147   5
+ Description:  Stress state type NTYPE not compatible with selected
+               element type QUAD_4_FBAR (F-bar four-noded
+               quadrilateral). This element is compatible only with
+               plane strain and axisymmetric conditions.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0148   4
+ Description:  Unacceptable number of points on hardening curve for
+               PLANAR_DOUBLE_SLIP_SINGLE_CRYSTAL elasto-plastic model.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               hardening curve must be defined by at least 2 points.
+
+ED0149   7
+ Description:  The maximum permissible number of integer material
+               properties, MIPROP, does not allow the use of the
+               PLANAR_DOUBLE_SLIP_SINGLE_CRYSTAL elasto-plastic model.
+ Action:       Change the dimensioning parameter MIPROP in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For the
+               this material model, the minimum value of MIPROP
+               is 3. 
+
+ED0150   8
+ Description:  Number of real properties required by 
+               PLANAR_DOUBLE_SLIP_SINGLE_CRYSTAL material model exceeds
+               the maximum permissible number.
+ Action:       If the data file is correct, change the dimensioning
+               parameter MRPROP in the file MATERIAL.INC, re-compile
+               and re-run HYPLAS. For this material, MRPROP must be
+               greater than or equal to  5+2*NHARD, where NHARD is the
+               specified number of points on the hardening curve.
+
+ED0151   6
+ Description:  Number of real state variables required by
+               PLANAR_DOUBLE_SLIP_SINGLE_CRYSTAL material model exceeds
+               the maximum permissible number.
+ Action:       Change the dimensioning parameter MRSTAV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRSTAV must be greater than or equal to 5.
+
+ED0152   6
+ Description:  Number of real algorithmic variables required by
+               PLANAR_DOUBLE_SLIP_SINGLE_CRYSTAL material model exceeds
+               the maximum permissible number.
+ Action:       Change the dimensioning parameter MRALGV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRALGV must be greater than or equal to 4.
+
+ED0153   6
+ Description:  Number of logical algorithmic variables required by
+               PLANAR_DOUBLE_SLIP_SINGLE_CRYSTAL material model exceeds
+               the maximum permissible number.
+ Action:       Change the dimensioning parameter MLALGV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MLALGV must be greater than or equal to 6.
+
+ED0154   4
+ Description:  Stress state type not compatible with
+               PLANAR_DOUBLE_SLIP_SINGLE_CRYSTAL material model.
+ Action:       Correct your data file and re-run HYPLAS. This model
+               is valid only under PLANE STRAIN.
+
+ED0155   5
+ Description:  LARGE_STRAIN_FORMULATION flag not set to ON conflicts
+               with PLANAR_DOUBLE_SLIP_SINGLE_CRYSTAL material model.
+ Action:       Correct your data file and re-run HYPLAS. This model
+               is valid only with LARGE STRAINS and the flag must be
+               set to ON.
+
+ED0156   4
+ Description:  Stress state not implemented for VON_MISES_MIXED model.
+ Action:       Correct your data file and re-run HYPLAS. This model
+               is currently implemented only for plane strain and
+               axisymmetric states.
+
+ED0157   5
+ Description:  Large strain formulation not implemented for
+               VON_MISES_MIXED model.
+ Action:       Correct your data file and re-run HYPLAS. This model
+               is currently implemented only for the infinitesimal
+               strain theory.
+
+ED0158   4
+ Description:  Invalid specification of Young's modulus for
+               VON_MISES_MIXED type elasto-plastic material.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               Young's modulus must be greater than zero.
+
+ED0159   4
+ Description:  Unacceptable number of points on hardening curves for
+               VON_MISES_MIXED type elasto-plastic material.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               hardening curves must be defined by at least 2 points.
+
+ED0160   7
+ Description:  The maximum permissible number of integer material
+               properties, MIPROP, does not allow the use of the
+               VON_MISES_MIXED type elasto-plastic material.
+ Action:       Change the dimensioning parameter MIPROP in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For the
+               VON_MISES type material, the minimum value of MIPROP
+               is 3.
+
+ED0161   7
+ Description:  Number of real properties required by VON_MISES_MIXED
+               type material exceeds the maximum permissible number.
+ Action:       If the data file is correct, change the dimensioning
+               parameter MRPROP in file MATERIAL.INC, re-compile
+               and re-run HYPLAS. For this material, MRPROP must be
+               greater than or equal to  3+4*NHARD, where NHARD is the
+               specified number of points on the hardening curve.
+
+ED0162   6
+ Description:  Number of real state variables required by
+               VON_MISES_MIXED type material exceeds the maximum
+               permissible number.
+ Action:       Change the dimensioning parameter MRSTAV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRSTAV must be greater than or equal to 9.
+
+ED0163   6
+ Description:  Number of logical algorithmic variables required by
+               VON_MISES_MIXED type material exceeds the maximum
+               permissible number.
+ Action:       Change the dimensioning parameter MLALGV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MLALGV must be greater than or equal to 2.
+
+ED0164   4
+ Description:  Invalid specification of Young's modulus for
+               LEMAITRE_DAMAGE elasto-plastic material model.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               Young's modulus must be greater than zero.
+
+ED0165   4
+ Description:  Unacceptable number of points on hardening curve for
+               LEMAITRE_DAMAGE elasto-plastic material model.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               hardening curve must be defined by at least 2 points.
+
+ED0166   7
+ Description:  The maximum permissible number of integer material
+               properties, MIPROP, does not allow the use of the
+               LEMAITRE_DAMAGE type elasto-plastic material.
+ Action:       Change the dimensioning parameter MIPROP in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For the
+               LEMAITRE_DAMAGE type material, the minimum value of
+               MIPROP is 3.
+
+ED0167   7
+ Description:  Number of real properties required by LEMAITRE_DAMAGE
+               type material exceeds the maximum permissible number.
+ Action:       If the data file is correct, change the dimensioning
+               parameter MRPROP in the file MATERIAL.INC, re-compile
+               and re-run HYPLAS. For this material, MRPROP must be
+               greater than or equal to  5+2*NHARD, where NHARD is the
+               specified number of points on the hardening curve.
+
+ED0168   6
+ Description:  Number of real state variables required by
+               LEMAITRE_DAMAGE type material exceeds the maximum
+               permissible number.
+ Action:       Change the dimensioning parameter MRSTAV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRSTAV must be greater than or equal to 6.
+
+ED0169   6
+ Description:  Number of logical algorithmic variables required by
+               LEMAITRE_DAMAGE type material exceeds the maximum
+               permissible number.
+ Action:       Change the dimensioning parameter MLALGV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MLALGV must be greater than or equal to 2.
+
+ED0170   5
+ Description:  Invalid specification of damage evolution constant
+               (exponent of damage law) for LEMAITRE_DAMAGE
+               elasto-plastic material model.
+ Action:       Correct the input data file and re-run HYPLAS. This
+               material constant must be greater than zero.
+
+ED0171   5
+ Description:  Invalid specification of damage evolution constant
+               (denominator of damage law) for LEMAITRE_DAMAGE
+               elasto-plastic material model.
+ Action:       Correct the input data file and re-run HYPLAS. This
+               material constant must be greater than zero.
+
+ED0172   5
+ Description:  Invalid stress state type for LEMAITRE_DAMAGE elasto-
+               plastic material model. This model is currently
+               implemented only for PLANE STRAIN and AXISYMMETRIC cases.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0173   4
+ Description:  Invalid stress state type for DAMAGED_ELASTIC material
+               model. This model is currently implemented only for
+               PLANE STRAIN and AXISYMMETRIC cases.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0174   5
+ Description:  Negative Young's modulus specified in the data file for
+               DAMAGED_ELASTIC material model.
+               PLANE STRAIN and AXISYMMETRIC cases.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               Young's modulus must be positive.
+
+ED0175   4
+ Description:  Incorrect specification of Poison's ratio for
+               DAMAGED_ELASTIC material.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               Poisson's ratio must be in the interval (-1,0.5).
+
+ED0176   5
+ Description:  Incorrect specification of DAMAGE parameter for
+               DAMAGED_ELASTIC material.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               constant DAMAGE parameter must be within the interval
+               [0,1).
+
+ED0177   6
+ Description:  Incorrect specification of CRACK CLOSURE parameter for
+               DAMAGED_ELASTIC material.
+ Action:       Correct the input data file and re-run HYPLAS. The
+               constant CRACK CLOSURE parameter must be within the
+               interval [0,1].
+
+ED0178   4
+ Description:  Error while reading load incrementation data for fixed
+               load increments option. Your data file is likely to
+               have missing data and/or data of the wrong type.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0179   4
+ Description:  Error while reading load incrementation data for Arc-
+               Length control option. Your data file is likely to have
+               missing data and/or data of the wrong type.
+ Action:       Correct the input data file and re-run HYPLAS.
+
+ED0180   7
+ Description:  Error in specification of element type. You have
+               selected the F-bar 4-noded quadrilateral element under
+               SMALL STRAINS assumption. This element is currently
+               available only for LARGE STRAINS.
+ Action:       Correct the input data file re-run HYPLAS. If your
+               analysis is indeed to be carried out under small
+               strains assumption, select another element type.
+
+ED0181   5
+ Description:  Number of real properties required by ELASTIC type
+               material exceeds the maximum permissible number.
+ Action:       Change the dimensioning parameter MRPROP in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRPROP must be greater than or equal 4.
+
+ED0182   5
+ Description:  Number of real state variables required by ELASTIC
+               type material exceeds the maximum permissible number.
+ Action:       Change the dimensioning parameter MRSTAV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRSTAV must be greater than or equal to 4.
+
+ED0183   7
+ Description:  Number of real properties required by Mohr-Coulomb type
+               material exceeds the maximum permissible number.
+ Action:       Change the dimensioning parameter MRPROP in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRPROP must be greater than or equal to
+               6+2*NHARD, where NHARD is the specified number of points
+               on the hardening curve.
+
+ED0184   5
+ Description:  Number of real state variables required by Mohr-Coulomb
+               type material exceeds the maximum permissible number.
+ Action:       Change the dimensioning parameter MRSTAV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRSTAV must be greater than or equal to 5.
+
+ED0185   6
+ Description:  Number of logical algorithmic variables required by
+               Mohr-Coulomb type material exceeds the maximum
+               permissible number.
+ Action:       Change the dimensioning parameter MLALGV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MLALGV must be greater than or equal to 5.
+
+ED0186   6
+ Description:  Number of real algorithmic variables required by
+               MOHR_COULOMB material model exceeds the maximum
+               permissible number.
+ Action:       Change the dimensioning parameter MRALGV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRALGV must be greater than or equal to 2.
+
+ED0187   7
+ Description:  The maximum permissible number of integer material
+               properties, MIPROP, does not allow the use of the
+               MOHR_COULOMB type elasto-plastic material.
+ Action:       Change the dimensioning parameter MIPROP in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For the
+               MOHR_COULOMB type material, the minimum value of MIPROP
+               is 3.
+
+ED0188   7
+ Description:  Number of real properties required by DRUCKER_PRAGER
+               type material exceeds the maximum permissible number.
+ Action:       Change the dimensioning parameter MRPROP in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRPROP must be greater than or equal to
+               6+2*NHARD, where NHARD is the specified number of points
+               on the hardening curve.
+
+ED0189   7
+ Description:  The maximum permissible number of integer material
+               properties, MIPROP, does not allow the use of the
+               DRUCKER_PRAGER type elasto-plastic material.
+ Action:       Change the dimensioning parameter MIPROP in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For the
+               DRUCKER_PRAGER type material, the minimum value of
+               MIPROP is 3.
+
+ED0190   6
+ Description:  Number of real state variables required by
+               DRUCKER_PRAGER type material exceeds the maximum
+               permissible number.
+ Action:       Change the dimensioning parameter MRSTAV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRSTAV must be greater than or equal to 5.
+
+ED0191   6
+ Description:  Number of logical algorithmic variables required by
+               DRUCKER_PRAGER type material exceeds the maximum
+               permissible number.
+ Action:       Change the dimensioning parameter MLALGV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MLALGV must be greater than or equal to 3.
+
+ED0192   6
+ Description:  Number of real algorithmic variables required by
+               DRUCKER_PRAGER material model exceeds the maximum
+               permissible number.
+ Action:       Change the dimensioning parameter MRALGV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRALGV must be greater than or equal to 3.
+
+ED0193   5
+ Description:  Number of real properties required by DAMAGED_ELASTIC
+               type material exceeds the maximum permissible number.
+ Action:       Change the dimensioning parameter MRPROP in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRPROP must be greater than or equal to 7.
+
+ED0194   6
+ Description:  Number of real state variables required by
+               DAMAGED_ELASTIC type material exceeds the maximum
+               permissible number.
+ Action:       Change the dimensioning parameter MRSTAV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRSTAV must be greater than or equal to 4.
+
+ED0195   6
+ Description:  The maximum permissible number of integer material
+               properties, MIPROP, does not allow the use of the
+               OGDEN type material.
+ Action:       Change the dimensioning parameter MIPROP in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For the
+               OGDEN type material, the minimum value of MIPROP is 3.
+
+ED0196   7
+ Description:  Number of real properties required by OGDEN type
+               material exceeds the maximum permissible number.
+ Action:       Change the dimensioning parameter MRPROP in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRPROP must be greater than or equal to
+               2+NOGTRM*2 where NOGTRM is the specified number of
+               terms in the Ogden strain-energy function
+
+ED0197   6
+ Description:  Number of real state variables required by OGDEN type
+               material exceeds the maximum permissible number.
+ Action:       Change the dimensioning parameter MRSTAV in the file
+               MATERIAL.INC, re-compile and re-run HYPLAS. For this
+               material, MRSTAV must be greater than or equal to 4.
+
+ED0198   4
+ Description:  Attempt to use TRESCA type material model under large
+               strains and plane stress. The TRESCA model is not yet
+               implemented for large strains when under plane stress.
+               The requested analisys cannot be carried out.
+
+ED0199   5
+ Description:  Invalid specification of numerical integration rule for
+               element of type QUA_4_WSD.
+ Action:       Correct input data file and re-run HYPLAS. Only 6 gauss
+               point integration rules are allowed for this type of
+               element.
+
+ED0200   4
+ Description:  Attempt to use TRESCA type material model under large
+               strains and plane stress. The TRESCA model is not yet
+               implemented for large strains when under plane stress.
+               The requested analisys cannot be carried out.
+
+ED0200   5
+ Description:  Large strain formulation not implemented for
+               elements with strong discontinuities.
+ Action:       Correct your data file and re-run HYPLAS. This finite 
+               elements are currently implemented only for the 
+               infinitesimal strain theory.
+
+*-----------------------------------------------------------------------
+*-----------------------------------------------------------------------
+*                                                                      |
+*                                                                      |
+*                     INPUT   DATA    WARNINGS                         |
+*                                                                      |
+*                                                                      |
+*-----------------------------------------------------------------------
+
+WD0001   2
+ Description:  Repeated nodal coordinates. Identical coordinates have
+               been detected in two or more nodes.
+
+*-----------------------------------------------------------------------
+*                                                                      |
+*                                                                      |
+*                         INTERNAL  ERRORS                             |
+*                                                                      |
+*                                                                      |
+*-----------------------------------------------------------------------
+
+EI0001   4
+ Description:  Inexistent integration rule for quadrilateral domain
+               requested to routine GAUS2D.
+ Action:       Check the existence of the integration rule requested
+               to GAUS2D before calling this procedure.
+
+EI0002   4
+ Description:  Inexistent integration rule for triangular domain
+               requested to routine GAUS2D.
+ Action:       Check the existence of the integration rule requested
+               to GAUS2D before calling this procedure.
+
+EI0003   4
+ Description:  Non-recognizable integration domain type in routine
+               GAUS2D.
+ Action:       Make sure the integration domain type passed into GAUS2D
+               is acceptable.
+
+EI0004   3
+ Description:  Inexistent integration rule requested to routine GAUS1D.
+ Action:       Check the existence of the integration rule requested
+               to GAUS1D before calling this procedure.
+
+EI0005   7
+ Description:  The element type internal number (IELTYP) passed into
+               routine SHPFUN is probably not defined.
+ Action:       See file ELEMENTS.INC for valid element type internal
+               numbers. If the requested IELTYP corresponds to a newly
+               implemented element type, then add the new element type
+               internal number to the list of existing ones in file
+               ELEMENTS.INC, re-compile and re-run HYPLAS.
+
+EI0006   1
+ Description: ???? Unused code - developers may re-use this code
+
+EI0007   1
+ Description: ???? Unused code - developers may re-use this code
+
+EI0008   3
+ Description:  Requested stress state not compatible with subroutine
+               SUVMUN. This routine is compatible only with uniaxial
+               stress state.
+
+EI0009   3
+ Description:  Requested stress state not compatible with subroutine
+               CTVMUN. This routine is compatible only with uniaxial
+               stress state.
+
+EI0012   4
+ Description:  Stress state type NTYPE not compatible with internal
+               force computation routine IFSTD2. This routine accepts
+               only plane strain, plane stress and axisymmetric
+               conditions.
+
+EI0013   3
+ Description:  Stress state type NTYPE not compatible with state update
+               routine SUVM (for Von Mises material). This routine
+               accepts only plane strain and axisymmetric conditions.
+
+EI0014   1
+ Description: ???? Unused code - developers may re-use this code
+
+EI0015   1
+ Description: ???? Unused code - developers may re-use this code
+
+EI0016   4
+ Description:  Stress state type NTYPE not compatible with state update
+               routine SUDP (for the DRUCKER_PRAGER elasto-plastic
+               model). This routine accepts only plane strain and
+               axisymmetric conditions.
+
+EI0017   4
+ Description:  Stress state type NTYPE not compatible with consistent
+               tangent computation routine CTDP (for the DRUCKER_PRAGER
+               elasto-plastic model). This routine accepts only plane
+               strain and axisymmetric conditions.
+
+EI0018   4
+ Description:  Stress state type NTYPE not compatible with state update
+               routine SUEL (for the linear elastic material model).
+               This routine accepts plane stress, plane strain and
+               axisymmetric conditions.
+
+EI0019   4
+ Description:  Stress state type NTYPE not compatible with tangent
+               modulus computation routine CTEL (for the linear elastic
+               material model). This routine accepts plane stress, plane
+               strain and axisymmetric conditions.
+
+EI0020   5
+ Description:  Stress state type NTYPE not compatible with spatial
+               tangent modulus computation routine CSTEP2 (for
+               hyperelastic-based elastoplastic material models)
+               This routine accepts plane stress, plane strain and
+               axisymmetric conditions.
+
+EI0021   4
+ Description:  Stress state type NTYPE not compatible with deformation
+               gradient computation routine DEFGRA (for isoparametric
+               2-D finite elements). This routine accepts plane stress,
+               plane strain and axisymmetric conditions.
+
+EI0022   3
+ Description:  Stress state type NTYPE not compatible with logarithmic
+               strain computation routine LOGSTR. This routine accepts
+               plane stress, plane strain and axisymmetric conditions.
+
+EI0023   3
+ Description:  Stress state type NTYPE not compatible with infinitesimal
+               strain computation routine LISTRA. This routine accepts
+               plane stress, plane strain and axisymmetric conditions.
+
+EI0024   3
+ Description:  Stress state type NTYPE not compatible with Cauchy-Green
+               strain computation routine SETBE. This routine accepts
+               plane stress, plane strain and axisymmetric conditions.
+
+EI0025   7
+ Description:  Maximum permissible matrix dimension exceeded in routine
+               JACOB (Jacobi iterative procedure for spectral
+               decomposition of symmetric matrices). The maximum
+               dimension is defined by the parameter NMAX in JACOB. If
+               the spectral decomposition of a matrix bigger then the
+               currently defined size, change NMAX accordingly,
+               re-compile and re-run the program.
+
+EI0026   4
+ Description:  Stress state type NTYPE not compatible with infinitesimal
+               consistent tangent modulus computation routine CTMC (for
+               the MOHR_COULOMB elasto-plastic model). This routine
+               accepts plane strain and axisymmetric conditions.
+
+EI0027   4
+ Description:  Stress state type NTYPE not compatible with state update
+               routine SUMC (for the MOHR_COULOMB elasto-plastic
+               model). This routine accepts only plane strain and
+               axisymmetric conditions.
+
+EI0028   4
+ Description:  Stress state type NTYPE not compatible with infinitesimal
+               consistent tangent modulus computation routine CTTR (for
+               the TRESCA elasto-plastic model). This routine accepts
+               plane strain and axisymmetric conditions.
+
+EI0029   4
+ Description:  Stress state type NTYPE not compatible with state update
+               routine SUTR (for the TRESCA elasto-plastic
+               model). This routine accepts only plane strain and
+               axisymmetric conditions.
+
+EI0030   4
+ Description:  Stress state type NTYPE not compatible with infinitesimal
+               consistent tangent modulus computation routine CTVM (for
+               the VON_MISES elasto-plastic model). This routine accepts
+               plane strain and axisymmetric conditions only.
+
+EI0031   3
+ Description:  Stress state type NTYPE not compatible with state update
+               routine SUVMPS (for VON_MISES material). This routine
+               accepts only plane stress state (NTYPE=1).
+
+EI0032   4
+ Description:  Stress state type NTYPE not compatible with infinitesimal
+               consistent tangent modulus computation routine CTVMPS
+               (for the plane stress-projected VON_MISES elasto-plastic
+               model). This routine accepts plane stress condition only.
+
+EI0033   4
+ Description:  Stress state type NTYPE not compatible with internal
+               force calculation routine for F-bar elements (IFFBA2).
+               This routine accepts only plane strain and axisymmetric
+               states.
+
+EI0034   4
+ Description:  Stress state type NTYPE not compatible with tangent
+               stiffness calculation routine for F-bar elements
+               (STFBA2). This routine accepts only plane strain and
+               axisymmetric states.
+
+EI0035   4
+ Description:  Stress state type NTYPE not compatible with
+               PLANAR_DOUBLE_SLIP_SINGLE_CRYSTAL model. Detected in
+               subroutine CSTPDS (spatial tangent computation). This
+               model is valid only under plane strain.
+
+EI0036   4
+ Description:  Stress state type NTYPE not compatible with
+               PLANAR_DOUBLE_SLIP_SINGLE_CRYSTAL model. Detected in
+               subroutine SUPDSC (state update procedure for this
+               model). This model is valid only under plane strain.
+
+EI0037   4
+ Description:  Stress state type NTYPE not compatible with
+               PLANAR_DOUBLE_SLIP_SINGLE_CRYSTAL model. Detected in
+               subroutine ORPDSC (output results for this
+               model). This model is valid only under plane strain.
+
+EI0038   4
+ Description:  Stress state type NTYPE not compatible with state update
+               routine SUDPPN (for the DRUCKER_PRAGER elasto-plastic
+               model in plane stress). This routine accepts only plane
+               stress condition (NTYPE=1).
+
+EI0039   4
+ Description:  Stress state type NTYPE not compatible with consistent
+               tangent computation routine CTDPPN (for the
+               DRUCKER_PRAGER elasto-plastic model in plane stress).
+               This routine accepts only plane stress condition.
+
+EI0040   3
+ Description:  Stress state type NTYPE not compatible with routine
+               MATISU (material interface for state update routine
+               calls).
+
+EI0041   3
+ Description:  Material class identifier not recognised in routine
+               MATISU (material interface for state update routine
+               calls).
+
+EI0042   3
+ Description:  Material type identifier not recognised in routine
+               MATISU (material interface for state update routine
+               calls).
+
+EI0043   3
+ Description:  Material class identifier not recognised in routine
+               MATICT (material interface for consistent tangent
+               computation calls).
+
+EI0044   3
+ Description:  Material type identifier not recognised in routine
+               MATICT (material interface for consistent tangent
+               computation calls).
+
+EI0045   3
+ Description:  Material type identifier not recognised in routine
+               MATIOR (material interface for output result routine
+               calls).
+
+EI0046   3
+ Description:  Material type identifier not recognised in routine
+               MATISW (material interface for initialising/switching
+               routine calls).
+EI0047   4
+ Description:  Stress state type NTYPE not compatible with state update
+               routine SUVMMX (for Von Mises material with mixed
+               hardening). This routine accepts only plane strain and
+               axisymmetric conditions.
+
+EI0048   5
+ Description:  Stress state type NTYPE not compatible with infinitesimal
+               consistent tangent modulus computation routine CTVMMX
+               (for the von Mises elasto-plastic model with mixed
+               hardening). This routine accepts plane strain and
+               axisymmetric conditions only.
+
+EI0049   5
+ Description:  Large strain flag NLARGE not compatible with switching/
+               initialising routine SWVMMX (for the von Mises elasto-
+               plastic model with mixed hardening).
+               This routine has been coded only for the small strain
+               case.
+
+EI0050   3
+ Description:  Stress state flag not compatible with VON_MISES_MIXED
+               model implementation. This model is currently implemented
+               only for plane strain and axisymmetric states.
+
+EI0051   4
+ Description:  Stress state type flag NTYPE not compatible with state
+               update routine SUDAMA (for LEMAITRE_DAMAGE material).
+               This routine accepts only plane strain and axisymmetric
+               conditions.
+
+EI0052   5
+ Description:  Stress state type flag NTYPE not compatible with
+               infinitesimal consistent tangent modulus computation
+               routine CTDAMA (for LEMAITRE_DAMAGE elasto-plastic
+               model). This routine accepts plane strain and
+               axisymmetric conditions only.
+
+EI0053   5
+ Description:  Singular derivative in subroutine CTDAMA (infinitesimal
+               consistent tangent modulus computation for
+               LEMAITRE_DAMAGE elasto-plastic model).
+               This should have been detected in routine SUDAMA.
+               You have a bug in the program.
+
+EI0054   3
+ Description:  Stress state type flag NTYPE not compatible with
+               material model implementation detected in subroutine
+               SWDMEL. You have a bug in the program.
+
+EI0055   3
+ Description:  Stress state type flag NTYPE not compatible with
+               material model implementation detected in subroutine
+               ORDMEL. You have a bug in the program.
+
+EI0056   3
+ Description:  Stress state type flag NTYPE not compatible with
+               material model implementation detected in subroutine
+               CTDMEL. You have a bug in the program.
+
+EI0057   3
+ Description:  Stress state type flag NTYPE not compatible with
+               material model implementation detected in subroutine
+               SUDMEL. You have a bug in the program.
+
+EI0058   5
+ Description:  Material type not recognised or not implemented for
+               finite strains under plane stress. Error detected in
+               subroutine MATISU when trying to call the procedure
+               for thickness update for a material of class HYPEPL
+               under finite strains and plane stress.
+
+EI0059   6
+ Description:  Material type not recognised or not implemented for
+               finite strains under plane stress. Error detected in
+               subroutine MATICT when trying to call the procedure
+               for computation of the total deformation gradient
+               (including the thickness strain) for a material of class
+               HYPEPL under finite strains and plane stress.
+
+EI0060   4
+ Description:  Stress state type NTYPE not compatible with state update
+               routine SUTRPN (for the Tresca elasto-plastic model in
+               plane stress). This routine accepts only plane stress
+               (NTYPE=1).
+
+EI0061   4
+ Description:  Stress state type NTYPE not compatible with state update
+               routine SUVMTC (for the VON_MISES elasto-plastic
+               model in plane stress). This routine accepts only plane
+               stress condition (NTYPE=1).
+
+EI0062   4
+ Description:  Stress state type NTYPE not compatible with internal
+               force computation routine IFSD2. This routine accepts
+               only plane strain, plane stress and axisymmetric
+               conditions.
+
+EI0063   3
+ Description:  Stress state type NTYPE not compatible with infinitesimal
+               strain computation routine SDSTRA. This routine accepts
+               plane stress, plane strain and axisymmetric conditions.
+
+*-----------------------------------------------------------------------
+*                                                                      |
+*                                                                      |
+*                        EXECUTION  ERRORS                             |
+*                                                                      |
+*                                                                      |
+*-----------------------------------------------------------------------
+
+EE0001   2
+ Description:  Inversion of singular deformation gradient requested to
+               subroutine INVF2.
+
+EE0002   8
+ Description:  Too many sub-increments resulting from consecutive
+               increment cuts. Sub-increment stack array in main
+               program is full.
+ Action:       If more sub-increments are needed the parameter MSUBIN
+               must be redefined in file MAXDIM.INC. The maximum
+               permissible number of consecutive increment cuts is
+               MSUBIN-1.  After editing MAXDIM.INC, re-compile and
+               re-run HYPLAS.
+
+EE0003   8
+ Description:  Zero or negative jacobian determinant in subroutine
+               STSTD2 (Element stiffness calculation for elements of
+               class 'STDARD' in 2-D).
+ Action:       This error is likely to have been caused by wrong order
+               in node numbering of an element. The number of the
+               element which caused the error is printed above. If the
+               sequence of its node numbers is wrong, correct the
+               corresponding data file and re-run HYPLAS.
+
+EE0004   3
+ Description:  Non-positive deformation gradient determinant in
+               sobroutine STSTD2 (Element stiffness calculation for
+               elements of class 'STDARD' in 2-D).
+
+EE0005   3
+ Description:  Jacobi iterative spectral decomposition procedure did
+               not converge within the maximum allowed number of
+               iteration. Spectral decomposition not completed.
+
+EE0006   3
+ Description:  Division by zero in subroutine CSTPDS (calculation of the
+               consistent tangent matrix for the planar double slip
+               single crystal elasto-plastic model).
+
+EE0007   7
+ Description:  Zero or negative jacobian determinant in subroutine
+               STFBA2 (F-bar element stiffness calculation in 2-D).
+ Action:       This error is likely to have been caused by wrong order
+               in node numbering of an element. The number of the
+               element which caused the error is printed above. If the
+               sequence of its node numbers is wrong, correct the
+               corresponding data file and re-run HYPLAS.
+
+EE0008   3
+ Description:  Non-positive deformation gradient determinant in
+               sobroutine STFBA2 (Element stiffness calculation for
+               elements of class 'FBAR' in 2-D).
+
+EE0009   4
+ Description:  Attempt to use return mapping to apex of MOHR_COULOMB
+               model with zero frictional angle. Mohr-Coulomb model with
+               zero frictional angle should reduce to Tresca model.
+               Return to apex does not make sense in this case.
+
+EE0010   4
+ Description:  Attempt to use return mapping to apex of MOHR_COULOMB
+               model with zero dilatancy angle. Apex return for the
+               present implementation only makes sense if dilatancy is
+               greater than zero.
+
+EE0011   4
+ Description:  Attempt to use return mapping to apex of DRUCKER_PRAGER
+               model with zero frictional angle. Drucker-Prager model
+               with zero frictional angle is equivalent to von Mises
+               model. Return to apex does not make sense in this case.
+
+EE0010   4
+ Description:  Attempt to use return mapping to apex of DRUCKER_PRAGER
+               model with zero dilatancy angle. Apex return for the
+               present implementation only makes sense if dilatancy is
+               greater than zero.
+
+EE0011   2
+ Description:  Attempt invert a singular 3x3 matrix in subroutine
+               INVMT3.
+*-----------------------------------------------------------------------
+*                                                                      |
+*                                                                      |
+*                       EXECUTION  WARNINGS                            |
+*                                                                      |
+*                                                                      |
+*-----------------------------------------------------------------------
+
+WE0001   3
+ Description:  Return mapping algorithm for TRESCA type elasto-plastic
+               material failed probably due to excessively large strain
+               increment.
+
+WE0002   3
+ Description:  Return mapping algorithm for DRUCKER_PRAGER type
+               elasto-plastic material failed probably due to
+               excessively large strain increment.
+
+WE0003   3
+ Description:  Return mapping algorithm for MOHR_COULOMB type
+               elasto-plastic material failed probably due to
+               excessively large strain increment.
+
+WE0004   3
+ Description:  Return mapping algorithm for VON_MISES type
+               elasto-plastic material failed in routine SUVM, probably
+               due to excessively large strain increment.
+WE0005   1
+ Description: ???? Unused code - developers may re-use this code
+
+WE0006   1
+ Description: ???? Unused code - developers may re-use this code
+
+WE0007   1
+ Description: ???? Unused code - developers may re-use this code
+
+WE0008   2
+ Description:  Zero pivot found in solution of linear system in
+               subroutine FRONT.
+
+WE0009   3
+ Description:  Zero or negative jacobian determinant in subroutine
+               IFSTD2 (Calculation of element internal force vector
+               for elements of  class 'STDARD' in 2-D)
+
+WE0010   3
+ Description:  Non-positive  deformation gradient determinant in
+               subroutine IFSTD2 (Calculation of element internal force
+               vector for elements of  class 'STDARD' in 2-D)
+
+WE0011   1
+ Description: ???? Unused code - developers may re-use this code
+
+WE0012   2
+ Description:  Cylindrical arc-length constraint equation has no real
+               roots: Iterative displacement cannot be computed.
+
+WE0013   3
+ Description:  Return mapping algorithm for VON_MISES type
+               elasto-plastic material failed in routine SUVMPS,
+               probably due to excessively large strain increment.
+
+WE0014   3
+ Description:  Return mapping algorithm for
+               PLANAR_DOUBLE_SLIP_SINGLE_CRYSTAL model failed due to
+               failure of tensor exponential calculation.
+
+WE0015   3
+ Description:  Return mapping algorithm for
+               PLANAR_DOUBLE_SLIP_SINGLE_CRYSTAL model failed to
+               converge.
+
+WE0016   3
+ Description:  Plane stress enforcement loop for DRUCKER_PRAGER
+               elasto-plastic model failed to converge in subroutine
+               SUDPPN.
+
+WE0017   3
+ Description:  Return mapping algorithm for VON_MISES_MIXED type
+               elasto-plastic material failed in routine SUVMMX,
+               probably due to excessively large strain increment.
+
+WE0018   3
+ Description:  Return mapping algorithm for LEMAITRE_DAMAGE type
+               elasto-plastic material failed in routine SUDAMA,
+               probably due to excessively large strain increment.
+
+WE0019   3
+ Description:  Return mapping algorithm for LEMAITRE_DAMAGE type
+               elasto-plastic material has converged to unacceptable
+               value of DAMAGE variable in subroutine SUDAMA.
+
+WE0020   4
+ Description:  State update algorithm for DAMAGED_ELASTIC type material
+               has failed. The Newton-Raphson algorithm to solve the
+               piece-wise linear constitutive equation has not
+               converged.
+
+WE0021   3
+ Description:  Zero or negative jacobian determinant in subroutine
+               IFFBA2 (Calculation of element internal force vector
+               for elements of  class 'FBAR' in 2-D).
+
+WE0022   4
+ Description:  Non-positive incremental deformation gradient determinant
+               at element centroid in subroutine IFFBA2 (Calculation of
+               element internal force vector for elements of  class
+               'FBAR' in 2-D).
+
+WE0023   4
+ Description:  Non-positive deformation gradient determinant at element
+               centroid in subroutine IFFBA2 (Calculation of element
+               internal force vector for elements of  class 'FBAR'
+               in 2-D).
+
+WE0024   3
+ Description:  Zero or negative jacobian determinant in subroutine
+               IFFBA2 (Calculation of element internal force vector
+               for elements of  class 'FBAR' in 2-D)
+
+WE0025   4
+ Description:  Non-positive  incremental deformation gradient
+               determinant in subroutine IFFBA2 (Calculation of element
+               internal force vector for elements of  class 'FBAR' in
+               2-D).
+
+WE0026   3
+ Description:  Plane stress enforcement loop for TRESCA type
+               elasto-plastic model failed to converge in subroutine
+               SUTRPN.
+
+WE0027   3
+ Description:  Zero or negative jacobian determinant in subroutine
+               IFSD2 (Calculation of element internal force vector
+               for elements of  class 'WSDISC' in 2-D)
+

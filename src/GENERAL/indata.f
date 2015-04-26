@@ -848,6 +848,7 @@ c
         read(15,*) qinj, qinf
         read(15,*) parak
         read(15,*) injtyp
+      end if
 c
       RETURN
       END

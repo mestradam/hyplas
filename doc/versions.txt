@@ -1,0 +1,46 @@
+************************************************************************
+*                                                                      *
+*                           hyplas versions                            *
+*            developped in Universidad Nacional de Colombia            *
+*                                                                      *
+************************************************************************
+
+Version 2.1.2
+-------------
+
+    - GiD output files implementation
+
+    - New material: CODA
+
+    - New material: COPL
+
+------------------------------------------------------------------------
+
+Version 2.1.3
+-------------
+
+    - New material: COMPVM
+                    Composite Von Mises material with homogenization
+                    process made by means of the Mori-Tanaka and
+                    Eshelby inclussion method
+    
+    - New material: COMELA
+                    Composite Elastic material with homogenization
+                    process made by means of the Mori-Tanaka and
+                    Eshelby inclussion method
+
+------------------------------------------------------------------------
+
+Vesion 2.1.4 (M Estrada 2014-09-26)
+-----------------------------------
+
+    - New material: COMPOSITE (COMP)
+                    Implementation of a composite material to symulate 
+                    fiber reinforced composites. The principal interest 
+                    of this implementation is to symulate specimens of
+                    laminated bamboo Guadua angustifolia. At this moment
+                    the matrix has a Von Mises J2 plasticity model, and
+                    the fibers a damage model associated to the Weibull
+                    probabilistic description of the fibers strength.
+
+------------------------------------------------------------------------

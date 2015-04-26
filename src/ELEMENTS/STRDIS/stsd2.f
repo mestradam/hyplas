@@ -22,7 +22,7 @@ c
 c Database
       include '../../ELEMENTS.INC'
       include '../../MATERIAL.INC'
-      include '../../LOCALIZA.INC''
+      include '../../LOCALIZA.INC'
 c
       parameter( mgdim=5 ,mbdim=4 ,ndime=2 ,ndofn=2 )
 c Arguments
