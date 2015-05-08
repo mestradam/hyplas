@@ -1,4 +1,4 @@
-      SUBROUTINE RSQ4SD
+      SUBROUTINE RSQ4WSD
      1(   IELPRP     ,NDATF      ,NRESF      ,RELPRP     ,UNSYM      )
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
       PARAMETER
@@ -84,7 +84,7 @@ C gaussian constants for domain integration
 C set matrix of coefficients for extrapolation from gauss points to
 C nodes
       IPOS=NGAUSP*NDIME+NGAUSP+1
-      CALL EXQ4SD
+      CALL EXQ4WSD
      1(   NGAUSP     ,RELPRP(IPOS))
 C gaussian constants for boundary integration (intergration over edges)
       CALL GAUS1D

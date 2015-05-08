@@ -228,7 +228,7 @@ C       - TREAC  = Array of nodal reaction forces. Stores the reaction
 C                  force for each kinematically constrained degree of
 C                  freedom of each kinematically constrained node.
 C
-C	    - LCURV  = Array of result curves of data.
+C       - LCURV  = Array of result curves of data.
 C
 C-----------------------------------------------------------------------
 C

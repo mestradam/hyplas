@@ -27,10 +27,10 @@ C***********************************************************************
         CALL SFQ4FB
      1(   DERIV      ,ETASP      ,EXISP      ,IBOUND     ,MDIME      ,
      2    SHAPE      )
-      ELSEIF(IELTYP.EQ.QUA4SD)THEN
-        CALL SFQ4SD
-     1(   DERIV      ,ETASP      ,EXISP      ,IBOUND     ,MDIME      ,
-     2    SHAPE      )
+      elseif(ieltyp.eq.q4wsd)then
+        call sfq4wsd
+     1(   deriv      ,etasp      ,exisp      ,ibound     ,mdime      ,
+     2    shape      )
       ELSE
         CALL ERRPRT('EI0005')
       ENDIF

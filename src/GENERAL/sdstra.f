@@ -1,7 +1,7 @@
       subroutine sdstra
      &( bmatx       ,eldisp     ,mdofn      ,mbdim      ,ndofn      ,
      &  nnode       ,ntype      ,gptype     ,xi         ,graphi     ,
-     &  stran       )
+     &  stran       ,eljump     ,vecn       ,elkinv     )
 c***********************************************************************
 c Computes the symmetric gradient (strain measure) associated with the
 c element displacement 'eldisp' in 2d elements with strong 
@@ -12,11 +12,20 @@ c
 c REFERENCE: Box 5.10 (Dias, 2012)
 c***********************************************************************
 c
-      implicit double precision (a-h,o-z)
+c      implicit double precision (a-h,o-z)
+c
+c Arguments
       integer
-     &  gptype
-      dimension
-     &  bmatx(mbdim,*)  ,eldisp(mdofn,*)  ,stran(*)
+     &  mdofn       ,mbdim      ,ndofn      ,nnode      ,ntype      ,
+     &  gptype 
+      double precision
+     &  bmatx(mbdim,*)  ,eldisp(mdofn,*)  ,xi ,graphi(mbdim,ndofn)  ,
+     &  stran(*)        ,eljump(ndofn)    ,vecn(mbdim,ndofn)
+c
+c Local variables
+      integer
+     &  nstre       ,nbdim      ,istre      ,ievab      ,idofn      ,
+     &  inode
       double precision
      &  temp1(mbdim)    ,temp2(mbdim)   ,temp3(mbdim)
 c
@@ -80,7 +89,7 @@ c
           temp3(istre) = 0.d0
           do idofn=1,ndofn
             temp3(istre) = temp3(istre) +
-     &                     xi*elkinv*vnnmtx(istre,idofn)*eljump(idofn)
+     &                     xi*elkinv*vecn(istre,idofn)*eljump(idofn)
           end do
         end do
 c

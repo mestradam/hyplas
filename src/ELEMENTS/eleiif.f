@@ -51,10 +51,10 @@ C 2-D F-bar elements (for large strain formulation only)
      6    RELPRP(1,IELIDN)   ,RPROPS(1,MATIDN)   ,RSTAVA(1,1,IELEM,1),
      7    STRSG(1,1,IELEM,1) ,THKGP(1,IELEM,1)   ,TDISP              )
 c
-      ELSEIF (IELCLS.EQ.STRDIS) THEN
+      elseif (ielcls.eq.wsdisc) then
 c 2-D isoparametric weak and strong discontinuity elements
 c (M Estrada 2014)
-        call ifsd2
+        call ifwsd2
      &( ielem       ,iffail     ,mdime      ,melem      ,mpoin      ,
      &  mstre       ,mtotv      ,naxis      ,nlarge     ,ntype      ,
      &  coord(1,1,1)        ,dincr              ,
