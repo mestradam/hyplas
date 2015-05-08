@@ -128,6 +128,7 @@ relprp(51+nevab*ndofn)                  :   kbb(1,2)
     .                                           .
 relprp(51+nevab*ndofn*2+ndofn*ndofn-1)  :   kbb(ndofn,ndofn)
 
+
 ========================================================================
 HYPLAS common block for strong discontinuity (COMMON/LOCALIZA)
 ========================================================================
