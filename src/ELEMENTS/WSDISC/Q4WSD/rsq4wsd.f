@@ -1,15 +1,15 @@
-      SUBROUTINE RSQ4WSD
-     1(   IELPRP     ,NDATF      ,NRESF      ,RELPRP     ,UNSYM      )
-      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      PARAMETER
-     1(   MGAUSP=6   ,MNODEG=2   ,NDIME=2    ,NDOFEL=12  ,NEDGEL=4   ,
-     2    NGAUSB=1   ,NNODE=4    )
-      LOGICAL UNSYM
-      DIMENSION
-     1    IELPRP(*)          ,RELPRP(*)
-      DIMENSION
-     1    NORDEB(NNODE,NEDGEL),POSGP(2,MGAUSP)   ,POSGPB(NGAUSB)     ,
-     2    WEIGP(MGAUSP)      ,WEIGPB(NGAUSB)
+      subroutine rsq4wsd
+     1(   ielprp     ,ndatf      ,nresf      ,relprp     ,unsym      )
+      implicit double precision (a-h,o-z)
+      parameter
+     1(   mgausp=6   ,mnodeg=2   ,ndime=2    ,ndofel=12  ,nedgel=4   ,
+     2    ngausb=1   ,nnode=4    )
+      logical unsym
+      dimension
+     1    ielprp(*)          ,relprp(*)
+      dimension
+     1    nordeb(nnode,nedgel),posgp(2,mgausp)   ,posgpb(ngausb)     ,
+     2    weigp(mgausp)      ,weigpb(ngausb)
 C***********************************************************************
 C Read input data and set properties for element type 'QUA_4_SD'
 C (standard isoparametric 4-noded bi-linear quadrilateral)

@@ -1,13 +1,13 @@
-      SUBROUTINE EXQ4WSD
-     1(   NGAUSP     ,EXMATX     )
-      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      PARAMETER(NNODE=4)
-      DIMENSION EXMATX(NNODE,NGAUSP)
-      DATA R1    /
-     1     1.0D0 /
-      DATA
-     1    A4               ,B4                 ,C4                 /
-     2    1.866025404D0    ,-0.5D0             ,0.133974596D0      /
+      subroutine exq4wsd
+     1(   ngausp     ,exmatx     )
+      implicit double precision (a-h,o-z)
+      parameter(nnode=4)
+      dimension exmatx(nnode,ngausp)
+      data r1    /
+     1     1.0d0 /
+      data
+     1    a4               ,b4                 ,c4                 /
+     2    1.866025404d0    ,-0.5d0             ,0.133974596d0      /
 C***********************************************************************
 C Sets coefficients matrix (EXMATX) for extrapolation from gauss points
 C to nodes for element type 'QUAD_4' (standard 4-noded bi-linear

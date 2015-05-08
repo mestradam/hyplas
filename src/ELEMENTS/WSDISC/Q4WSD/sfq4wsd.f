@@ -1,6 +1,6 @@
-      SUBROUTINE SFQ4WSD
-     &( DERIV       ,ETASP      ,EXISP      ,IBOUND     ,MDIME      ,
-     &  SHAPE       )
+      subroutine sfq4wsd
+     &( deriv       ,etasp      ,exisp      ,ibound     ,mdime      ,
+     &  shape       )
 C***********************************************************************
 C Computes shape functions and shape function derivatives for
 C element 'QUAD_4':
