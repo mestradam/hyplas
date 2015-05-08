@@ -1,24 +1,24 @@
-      DOUBLE PRECISION FUNCTION TRANMT
-     &( MAT         ,DIM1       ,DIM2       )
-C***********************************************************************
-C Computes the transpose of a matrix: 
-C     TRANMT = MAT^T
-C
-C (M. Estrada, 2015)
-C***********************************************************************
-      IMPLICIT NONE
-      DOUBLE PRECISION
-     &  MAT
-      DIMENSION
-     &  MAT(DIM1,DIM2)    ,TRANMT(DIM2,DIM1)
-      INTEGER
-     &  DIM1        ,DIM2       ,IDIM1      ,IDIM2
-C
-      DO 10, IDIM1 = 1, DIM1
-        DO 20, IDIM2 = 1, DIM2
-          TRANMT(IDIM2,IDIM1) = MAT(IDIM1,IDIM2)
-  20    CONTINUE
-  10  CONTINUE
-C
-      RETURN
-      END
+      double precision function tranmt
+     &  (mat        ,nrow       ,ncol       )
+!***********************************************************************
+! Computes the transpose of a matrix: 
+!     tranmt = mat^t
+!
+! (M. Estrada, 2015)
+!***********************************************************************
+      implicit none
+      double precision
+     &   mat
+      dimension
+     &   mat(nrow,ncol)   ,tranmt(ncol,nrow)
+      integer
+     &   nrow       ,ncol       ,irow       ,icol
+!
+      do irow = 1, nrow
+        do icol = 1, ncol
+          tranmt(icol,irow) = mat(irow,icol)
+        end do
+      end do
+!
+      return
+      end

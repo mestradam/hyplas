@@ -1,0 +1,116 @@
+cond Point-Constraints
+2
+global
+cond(int,2) && cond(int,4)
+1
+0
+0
+apoio.geo
+global
+cond(int,2) || cond(int,4) 
+cond(int,4)
+cond(int,2)*(-1)
+0
+apoio-rodillo.geo
+cond Point-Load
+1
+global
+1
+cond(real,1)
+cond(real,2)
+cond(real,3)
+fletxa.geo
+cond Line-Constraints
+1
+local
+1
+1
+0
+0
+apoioL.geo
+cond Face-Load
+6
+local
+fabs(cond(real,2))>1e-5 && fabs(cond(real,3))<1e-5 && strcmp(cond(1),"LOCAL")==0
+1
+0
+0
+Tangencial.geo
+local
+fabs(cond(real,2))<1e-5 && fabs(cond(real,3))>1e-5  && strcmp(cond(1),"LOCAL")==0 
+1
+0
+0
+Normal.geo
+local
+fabs(cond(real,2))>1e-5 && fabs(cond(real,3))>1e-5  && strcmp(cond(1),"LOCAL")==0
+1
+0
+0
+Normal-Tangen.geo
+global
+fabs(cond(real,2))>1e-5 && fabs(cond(real,3))<1e-5 
+-1
+0
+0
+Tangencial.geo
+global
+fabs(cond(real,2))<1e-5 && fabs(cond(real,3))>1e-5 
+-1
+0
+0
+Normal.geo
+global
+fabs(cond(real,2))>1e-5 && fabs(cond(real,3))>1e-5
+1
+cond(real,2)
+cond(real,3)
+Normal-Tangen.geo
+cond Slave-2D
+1
+local
+1
+1
+0
+0
+contact.geo
+cond Master-2D
+1
+local
+1
+1
+0
+0
+contact.geo
+cond Surface-Constraints
+1
+local
+1
+1
+0
+0
+apoio3d.geo
+cond Surface-Load
+1
+local
+1
+-1
+0
+0
+Normal-Superf.geo
+cond Slave-3D
+1
+local
+1
+1
+0
+0
+contact.geo
+cond Master-3D
+1
+local
+1
+1
+0
+0
+contact.geo

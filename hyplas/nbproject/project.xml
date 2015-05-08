@@ -12,6 +12,8 @@
             <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>../src</sourceRootElem>
+                <sourceRootElem>../doc</sourceRootElem>
+                <sourceRootElem>../Problem Types GiD</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

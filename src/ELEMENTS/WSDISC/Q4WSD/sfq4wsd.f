@@ -1,4 +1,4 @@
-      SUBROUTINE SFQ4SD
+      SUBROUTINE SFQ4WSD
      &( DERIV       ,ETASP      ,EXISP      ,IBOUND     ,MDIME      ,
      &  SHAPE       )
 C***********************************************************************

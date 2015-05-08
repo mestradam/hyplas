@@ -1,0 +1,126 @@
+#!/bin/csh -f
+#-----------------------------------------------------------------
+#
+# Cshell script                C O M E T 
+#
+
+   set patom = $GIDDEFAULT              # Here is program COMET
+   set terminal = `tty`                 # In this terminal is the human be
+   limit coredumpsize 0                 # Don't dump core
+   umask 007                            # Don't protect anything in our group
+#-----------------------------------------------------------------
+#            To report the time of the process:
+   set time = (60 "comet: User=%U[seg]; System=%S[seg]; Real=%E[min]; (User+Sys)/Real=%P; Memory shared=%X[Kb]; Unshared+stack=%D[Kb]; Total memory=%K[Kb]; Max.memory resident=%M[Kb]; Process swaps out of main memory=%W; Paging with I/O =%F; Paging Without I/O =%R; Block input=%I; Block output=%O")
+#-----------------------------------------------------------------
+#                     Interpret the command:
+
+#-----------------------------------------------------------------
+#                         Check errors:
+echo ' '
+if ( ($2 == "") || ($1 == "") ) then
+ clear
+ echo " "
+ echo "   USE: comet name directory"
+ exit
+endif
+
+set name = $1
+set dump = $2                           # Path of results
+
+if ( ! (( -e $dump/$name ) && ( -r $dump/$name ))) then
+   echo "comet: Can't read "$name'.dat'
+   echo " "
+   exit
+endif
+
+   set pats = $patom
+
+if (! -x $pats/comet ) then
+   echo "comet: Version '$pats/comet' unreadable"
+   echo " "
+   exit
+endif
+if ( ! -d $dump ) then
+
+   echo Problems: call RAMSAN
+   exit
+
+else
+   if (-e $dump/"comet: "$name" is being processed now    ==> Be careful <==")\
+   then
+      echo "comet: Can't process two problems with the same name in parallel"
+      echo " "
+      exit
+   endif
+   if (-e $dump/"comet: "$name" was submited to be executed in batch")\
+   then
+      echo "comet: Can't submit two problems with the same name in parallel"
+      echo " "
+      exit
+   endif
+
+   echo -n "comet: "$name" is an old problem. "
+
+      echo "Old files deleted."
+      rm -f $dump/$name.res $dump/$name.neu \
+            $dump/$name.log $dump/$name.sol >& /dev/null
+      rm -f $dump/$name.pos
+      rm -f $dump/$name.cur* >& /dev/null
+
+   rm -f - $dump/*':'* $dump/$name.rsf \
+           $dump/'Lock.'*  $dump/'Version.'*  \
+           $dump/core        >& /dev/null
+
+#-----------------------------------------------------------------
+#                            Backup:
+
+#-----------------------------------------------------------------
+#                            Assigns:
+# Temporary files:     (:)
+#
+setenv FOR020 $dump/$name':'dts    #   DATA BASE FILE
+setenv FOR021 $dump/$name':'sc1    #   SOLVER (COUPLED PROBLEMS) FILE_1
+setenv FOR022 $dump/$name':'sc2    #   SOLVER (COUPLED PROBLEMS) FILE_2
+setenv FOR023 $dump/$name':'bfg    #   BFGS FILE
+setenv FOR024 $dump/$name':'rsf    #   BATCH RESTART FLAG FILE
+#
+# Permanent files:     (.)
+#
+setenv FOR030 $dump/$name.dat      #   DATA FILE
+setenv FOR031 $dump/$name.inc      #   INCLUDE FILE
+setenv FOR032 $dump/$name.log      #   LOG FILE
+setenv FOR033 $dump/$name.res      #   OUTPUT FILE
+setenv FOR034 $dump/$name.pos      #   POSTPROCESS FILE
+setenv FOR035 $dump/$name.rst      #   RESTART FILE
+setenv FOR036 $dump/$name.err      #   ERROR REPORT FILE
+set ncurv = 1
+set nfile = 101
+while ($ncurv != 41)               #   X-Y PLOT CURVES: 101..141
+   setenv FOR$nfile $dump/$name.cur$ncurv
+   @ ncurv++
+   @ nfile++
+end
+#----------------------------------------------------------------
+#                      Start process:
+#----------------------------------------------------------------
+
+set proc =  $pats/comet
+
+
+   echo -n "comet: Begin process "$name" at "; date
+   echo -n "comet: Begin process "$name" at " > $dump/$name.tim
+   date >> $dump/$name.tim
+   touch $dump/"comet: "$name" is being processed now    ==> Be careful <=="
+
+    ( time "$proc" ;                                        \
+      rm -f - $dump/*':'*  $dump/$name.rsf  >& /dev/null; \
+      echo " "  > $terminal;                                                \
+      echo -n "comet: End process "$name" at " > $terminal;                 \
+      date > $terminal;                                                     \
+      echo -n "comet: End process "$name" at "; date                        \
+    ) >>& $dump/$name.tim &
+
+
+chmod 660 $dump/$name.* >& /dev/null # Don't protect anything in comet's group
+endif
+#=============================================================================

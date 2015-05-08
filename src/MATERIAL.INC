@@ -15,6 +15,7 @@ C 1. Dimensioning parameters associated with available material models
 C
 C***********************************************************************
 C
+      integer mrprop, miprop, mrstav, mralgv, mlalgv
       PARAMETER( MRPROP=250 )
       PARAMETER( MIPROP=4   )
       PARAMETER( MRSTAV=20  )
@@ -82,9 +83,9 @@ C 3. Material types enumeration
 C
 C***********************************************************************
 C
-      INTEGER  ELASTC ,OGDEN  ,TRESCA ,VMISES ,MOHCOU ,DRUPRA ,CAPDP  ,
-     1         PDSCRY ,VMMIXD ,LEMDAM ,DAMELA ,VMISTC ,COPLAS ,CODAMA ,
-     2         ELAPRU ,compos
+      INTEGER  ELASTC ,OGDEN  ,TRESCA ,VMISES ,MOHCOU ,DRUPRA ,PDSCRY ,
+     1         VMMIXD ,LEMDAM ,DAMELA ,VMISTC ,COPLAS ,CODAMA ,ELAPRU ,
+     &         comp
       PARAMETER( ELASTC= 1)
       PARAMETER( OGDEN = 2)
       PARAMETER( TRESCA= 3)
@@ -99,7 +100,7 @@ C
       PARAMETER( COPLAS=12)
       PARAMETER( CODAMA=13)
       PARAMETER( ELAPRU=14)
-      PARAMETER( COMP  =15)
+      parameter( comp  =15)
 C
 C
 C   * ELASTC = Standard linear elastic model (generalized Hooke's law).
@@ -159,4 +160,4 @@ C              (L. Herrera 2010).
 C
 C   * ELAPRU = Modelo elastico de prueba. ( )
 C
-c   * COMP   = Composite material model (M. Estrada 2014)
+c   * comp   = Composite material model (M. Estrada 2014)

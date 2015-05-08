@@ -51,11 +51,11 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/673691383/sft3.o \
 	${OBJECTDIR}/_ext/1961916306/ifstd2.o \
 	${OBJECTDIR}/_ext/1961916306/ststd2.o \
-	${OBJECTDIR}/_ext/521807484/exq4sd.o \
-	${OBJECTDIR}/_ext/521807484/rsq4sd.o \
-	${OBJECTDIR}/_ext/521807484/sfq4sd.o \
-	${OBJECTDIR}/_ext/1961496613/ifsd2.o \
-	${OBJECTDIR}/_ext/1961496613/stsd2.o \
+	${OBJECTDIR}/_ext/2114358395/exq4wsd.o \
+	${OBJECTDIR}/_ext/2114358395/rsq4wsd.o \
+	${OBJECTDIR}/_ext/2114358395/sfq4wsd.o \
+	${OBJECTDIR}/_ext/1848315505/ifwsd2.o \
+	${OBJECTDIR}/_ext/1848315505/stwsd2.o \
 	${OBJECTDIR}/_ext/655898801/chkndb.o \
 	${OBJECTDIR}/_ext/655898801/eleiif.o \
 	${OBJECTDIR}/_ext/655898801/eleist.o \
@@ -243,6 +243,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/1558444847/dplfun.o \
 	${OBJECTDIR}/_ext/1558444847/exp2x.o \
 	${OBJECTDIR}/_ext/1558444847/expmap.o \
+	${OBJECTDIR}/_ext/1558444847/invmt2.o \
 	${OBJECTDIR}/_ext/1558444847/invmt3.o \
 	${OBJECTDIR}/_ext/1558444847/iso2.o \
 	${OBJECTDIR}/_ext/1558444847/jacob.o \
@@ -344,25 +345,25 @@ ${OBJECTDIR}/_ext/1961916306/ststd2.o: ../src/ELEMENTS/STDARD/ststd2.f
 	${MKDIR} -p ${OBJECTDIR}/_ext/1961916306
 	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/1961916306/ststd2.o ../src/ELEMENTS/STDARD/ststd2.f
 
-${OBJECTDIR}/_ext/521807484/exq4sd.o: ../src/ELEMENTS/STRDIS/QUA4SD/exq4sd.f 
-	${MKDIR} -p ${OBJECTDIR}/_ext/521807484
-	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/521807484/exq4sd.o ../src/ELEMENTS/STRDIS/QUA4SD/exq4sd.f
+${OBJECTDIR}/_ext/2114358395/exq4wsd.o: ../src/ELEMENTS/WSDISC/Q4WSD/exq4wsd.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/2114358395
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/2114358395/exq4wsd.o ../src/ELEMENTS/WSDISC/Q4WSD/exq4wsd.f
 
-${OBJECTDIR}/_ext/521807484/rsq4sd.o: ../src/ELEMENTS/STRDIS/QUA4SD/rsq4sd.f 
-	${MKDIR} -p ${OBJECTDIR}/_ext/521807484
-	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/521807484/rsq4sd.o ../src/ELEMENTS/STRDIS/QUA4SD/rsq4sd.f
+${OBJECTDIR}/_ext/2114358395/rsq4wsd.o: ../src/ELEMENTS/WSDISC/Q4WSD/rsq4wsd.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/2114358395
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/2114358395/rsq4wsd.o ../src/ELEMENTS/WSDISC/Q4WSD/rsq4wsd.f
 
-${OBJECTDIR}/_ext/521807484/sfq4sd.o: ../src/ELEMENTS/STRDIS/QUA4SD/sfq4sd.f 
-	${MKDIR} -p ${OBJECTDIR}/_ext/521807484
-	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/521807484/sfq4sd.o ../src/ELEMENTS/STRDIS/QUA4SD/sfq4sd.f
+${OBJECTDIR}/_ext/2114358395/sfq4wsd.o: ../src/ELEMENTS/WSDISC/Q4WSD/sfq4wsd.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/2114358395
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/2114358395/sfq4wsd.o ../src/ELEMENTS/WSDISC/Q4WSD/sfq4wsd.f
 
-${OBJECTDIR}/_ext/1961496613/ifsd2.o: ../src/ELEMENTS/STRDIS/ifsd2.f 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1961496613
-	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/1961496613/ifsd2.o ../src/ELEMENTS/STRDIS/ifsd2.f
+${OBJECTDIR}/_ext/1848315505/ifwsd2.o: ../src/ELEMENTS/WSDISC/ifwsd2.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1848315505
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/1848315505/ifwsd2.o ../src/ELEMENTS/WSDISC/ifwsd2.f
 
-${OBJECTDIR}/_ext/1961496613/stsd2.o: ../src/ELEMENTS/STRDIS/stsd2.f 
-	${MKDIR} -p ${OBJECTDIR}/_ext/1961496613
-	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/1961496613/stsd2.o ../src/ELEMENTS/STRDIS/stsd2.f
+${OBJECTDIR}/_ext/1848315505/stwsd2.o: ../src/ELEMENTS/WSDISC/stwsd2.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1848315505
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/1848315505/stwsd2.o ../src/ELEMENTS/WSDISC/stwsd2.f
 
 ${OBJECTDIR}/_ext/655898801/chkndb.o: ../src/ELEMENTS/chkndb.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/655898801
@@ -1111,6 +1112,10 @@ ${OBJECTDIR}/_ext/1558444847/exp2x.o: ../src/MATHS/exp2x.f
 ${OBJECTDIR}/_ext/1558444847/expmap.o: ../src/MATHS/expmap.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1558444847
 	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/1558444847/expmap.o ../src/MATHS/expmap.f
+
+${OBJECTDIR}/_ext/1558444847/invmt2.o: ../src/MATHS/invmt2.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1558444847
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/1558444847/invmt2.o ../src/MATHS/invmt2.f
 
 ${OBJECTDIR}/_ext/1558444847/invmt3.o: ../src/MATHS/invmt3.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1558444847

@@ -1,0 +1,108 @@
+#comet.tcl  -*- TCL -*-
+#---------------------------------------------------------------------------
+#This file is written in TCL lenguage 
+#For more information about TCL look at: http://www.sunlabs.com/research/tcl/
+#
+#At least two procs must be in this file:
+#
+#    InitGIDProject dir - Will be called whenever a project is begun to be used.
+#           where dir is the project's directory
+#    EndGIDProject - Will be called whenever a project ends to be used.
+#
+#For more information about GID internals, check the program scripts.
+#---------------------------------------------------------------------------
+
+
+
+proc InitGIDProject { dir } {
+    global NumMenus MenuNames MenuEntries MenuCommands MenuAcceler
+
+    set NumMenus 9
+    set MenuNames {Files View Geometry Utilities Data Generation Calculate Unigraphics \
+	    Help}
+    
+    set MenuEntries(8) $MenuEntries(7)
+    set MenuCommands(8) $MenuCommands(7)
+    set MenuAcceler(8) $MenuAcceler(7)
+    
+    set MenuEntries(7) { "Read mesh" }
+    set MenuCommands(7) { {-np- LoadUniFileToGid mechanical} }
+    set MenuAcceler(7) { "" }
+    CreateTopMenus
+    source $dir/Uni2Gid.tcl
+}
+
+proc EndGIDProject {} {
+    global NumMenus MenuNames MenuEntries MenuCommands MenuAcceler
+
+    set NumMenus 8
+    set MenuNames {Files View Geometry Utilities Data Generation Calculate Help}
+
+    set MenuEntries(7) $MenuEntries(8)
+    set MenuCommands(7) $MenuCommands(8)
+    set MenuAcceler(7) $MenuAcceler(8)
+    CreateTopMenus
+    source $dir/Uni2Gid.tcl
+}
+
+proc EndGIDProject {} {
+    global NumMenus MenuNames MenuEntries MenuCommands MenuAcceler
+
+    set NumMenus 7
+    set MenuNames {Files Geometry Utilities Data Generation Calculate Help}
+
+    set MenuEntries(6) $MenuEntries(7)
+    set MenuCommands(6) $MenuCommands(7)
+    set MenuAcceler(6) $MenuAcceler(7)
+    CreateTopMenus
+
+    rename RunFiniteElemCode ""
+    rename InitGIDProject ""
+    rename EndGIDProject ""
+    rename RunInterfaceCode ""
+    rename DeleteCalculationFiles ""
+    rename RunPostProcessCode ""
+}
+
+
+proc RunFiniteElemCode { GIDDEFAULT name directory } {
+
+    set scriptexe $GIDDEFAULT/comet.gid/comet.script
+    set programexe comet
+    set resfile $name.dat
+    return "$scriptexe $programexe $resfile"
+}
+
+proc DeleteCalculationFiles { name directory } {
+
+    exec rm -f $directory/$name.dat $directory/$name.tim $directory/$name.res \
+	    $directory/$name.pos $directory/$name.log \
+	   $directory/$name.flavia.dat $directory/$name.flavia.msh $directory/$name.flavia.res  \
+	   > /dev/null
+}
+
+proc RunInterfaceCode { GIDDEFAULT name directory } {
+
+    set posfile $directory/$name
+
+    if { ![file exists $posfile.pos] || \
+	    [file size $posfile.pos] == 0 } {
+	error ""
+    }
+
+    exec $GIDDEFAULT/om2sol $posfile > /dev/null &
+
+    set interfaceexe om2sol
+    return $interfaceexe
+}
+
+proc RunPostProcessCode { GIDDEFAULT name directory } {
+
+    set genname $directory/$name.flavia
+    set fullname $directory/$name.flavia.res
+    set program "sol2pc"
+    set options ""
+    
+    return "\"$genname\" \"$fullname\" \"$program\" \"$options\""
+
+}

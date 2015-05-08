@@ -1,0 +1,145 @@
+*#--------------------------------------------------CONTACT-SLIDELINES
+*if(NSLID!=0)
+*#
+*realformat "%15.5f"
+*intformat "%i"
+*#
+ CONTACT_DATA
+  CONTROL_DATA
+*if(ndime==2)
+*for(i=1;i<=NSLID;i=i+1)
+*Set var NSF=0
+*Set var NMF=0
+*#----------------------------------------Slave-2D
+*Set Cond Slave-2D *nodes *CanRepeat
+*if(CondNumEntities>0)
+*Loop nodes *OnlyInCond
+*if(Cond(1,int)==i)
+*set var NSF=Operation(NSF(int)+1)
+*endif
+*end nodes
+*endif
+*#----------------------------------------Master-2D
+*Set Cond Master-2D *nodes *CanRepeat
+*if(CondNumEntities>0)
+*Loop nodes *OnlyInCond
+*if(Cond(1,int)==i)
+*set var NMF=Operation(NMF(int)+1)
+*endif
+*end nodes
+*endif
+*#
+*if(strcmp(GenData(Contact_algorithm),"AUGM_LAGRAN")==0)
+    SLIDELINE=*i  NSN=*NSF(int) NMN=*NMF(int) NNSF=*NNSF(int) NNMF=*NNMF(int) AUGMS 
+*else
+    SLIDELINE=*i  NSN=*NSF(int) NMN=*NMF(int) NNSF=*NNSF(int) NNMF=*NNMF(int) 
+*endif
+*end
+*#
+*else
+*#
+*for(i=1;i<=NSLID;i=i+1)
+*Set var NSF=0
+*Set var NMF=0
+*#----------------------------------------Slave-3D
+*Set Cond Slave-3D *elems *CanRepeat
+*if(CondNumEntities>0)
+*Loop elems *OnlyInCond
+*if(Cond(1,int)==i)
+*set var NSF=Operation(NSF(int)+1)
+*endif
+*end elems
+*endif
+*#----------------------------------------Master-3D
+*Set Cond Master-3D *elems *CanRepeat
+*if(CondNumEntities>0)
+*Loop elems *OnlyInCond
+*if(Cond(1,int)==i)
+*set var NMF=Operation(NMF(int)+1)
+*endif
+*end elems
+*endif
+*#
+*if(strcmp(GenData(Contact_algorithm),"AUGM_LAGRAN")==0)
+    SLIDELINE=*i  NSF=*NSF(int) NMF=*NMF(int) NNSF=*NNSF(int) NNMF=*NNMF(int) AUGMS 
+*else
+    SLIDELINE=*i  NSF=*NSF(int) NMF=*NMF(int) NNSF=*NNSF(int) NNMF=*NNMF(int)
+*endif
+*end
+*#
+*endif
+  END_CONTROL_DATA
+*#-----------------------------------------SLIDELINES_DATA
+*intformat "%i"
+  SLIDELINES_DATA
+*for(i=1;i<=NSLID;i=i+1)
+    SLIDELINE=*i
+      PROPERTIES: PENN=*operation(PENN*GenData(Contact_penalty,REAL)/nmats)
+*#-------------------------------------------------------SLIDE-CONNECTIVITY
+*intformat "%7i"
+*if(ndime==2)
+     SLAVE_NODES
+*Set var CONTADOR=0
+*Set Cond Slave-2D *nodes *CanRepeat
+*Loop nodes *OnlyInCond
+*if(Cond(1,int)==i)
+*Set var CONTADOR=Operation(CONTADOR(int)+1)
+        *CONTADOR(int) *NodesNum()
+*endif
+*end nodes
+      END_SLAVE_NODES
+*#
+      MASTER_NODES
+*Set var CONTADOR=0
+*Set Cond Master-2D *nodes *CanRepeat
+*Loop nodes *OnlyInCond
+*if(Cond(1,int)==i)
+*Set var CONTADOR=Operation(CONTADOR(int)+1)
+        *CONTADOR(int) *NodesNum()
+*endif
+*end nodes
+      END_MASTER_NODES
+*#
+*else
+*#
+     SLAVE_NODES
+*Set elems(hexahedra)
+*add elems(tetrahedra)
+*Set var CONTADOR=0
+*Set Cond Slave-3D *elems *CanRepeat
+*Loop elems *OnlyInCond
+*if(Cond(1,int)==i)
+*Set var CONTADOR=Operation(CONTADOR(int)+1)
+        *CONTADOR(int) *globalnodes(invert)
+*endif
+*end elems
+      END_SLAVE_NODES
+*#
+      MASTER_NODES
+*Set elems(hexahedra)
+*add elems(tetrahedra)
+*Set var CONTADOR=0
+*Set Cond Master-3D *elems *CanRepeat
+*Loop elems *OnlyInCond
+*if(Cond(1,int)==i)
+*Set var CONTADOR=Operation(CONTADOR(int)+1)
+        *CONTADOR(int) *globalnodes(invert)
+*endif
+*end elems
+*Set elems(quadrilateral)
+*add elems(triangle)
+*Set var CONTADOR=0
+*Set Cond Master-3D *elems *CanRepeat
+*Loop elems *OnlyInCond
+*if(Cond(1,int)==i)
+*Set var CONTADOR=Operation(CONTADOR(int)+1)
+        *CONTADOR(int) *elemsconec
+*endif
+*end elems
+      END_MASTER_NODES
+*endif
+    END_SLIDELINE
+*end
+  END_SLIDELINES_DATA
+ END_CONTACT_DATA
+*endif

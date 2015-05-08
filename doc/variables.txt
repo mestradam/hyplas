@@ -106,7 +106,27 @@ relprp(37)  :   normalized disp. grad. y:   grau(2)
 relprp(38)  :   internal var. to smooth :   gn
 relprp(39)  :   gradient of phi x       :   graphi(1,1) & graphi(3,2)
 relprp(40)  :   gradient of phi y       :   graphi(2,2) & graphi(3,1)
-
+relprp(41)  :   jump x                  :   eljump(1)
+relprp(42)  :   jump y                  :   eljump(2)
+relprp(43-50)                           :   not used
+relprp(51)                              :   kub(1,1)
+relprp(52)                              :   kub(1,2)
+    .                                           .
+    .                                           .
+    .                                           .
+relprp(51+nevab*ndofn-1)                :   kub(nevab,ndofn)
+relprp(51+nevab*ndofn)                  :   kbu(1,1)
+relprp(51+nevab*ndofn)                  :   kbu(1,2)
+    .                                           .
+    .                                           .
+    .                                           .
+relprp(51+nevab*ndofn*2-1)              :   kbu(ndofn,nevab)
+relprp(51+nevab*ndofn*2)                :   kbb(1,1)
+relprp(51+nevab*ndofn)                  :   kbb(1,2)
+    .                                           .
+    .                                           .
+    .                                           .
+relprp(51+nevab*ndofn*2+ndofn*ndofn-1)  :   kbb(ndofn,ndofn)
 
 ========================================================================
 HYPLAS common block for strong discontinuity (COMMON/LOCALIZA)

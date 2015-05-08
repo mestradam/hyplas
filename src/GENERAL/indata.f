@@ -301,25 +301,29 @@ C Set type, class and and read and set other properties
           CALL RSQ4FB
      1(   IELPRP(1,IELIDN)  ,15  ,16  ,NTYPE ,RELPRP(1,IELIDN)  ,
      2    UNSAUX  )
-        ELSEIF (ELTNAM.EQ.'QUA_4_SD' .OR. ELTNAM.EQ.'QUA_4SD' .OR.
-     &          ELTNAM.EQ.'QUA4_SD'  .OR. ELTNAM.EQ.'QUA4SD'  .OR.
-     &          ELTNAM.EQ.'QUA_4_SD' .OR. ELTNAM.EQ.'QUA_4SD' .OR.
-     &          ELTNAM.EQ.'QUA4_SD'  .OR. ELTNAM.EQ.'QUA4SD'  ) THEN
+        elseif (eltnam.eq.'Q_4_WSD' .or. eltnam.eq.'Q_4WSD' .or.
+     &          eltnam.eq.'Q4_WSD'  .or. eltnam.eq.'Q4WSD'  .or.
+     &          eltnam.eq.'q_4_wsd' .or. eltnam.eq.'q_4wsd' .or.
+     &          eltnam.eq.'q4_wsd'  .or. eltnam.eq.'q4wsd'  .or.
+     &          eltnam.eq.'QUA_4_WSD' .or. eltnam.eq.'QUA_4WSD' .or.
+     &          eltnam.eq.'QUA4_WSD'  .or. eltnam.eq.'QUA4WSD'  .or.
+     &          eltnam.eq.'qua_4_wsd' .or. eltnam.eq.'qua_4wsd' .or.
+     &          eltnam.eq.'qua4_wsd'  .or. eltnam.eq.'qua4wsd'  ) then
 C Quadrilateral elements with strong discontinuities
 C M. Estrada 2014
-          IELTYP = QUA4SD
-          IELCLS = STRDIS
-          CALL RSQ4SD
-     &( IELPRP(1,IELIDN)    ,15   ,16   ,RELPRP(1,IELIDN)   ,UNSAUX )
-	  WRITE(21,1172)
-	  WRITE(22,1175)
-	  WRITE(22,1177)
-        ELSE
-          CALL ERRPRT('ED0064')
-        ENDIF
-        IELPRP(1,IELIDN)=IELTYP
-        IELPRP(2,IELIDN)=IELCLS
-        IF(UNSAUX)UNSYM=.TRUE.
+          ieltyp = q4wsd
+          ielcls = wsdisc
+          call rsq4wsd
+     &( ielprp(1,ielidn)    ,15   ,16   ,relprp(1,ielidn)   ,unsaux )
+	  write(21,1172)
+	  write(22,1175)
+	  write(22,1177)
+        else
+          call errprt('ED0064')
+        endif
+        ielprp(1,ielidn) = ieltyp
+        ielprp(2,ielidn) = ielcls
+        if(unsaux)unsym=.true.
    82 CONTINUE
 C Check that the properties associated with all element type
 C identification numbers have been read

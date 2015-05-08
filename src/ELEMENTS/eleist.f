@@ -50,10 +50,10 @@ c -----------------------------------------------------------------
      7    RPROPS(1,MATIDN)   ,RSTAVA(1,1,IELEM,1),RSTAVA(1,1,IELEM,2),
      8    STRSG(1,1,IELEM,1) ,TDISP              )
 C
-      elseif (ielcls.eq.strdis) then
+      elseif (ielcls.eq.wsdisc) then
 c 2-D isoparametric weak and strong discontinuity elements
 c (M Estrada 2014)
-          call stsd2
+          call stwsd2
      &  (ielem      ,kunld      ,mdime      ,melem      ,mpoin      ,
      &   mstre      ,mtotv      ,naxis      ,nlarge     ,ntype      ,
      &   unsym      ,coord(1,1,1)           ,dincr      ,estif      ,

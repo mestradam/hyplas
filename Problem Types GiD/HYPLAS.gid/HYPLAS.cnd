@@ -1,0 +1,160 @@
+NUMBER: 1 CONDITION: Point-Constraints
+CONDTYPE: over points
+CONDMESHTYPE: over nodes
+QUESTION: X-Constraint:#CB#(1,0)
+VALUE: 1
+QUESTION: X-Value
+VALUE: 0.0
+QUESTION: Y-Constraint:#CB#(1,0)
+VALUE: 1
+QUESTION: Y-Value
+VALUE: 0.0
+QUESTION: Z-Constraint:#CB#(1,0)
+VALUE: 1
+QUESTION: Z-Value
+VALUE: 0.0
+END CONDITION
+NUMBER: 2 CONDITION: Line-Constraints
+CONDTYPE: over lines
+CONDMESHTYPE: over nodes
+QUESTION: X-Constraint:#CB#(1,0)
+VALUE: 1
+QUESTION: X-Value
+VALUE: 0.0
+QUESTION: Y-Constraint:#CB#(1,0)
+VALUE: 1
+QUESTION: Y-Value
+VALUE: 0.0
+QUESTION: Z-Constraint:#CB#(1,0)
+VALUE: 1
+QUESTION: Z-Value
+VALUE: 0.0
+END CONDITION
+NUMBER: 3 CONDITION: Surface-Constraints
+CONDTYPE: over surfaces
+CONDMESHTYPE: over nodes
+QUESTION: X-Constraint:#CB#(1,0)
+VALUE: 1
+QUESTION: X-Value
+VALUE: 0.0
+QUESTION: Y-Constraint:#CB#(1,0)
+VALUE: 1
+QUESTION: Y-Value
+VALUE: 0.0
+QUESTION: Z-Constraint:#CB#(1,0)
+VALUE: 1
+QUESTION: Z-Value
+VALUE: 0.0
+END CONDITION
+NUMBER: 4 CONDITION: Volume-Constraints
+CONDTYPE: over volumes
+CONDMESHTYPE: over nodes
+QUESTION: X-Constraint:#CB#(1,0)
+VALUE: 1
+QUESTION: X-Value
+VALUE: 0.0
+QUESTION: Y-Constraint:#CB#(1,0)
+VALUE: 1
+QUESTION: Y-Value
+VALUE: 0.0
+QUESTION: Z-Constraint:#CB#(1,0)
+VALUE: 1
+QUESTION: Z-Value
+VALUE: 0.0
+END CONDITION
+NUMBER: 5 CONDITION: Face-Load
+CONDTYPE: over lines
+CONDMESHTYPE: over elems
+QUESTION: Components:#CB#(GLOBAL,LOCAL)
+VALUE: GLOBAL
+DEPENDENCIES: (GLOBAL,HIDE,N_preassure,#CURRENT#,RESTORE,X_preassure,#CURRENT#,RESTORE,Y_preassure,#CURRENT#)
+DEPENDENCIES: (LOCAL,RESTORE,N_preassure,#CURRENT#,HIDE,X_preassure,#CURRENT#,HIDE,Y_preassure,#CURRENT#)
+QUESTION: X_preassure
+VALUE: 0.0
+QUESTION: Y_preassure
+VALUE: 0.0
+QUESTION: N_preassure
+VALUE: 0.0
+END CONDITION
+NUMBER: 6 CONDITION: Point-Load
+CONDTYPE: over points
+CONDMESHTYPE: over nodes
+QUESTION: X-Force
+VALUE: 0.0
+QUESTION: Y-Force
+VALUE: 0.0
+QUESTION: Z-Force
+VALUE: 0.0
+END CONDITION
+NUMBER: 7 CONDITION: Surface-Load
+CONDTYPE: over surfaces
+CONDMESHTYPE: over elems
+QUESTION: Components:#CB#(GLOBAL,LOCAL)
+VALUE: GLOBAL
+DEPENDENCIES: (GLOBAL,HIDE,N_preassure,#CURRENT#,RESTORE,X_preassure,#CURRENT#,RESTORE,Y_preassure,#CURRENT#,RESTORE,Z_preassure,#CURRENT#)
+DEPENDENCIES: (LOCAL,RESTORE,N_preassure,#CURRENT#,HIDE,X_preassure,#CURRENT#,HIDE,Y_preassure,#CURRENT#,HIDE,Z_preassure,#CURRENT#)
+QUESTION: X_preassure
+VALUE: 0.0
+QUESTION: Y_preassure
+VALUE: 0.0
+QUESTION: Z_preassure
+VALUE: 0.0
+QUESTION: N_preassure
+VALUE: 0.0
+END CONDITION
+NUMBER: 8 CONDITION: Slave-2D
+CONDTYPE: over lines
+CONDMESHTYPE: over nodes
+CANREPEAT: yes
+QUESTION: Number_of_slideline:#CB#(1,2,3,4,5,6,7,8,9,10)
+VALUE: 1
+END CONDITION
+NUMBER: 9 CONDITION: Master-2D
+CONDTYPE: over lines
+CONDMESHTYPE: over nodes
+CANREPEAT: yes
+QUESTION: Number_of_slideline:#CB#(1,2,3,4,5,6,7,8,9,10)
+VALUE: 1
+END CONDITION
+NUMBER: 10 CONDITION: Slave-3D
+CONDTYPE: over surfaces
+CONDMESHTYPE: over elems
+CANREPEAT: yes
+QUESTION: Number_of_slidesurface:#CB#(1,2,3,4,5,6,7,8,9,10)
+VALUE: 1
+END CONDITION
+NUMBER: 11 CONDITION: Master-3D
+CONDTYPE: over surfaces
+CONDMESHTYPE: over elems
+CANREPEAT: yes
+QUESTION: Number_of_slideline:#CB#(1,2,3,4,5,6,7,8,9,10)
+VALUE: 1
+END CONDITION
+NUMBER: 12 CONDITION: Point-reaction-plots
+CONDTYPE: over points
+CONDMESHTYPE: over nodes
+QUESTION: Reaction_Component:#CB#(X,Y,Z)
+VALUE: X
+QUESTION: Versus:#CB#(TIME,NSTEP,DISPLACEMENT)
+VALUE: TIME
+END CONDITION
+NUMBER: 13 CONDITION: Line-reaction-plots
+CONDTYPE: over lines
+CONDMESHTYPE: over nodes
+QUESTION: Reaction_Component:#CB#(X,Y,Z)
+VALUE: X
+QUESTION: Versus:#CB#(TIME,NSTEP)
+VALUE: TIME
+QUESTION: Select_Plot:#CB#(1,2,3,4,5)
+VALUE: 1
+END CONDITION
+NUMBER: 14 CONDITION: Surface-reaction-plots
+CONDTYPE: over surface
+CONDMESHTYPE: over nodes
+QUESTION: Reaction_Component:#CB#(X,Y,Z)
+VALUE: X
+QUESTION: Versus:#CB#(TIME,NSTEP)
+VALUE: TIME
+QUESTION: Select_Plot:#CB#(1,2,3,4,5)
+VALUE: 1
+END CONDITION

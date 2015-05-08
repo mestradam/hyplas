@@ -1,0 +1,8 @@
+*.tcl     no tocar, consultar con equipo GiD
+*.bas     script para escribir fichero de datos para calculo con comet
+*.cnd     descripcion de las condiciones
+*.mat     descripcion de los materiales
+*.prb     datos generales de problema y datos de los intervalos
+*.script  no tocar, consultar con equipo GiD
+*.sim     dibujos de las condiciones
+          libreria simbolos:/usr/local/lib/gid/symbols/*.geo

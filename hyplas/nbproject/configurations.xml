@@ -34,14 +34,14 @@
             <itemPath>../src/ELEMENTS/STDARD/ifstd2.f</itemPath>
             <itemPath>../src/ELEMENTS/STDARD/ststd2.f</itemPath>
           </logicalFolder>
-          <logicalFolder name="STRDIS" displayName="STRDIS" projectFiles="true">
-            <logicalFolder name="QUA4SD" displayName="QUA4SD" projectFiles="true">
-              <itemPath>../src/ELEMENTS/STRDIS/QUA4SD/exq4sd.f</itemPath>
-              <itemPath>../src/ELEMENTS/STRDIS/QUA4SD/rsq4sd.f</itemPath>
-              <itemPath>../src/ELEMENTS/STRDIS/QUA4SD/sfq4sd.f</itemPath>
+          <logicalFolder name="WSDISC" displayName="WSDISC" projectFiles="true">
+            <logicalFolder name="Q4WSD" displayName="Q4WSD" projectFiles="true">
+              <itemPath>../src/ELEMENTS/WSDISC/Q4WSD/exq4wsd.f</itemPath>
+              <itemPath>../src/ELEMENTS/WSDISC/Q4WSD/rsq4wsd.f</itemPath>
+              <itemPath>../src/ELEMENTS/WSDISC/Q4WSD/sfq4wsd.f</itemPath>
             </logicalFolder>
-            <itemPath>../src/ELEMENTS/STRDIS/ifsd2.f</itemPath>
-            <itemPath>../src/ELEMENTS/STRDIS/stsd2.f</itemPath>
+            <itemPath>../src/ELEMENTS/WSDISC/ifwsd2.f</itemPath>
+            <itemPath>../src/ELEMENTS/WSDISC/stwsd2.f</itemPath>
           </logicalFolder>
           <itemPath>../src/ELEMENTS/chkndb.f</itemPath>
           <itemPath>../src/ELEMENTS/eleiif.f</itemPath>
@@ -282,6 +282,7 @@
           <itemPath>../src/MATHS/dplfun.f</itemPath>
           <itemPath>../src/MATHS/exp2x.f</itemPath>
           <itemPath>../src/MATHS/expmap.f</itemPath>
+          <itemPath>../src/MATHS/invmt2.f</itemPath>
           <itemPath>../src/MATHS/invmt3.f</itemPath>
           <itemPath>../src/MATHS/iso2.f</itemPath>
           <itemPath>../src/MATHS/jacob.f</itemPath>
@@ -309,6 +310,8 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>../src</Elem>
+    <Elem>../doc</Elem>
+    <Elem>../Problem Types GiD</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -380,6 +383,25 @@
       <item path="../src/ELEMENTS/STDARD/ifstd2.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/ELEMENTS/STDARD/ststd2.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/ELEMENTS/WSDISC/Q4WSD/exq4wsd.f"
+            ex="false"
+            tool="2"
+            flavor2="0">
+      </item>
+      <item path="../src/ELEMENTS/WSDISC/Q4WSD/rsq4wsd.f"
+            ex="false"
+            tool="2"
+            flavor2="0">
+      </item>
+      <item path="../src/ELEMENTS/WSDISC/Q4WSD/sfq4wsd.f"
+            ex="false"
+            tool="2"
+            flavor2="0">
+      </item>
+      <item path="../src/ELEMENTS/WSDISC/ifwsd2.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/ELEMENTS/WSDISC/stwsd2.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/ELEMENTS/chkndb.f" ex="false" tool="2" flavor2="0">
       </item>
@@ -907,6 +929,8 @@
       <item path="../src/MATHS/exp2x.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/MATHS/expmap.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/MATHS/invmt2.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/MATHS/invmt3.f" ex="false" tool="2" flavor2="0">
       </item>
@@ -1014,24 +1038,24 @@
       </item>
       <item path="../src/ELEMENTS/STDARD/ststd2.f" ex="false" tool="2" flavor2="0">
       </item>
-      <item path="../src/ELEMENTS/STRDIS/QUA4SD/exq4sd.f"
+      <item path="../src/ELEMENTS/WSDISC/Q4WSD/exq4wsd.f"
             ex="false"
             tool="2"
             flavor2="0">
       </item>
-      <item path="../src/ELEMENTS/STRDIS/QUA4SD/rsq4sd.f"
+      <item path="../src/ELEMENTS/WSDISC/Q4WSD/rsq4wsd.f"
             ex="false"
             tool="2"
             flavor2="0">
       </item>
-      <item path="../src/ELEMENTS/STRDIS/QUA4SD/sfq4sd.f"
+      <item path="../src/ELEMENTS/WSDISC/Q4WSD/sfq4wsd.f"
             ex="false"
             tool="2"
             flavor2="0">
       </item>
-      <item path="../src/ELEMENTS/STRDIS/ifsd2.f" ex="false" tool="2" flavor2="0">
+      <item path="../src/ELEMENTS/WSDISC/ifwsd2.f" ex="false" tool="2" flavor2="0">
       </item>
-      <item path="../src/ELEMENTS/STRDIS/stsd2.f" ex="false" tool="2" flavor2="0">
+      <item path="../src/ELEMENTS/WSDISC/stwsd2.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/ELEMENTS/chkndb.f" ex="false" tool="2" flavor2="0">
       </item>
@@ -1559,6 +1583,8 @@
       <item path="../src/MATHS/exp2x.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/MATHS/expmap.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/MATHS/invmt2.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/MATHS/invmt3.f" ex="false" tool="2" flavor2="0">
       </item>
