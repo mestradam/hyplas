@@ -1934,6 +1934,16 @@ EE0010   4
 EE0011   2
  Description:  Attempt invert a singular 3x3 matrix in subroutine
                INVMT3.
+               
+EE0012   8
+ Description:  Zero or negative jacobian determinant in subroutine
+               stwsd2 (Element stiffness calculation for elements of
+               class 'wsdisc' in 2-D).
+ Action:       This error is likely to have been caused by wrong order
+               in node numbering of an element. The number of the
+               element which caused the error is printed above. If the
+               sequence of its node numbers is wrong, correct the
+               corresponding data file and re-run HYPLAS.
 *-----------------------------------------------------------------------
 *                                                                      |
 *                                                                      |
