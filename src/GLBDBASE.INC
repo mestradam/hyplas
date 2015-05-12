@@ -183,7 +183,8 @@ C   Arrays of element properties
 C   ----------------------------
 C
       COMMON/ELEMEN/
-     1    RELPRP(MREPRP,MGRUP),IELPRP(MIEPRP,MGRUP)
+     1    RELPRP(MREPRP,MGRUP)  ,IELPRP(MIEPRP,MGRUP)   ,
+     &    restv(mrestv,melem)   ,iestv(miestv,melem)
 C
 C
 C       - RELPRP = Array of real element properties. Stores one set of
@@ -196,6 +197,17 @@ C                  of integer properties per element group.
 C                  Typical integer element properties are: number of
 C                  nodes, number of Gauss points, number of boundaries,
 C                  etc.
+C
+C       - restv  = Array of real element state variables. Stores one set of
+C                  real element variables per element.
+C                  Typical real element state variables are, element length,
+C                  discontinuity band width, bifurcation vectors, condensated
+C                  stiffness matrices, etc.
+C
+C       - iestv  = Array of integer element state variables. Stores one set of
+C                  integer element variables per element.
+C                  Typical integer element state variables are, bifurcation
+C                  state, injection state, etc.
 C
 C-----------------------------------------------------------------------
 C

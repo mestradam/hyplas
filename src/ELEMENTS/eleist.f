@@ -60,7 +60,8 @@ c (M Estrada 2014)
      &   ielprp(1,ielidn)   ,iprops(1,matidn)   ,lalgva(1,1,ielem,1),
      &   lnods      ,ralgva(1,1,ielem,1)    ,relprp(1,ielidn)       ,
      &   rprops(1,matidn)   ,rstava(1,1,ielem,1),rstava(1,1,ielem,2),
-     &   strsg(1,1,ielem,1) ,thkgp(1,ielem,1)   ,tdisp  )
+     &   strsg(1,1,ielem,1) ,thkgp(1,ielem,1)   ,tdisp              ,
+     &   restv(1,ielem)     ,iestv(1,ielem)     )
       ENDIF
 C
       RETURN

@@ -1,57 +1,55 @@
       subroutine sfq4wsd
-     &( deriv       ,etasp      ,exisp      ,ibound     ,mdime      ,
-     &  shape       )
-C***********************************************************************
-C Computes shape functions and shape function derivatives for
-C element 'QUAD_4':
-C                         4         3
-C                          O-------O
-C                          |       |     standard isoparametric
-C                          |       |     bi-linear 4-node quadrilateral 
-C                          |       |
-C                          O-------O
-C                         1         2
-C
-C REFERENCE: Expression (4.42)
-C***********************************************************************
-      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      DIMENSION
-     &  DERIV(MDIME,*)     ,SHAPE(*)
-C
-C
-C Compute shape functions and derivatives for domain or boundary
-      IF(IBOUND.EQ.0)THEN
-C Shape functions and derivatives on element domain
-C -------------------------------------------------
-        S=EXISP
-        T=ETASP
-        ST=S*T
-C Shape functions
-        SHAPE(1)=(1.0D0-T-S+ST)*0.25D0
-        SHAPE(2)=(1.0D0-T+S-ST)*0.25D0
-        SHAPE(3)=(1.0D0+T+S+ST)*0.25D0
-        SHAPE(4)=(1.0D0+T-S-ST)*0.25D0
-C Shape function derivatives
-        DERIV(1,1)=(-1.0D0+T)*0.25D0
-        DERIV(1,2)=(+1.0D0-T)*0.25D0
-        DERIV(1,3)=(+1.0D0+T)*0.25D0
-        DERIV(1,4)=(-1.0D0-T)*0.25D0
-        DERIV(2,1)=(-1.0D0+S)*0.25D0
-        DERIV(2,2)=(-1.0D0-S)*0.25D0
-        DERIV(2,3)=(+1.0D0+S)*0.25D0
-        DERIV(2,4)=(+1.0D0-S)*0.25D0
+     &  (deriv      ,t          ,s          ,ibound     ,mdime      ,
+     &   shape      )
+!***********************************************************************
+! Computes shape functions and shape function derivatives for
+! element 'q4wsd':
+!                         4         3
+!                          O-------O
+!                          |       |     isoparametric bi-linear 
+!                          |       |     4-node quadrilateral 
+!                          |       |     with strong discontinuities
+!                          O-------O
+!                         1         2
+!
+! REFERENCE: Expression (4.42), and (Diaz, 2012)
+!***********************************************************************
+      implicit double precision (a-h,o-z)
+      dimension
+     &   deriv(mdime,*)   ,shape(*)
+!
+!
+! Compute shape functions and derivatives for domain or boundary
+      if(ibound.eq.0)then
+! Shape functions and derivatives on element domain
+! -------------------------------------------------
+        st=s*t
+! Shape functions
+        shape(1)=(1.0d0-t-s+st)*0.25d0
+        shape(2)=(1.0d0-t+s-st)*0.25d0
+        shape(3)=(1.0d0+t+s+st)*0.25d0
+        shape(4)=(1.0d0+t-s-st)*0.25d0
+! Shape function derivatives
+        deriv(1,1)=(-1.0d0+t)*0.25d0
+        deriv(1,2)=(+1.0d0-t)*0.25d0
+        deriv(1,3)=(+1.0d0+t)*0.25d0
+        deriv(1,4)=(-1.0d0-t)*0.25d0
+        deriv(2,1)=(-1.0d0+s)*0.25d0
+        deriv(2,2)=(-1.0d0-s)*0.25d0
+        deriv(2,3)=(+1.0d0+s)*0.25d0
+        deriv(2,4)=(+1.0d0-s)*0.25d0
       ELSE
-C Shape function and derivatives on element boundary (1-D)
-C --------------------------------------------------------
-        S=EXISP
-C Shape functions
-        SHAPE(1)=(-S+1.0D0)*0.5D0
-        SHAPE(2)=(+S+1.0D0)*0.5D0
-C Shape functions derivatives
-        DERIV(1,1)=-0.5D0
-        DERIV(1,2)=0.5D0
-C
-      ENDIF
-C
-      RETURN
-      END
+! Shape function and derivatives on element boundary (1-D)
+! --------------------------------------------------------
+        s=exisp
+! Shape functions
+        shape(1)=(-s+1.0d0)*0.5d0
+        shape(2)=(+s+1.0d0)*0.5d0
+! shape functions derivatives
+        deriv(1,1)=-0.5d0
+        deriv(1,2)=0.5d0
+!
+      endif
+!
+      return
+      end

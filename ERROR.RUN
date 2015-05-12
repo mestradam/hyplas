@@ -1461,7 +1461,7 @@ ED0198   4
 
 ED0199   5
  Description:  Invalid specification of numerical integration rule for
-               element of type QUA_4_WSD.
+               element of type Q4WSD.
  Action:       Correct input data file and re-run HYPLAS. Only 6 gauss
                point integration rules are allowed for this type of
                element.

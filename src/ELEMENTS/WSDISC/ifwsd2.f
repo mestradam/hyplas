@@ -3,7 +3,8 @@
      &   mstre      ,mtotv      ,naxis      ,nlarge     ,ntype      ,
      &   coord1     ,dincr      ,eload      ,ielprp     ,iprops     ,
      &   lalgva     ,lnods      ,ralgva     ,relprp     ,rprops     ,
-     &   rstava     ,strsg      ,thkgp      ,tdisp      )
+     &   rstava     ,strsg      ,thkgp      ,tdisp      ,restv      ,
+     &   iestv      )
 !***********************************************************************
 ! Compute internal force vector of all elements of class 'wsdisc'
 ! (Isoparametric elements enriched with weak or strong discontinuity) in
@@ -56,7 +57,8 @@
      &   ielprp(*)          ,iprops(*)      ,lalgva(mlalgv,mtotg)   ,
      &   lnods(melem,mevab) ,ralgva(mralgv,mtotg)                   ,
      &   relprp(*)          ,rprops(*)      ,rstava(mrstav,mtotg)   ,
-     &   strsg(mstre,mtotg) ,thkgp(mtotg)   ,tdisp(mtotv)
+     &   strsg(mstre,mtotg) ,thkgp(mtotg)   ,tdisp(mtotv)           ,
+     &   restv(mrestv)      ,iestv(miestv)
       parameter
      &  (mgdim = 5  ,mbdim = 4  ,ndime = 2  ,ndofn = 2  )
 !
@@ -98,41 +100,41 @@
       nnode = ielprp(3)
 ! Num. of Gauss Points per element
       ngausp= ielprp(4)
-! Num. of element degrees of freedom
+! Num. of element degrees of freedom: ndofel or nevab
       nevab = ielprp(5)
 ! Element length 
-      eleng = relprp(21)
+      eleng = restv(1)
       if (eleng.eq.0.d0) eleng = 1.d0
 ! Strong discontinuities band width (paramenter k)
-      elk = relprp(22)
+      elk = restv(2)
       if (elk.le.0.d0) elk = eleng
       elkinv = 1.d0 / elk
 ! 
-      etrack = ielprp(18)
-      ebif = ielprp(17)
-      eload = ielprp(20)
+      etrack = iestv(2)
+      ebif = iestv(1)
+      eload = iestv(4)
 ! Jump vector
-      eljump(1) = relprp(41)
-      eljump(2) = relprp(42)
+      eljump(1) = restv(21)
+      eljump(2) = restv(22)
 ! Gradient of phi
-      graphi(1,1) = relprp(39)
+      graphi(1,1) = restv(19)
       graphi(1,2) = 0.d0
       graphi(2,1) = 0.d0
-      graphi(2,2) = relprp(40)
-      graphi(3,1) = relprp(40)
-      graphi(3,2) = relprp(39)
+      graphi(2,2) = restv(20)
+      graphi(3,1) = restv(20)
+      graphi(3,2) = restv(19)
 ! Vector normal to discontinuity
-      vecn(1,1) = relprp(31)
+      vecn(1,1) = restv(11)
       vecn(1,2) = 0.d0
       vecn(2,1) = 0.d0
-      vecn(2,2) = relprp(32)
-      vecn(3,1) = relprp(32)
-      vecn(3,1) = relprp(31)
+      vecn(2,2) = restv(12)
+      vecn(3,1) = restv(12)
+      vecn(3,1) = restv(11)
 ! Update injection state
       einj = 0
       if (ebif.ge.1 .and. eloadt.eq.1) einj = 1
       if (gamloc.eq.1 .and. ebif.ge.2 .and. etrack.eq.1) einj = 2
-      ielprp(19) = einj
+      iestv(3) = einj
 ! Set stabilization term (tau), and injection type term (xi)
 ! REFERENCE: Box 5.10 (Diaz, 2012)
       tau = taumxd
@@ -198,9 +200,6 @@
           inccut=.true.
           goto 999
         end if
-!        if(ntype.eq.3)call getgco
-!     &( gpcod       ,elcod      ,ndime      ,ndime      ,nnode      ,
-!     &  shape       )
 !
 ! Compute basic kinematic variables needed for state update
 ! =========================================================
@@ -287,6 +286,8 @@
             tilstr(istre) = 
      &      (1.d0-xi)*(tau*regstr(istre) + (1.d0-tau)*disstr(istre)) + 
      &      xi*((1.d0-gamwsd)*disstr(istre) + gamwsd*elastr(istre))
+! save 'tilstr' in real state variables array
+            rstava(istre,igausp) = tilstr(istre)
           end do
 !                                         t
 ! Add current regular gauss point  dvolu*B [sigma]

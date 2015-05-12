@@ -4,7 +4,7 @@
      &   unsym      ,coord1     ,dincr      ,estif      ,ielprp     ,
      &   iprops     ,lalgva     ,lnods      ,ralgva     ,relprp     ,
      &   rprops     ,rstava     ,rstav2     ,strsg      ,thkgp      ,
-     &   tdisp      )
+     &   tdisp      ,restv      ,iestv      )
 !***********************************************************************
 ! Evaluates the element tangent stiffness matrix for elements of class
 ! 'wsdisc' (Isoparametric elements enriched with weak or strong
@@ -35,7 +35,8 @@
      &   coord1(mdime,mpoin)  ,dincr(mtotv)     ,estif(mevab,mevab) ,
      &   ralgva(mralgv,mtotg) ,relprp(mreprp)   ,rprops(mrprop)     ,
      &   rstava(mrstav,mtotg) ,rstav2(mrstav,mtotg)                 ,
-     &   strsg(mstre,mtotg)   ,thkgp(mtotg)     ,tdisp(mtotv)
+     &   strsg(mstre,mtotg)   ,thkgp(mtotg)     ,tdisp(mtotv)       ,
+     &   restv(mrestv)        ,iestv(miestv)
 !
 ! Local arrays and variables
       integer
@@ -83,28 +84,28 @@
 ! Num. of element degrees of freedom
       nevab = ielprp(5)
 ! Element length
-      eleng = relprp(21)
+      eleng = restv(1)
       if (eleng.eq.0.d0) eleng = 1.d0
 ! Strong discontinuities band width (paramenter k)
-      elk = relprp(22)
+      elk = restv(2)
       if (elk.le.0.d0) elk = eleng
       elkinv = 1.d0 / elk
 ! Injection type
-      einj = ielprp(19)
+      einj = iestv(3)
 ! Gradient of phi
-      graphi(1,1) = relprp(39)
+      graphi(1,1) = restv(19)
       graphi(1,2) = 0.d0
       graphi(2,1) = 0.d0
-      graphi(2,2) = relprp(40)
-      graphi(3,1) = relprp(40)
-      graphi(3,2) = relprp(39)
+      graphi(2,2) = restv(20)
+      graphi(3,1) = restv(20)
+      graphi(3,2) = restv(19)
 ! Vector normal to discontinuity
-      vecn(1,1) = relprp(31)
+      vecn(1,1) = restv(11)
       vecn(1,2) = 0.d0
       vecn(2,1) = 0.d0
-      vecn(2,2) = relprp(32)
-      vecn(3,1) = relprp(32)
-      vecn(3,1) = relprp(31)
+      vecn(2,2) = restv(12)
+      vecn(3,1) = restv(12)
+      vecn(3,1) = restv(11)
 !
 ! Set stabilization term (tau), and injection type term (xi)
 ! REFERENCE: Box 5.10 (Diaz, 2012)
@@ -212,16 +213,20 @@
 ! Add current gauss point contribution to element stiffness
 ! =========================================================
 !
-! Compute elemental volume
+! Evaluate elemental volume
         dvolu=detjac*weigp
-        if(ntype.eq.1)then
+        if (ntype.eq.1) then
+! ... plane stress analysis
           dvolu=dvolu*thkgp(igausp)
-        else if(ntype.eq.3)then
+        else if (ntype.eq.3) then
+! ... axisymmetric analysis
           dvolu=dvolu*twopi*gpcod(naxis)
         end if
         if (ngausp.eq.ela) then
-          de = dvolu/eleng
+! ... delta_volume for elastic gp
+          dvela = dvolu
         end if
+        de = dvela/eleng
 !
 ! Assemble the element stiffness matrixes
 ! ---------------------------------------
@@ -354,30 +359,30 @@
 ! Values are stored in row order (first all row 1, then all row 2, and
 ! so on)
 !
-      irelprp = 51
+      irestv = 31
 ! Matrix kub
       do ievab = 1, nevab
         do idofn = 1, ndofn
-          relprp(irelprp) = kub(ievab,idofn)
-          irelprp = irelprp + 1
+          restv(irestv) = kub(ievab,idofn)
+          irestv = irestv + 1
         end do
       end do
 !
-      irelprp = 51 + nevab*ndofn
+      irestv = 31 + nevab*ndofn
 ! Matrix kbu
       do idofn = 1, ndofn
         do ievab = 1, nevab
-          relprp(irelprp) = kbu(idofn,ievab)
-          irelprp = irelprp + 1
+          restv(irestv) = kbu(idofn,ievab)
+          irestv = irestv + 1
         end do
       end do
 !
-      irelprp = 51 + nevab*ndofn + nevab*ndofn
+      irestv = 31 + nevab*ndofn + nevab*ndofn
 ! Matrix kbb
       do idofn = 1, ndofn
         do jdofn = 1, ndofn
-          relprp(irelprp) = kbb(idofn,jdofn)
-          irelprp = irelprp + 1
+          restv(irestv) = kbb(idofn,jdofn)
+          irestv = irestv + 1
         end do
       end do
       return

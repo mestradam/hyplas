@@ -35,9 +35,9 @@
 !       - parak     : k parameter
 !
 !       - injtyp    : Injection type
-      integer   noinj,  symsdinj, sdinj, wdinj
+      integer   noinj, wdinj,  symsdinj, sdinj, gamwsd, gamloc, injtyp
       parameter ( noinj     =   1   )
-      parameter ( symsdinj  =   2   )
-      parameter ( sdinj     =   3   )
-      parameter ( wdinj     =   4   )
+      parameter ( wdinj     =   2   )
+      parameter ( symsdinj  =   3   )
+      parameter ( sdinj     =   4   )
 !

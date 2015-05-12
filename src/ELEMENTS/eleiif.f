@@ -55,13 +55,14 @@ c
 c 2-D isoparametric weak and strong discontinuity elements
 c (M Estrada 2014)
         call ifwsd2
-     &( ielem       ,iffail     ,mdime      ,melem      ,mpoin      ,
-     &  mstre       ,mtotv      ,naxis      ,nlarge     ,ntype      ,
-     &  coord(1,1,1)        ,dincr              ,
-     &  eload(1,ielem)      ,ielprp(1,ielidn)   ,iprops(1,matidn)   ,
-     &  lalgva(1,1,ielem,1) ,lnods              ,ralgva(1,1,ielem,1),
-     &  relprp(1,ielidn)    ,rprops(1,matidn)   ,rstava(1,1,ielem,1),
-     &  strsg(1,1,ielem,1)  ,thkgp(1,ielem,1)   ,tdisp              )
+     &  (ielem      ,iffail     ,mdime      ,melem      ,mpoin      ,
+     &   mstre      ,mtotv      ,naxis      ,nlarge     ,ntype      ,
+     &   coord(1,1,1)        ,dincr             ,
+     &   eload(1,ielem)      ,ielprp(1,ielidn)  ,iprops(1,matidn)   ,
+     &   lalgva(1,1,ielem,1) ,lnods             ,ralgva(1,1,ielem,1),
+     &   relprp(1,ielidn)    ,rprops(1,matidn)  ,rstava(1,1,ielem,1),
+     &   strsg(1,1,ielem,1)  ,thkgp(1,ielem,1)  ,tdisp              ,
+     &   restv(1,ielem)      ,iestv(1,ielem)    )
       ENDIF
       RETURN
       END

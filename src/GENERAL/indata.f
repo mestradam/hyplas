@@ -98,6 +98,9 @@ C***********************************************************************
  1177 FORMAT('GaussPoints "Board gauss internal" ',
      1        'ElemType Quadrilateral',/,'Number Of Gauss Points: 4',
      2        /,'Natural Coordinates: Internal',/,'End gausspoints',/)
+ 1178 FORMAT('GaussPoints "Board gauss internal" ',
+     1        'ElemType Quadrilateral',/,'Number Of Gauss Points: 6',
+     2        /,'Natural Coordinates: Internal',/,'End gausspoints',/)
  1180 FORMAT(//
      1 ' Material properties:        Number of materials = ',I5/
      2 ' ====================')
@@ -842,16 +845,34 @@ c
 c Read strong discontinuity parameters set by user
 c ================================================
 c
+c For the input file use:
+c
+c LOCALIZATION
+c    <vecnre(1)> <vecnre(2)>
+c    <tauloc> <taumxd>
+c    <qinj> <qinf>
+c    <parak>
+c    <injtyp>
+c
       call fndkey
      &( found       ,iwbeg      ,iwend      ,'LOCALIZATION' ,
      &  inline      ,15         ,nwrd       )
       if (found) then
-        read(15,*) gamloc, gamwsd
         read(15,*) vecnre(1), vecnre(2)
         read(15,*) tauloc, taumxd
         read(15,*) qinj, qinf
         read(15,*) parak
         read(15,*) injtyp
+      end if
+      if (injtyp.eq.noinj) then
+        gamwsd = 0
+        gamloc = 0
+      else if (injtyp.eq.wdinj) then
+        gamwsd = 0
+        gamloc = 1
+      else if (injtyp.eq.symsdinj.or.injtyp.eq.sdinj) then
+        gamwsd = 1
+        gamloc = 1
       end if
 c
       RETURN

@@ -1,147 +1,170 @@
-========================================================================
-HYPLAS variables for composite material
-========================================================================
+# =============================================================================
+# HYPLAS variables for composite material with strong discontinuities
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Some parameters
 
 mstre = 4
 
-------------------------------------------------------------------------    
-rprops(1)    :   matrix young modulus        :   youngm
-rprops(2)    :   matrix poisson ratio        :   poissm
-rprops(11)   :   fibers young modulus        :   youngf
-rprops(12)   :   fibers poisson ratio        :   poissf
-rprops(13)   :   fibers ultimate stress      :   sigmauf
-rprops(14)   :   fibers Weibull shape factor :   alphaf
-rprops(15)   :   fibers Weibull scale factor :   betaf
-rprops(16)   :   fibers volume fraction      :   volfrf
-rprops(17)   :   fibers inclination angle    :   anglef
-rprops(21)   rprops(22)   :   mhardstrain     mhardstress
-    .           .               .               .
-    .           .               .               .
-    .           .               .               .
-rprops(*)    rprops(*)    :   mhardstrain     mhardstress
+# -----------------------------------------------------------------------------
+# Real material properties                                      rprops(:,group)
 
-------------------------------------------------------------------------
-irops(3)    :   matrix num. hardening curve :   nhardm
+1   :   matrix young modulus        :   youngm
+2   :   matrix poisson ratio        :   poissm
+11  :   fibers young modulus        :   youngf
+12  :   fibers poisson ratio        :   poissf
+13  :   fibers ultimate stress      :   sigmauf
+14  :   fibers Weibull shape factor :   alphaf
+15  :   fibers Weibull scale factor :   betaf
+16  :   fibers volume fraction      :   volfrf
+17  :   fibers inclination angle    :   anglef
+21  22  :   mhardstrain     mhardstress
+  .           .               .               .
+  .           .               .               .
+  .           .               .               .
 
-------------------------------------------------------------------------
-rstava(1)   :   composite updated strain xx
-rstava(2)   :   composite updated strain yy
-rstava(3)   :   composite updated strain xy
-rstava(4)   :   composite updated strain zz
-rstava(5)   :   matrix converged accumulated plastic strain
-rstava(6)   :   fibers converged accumulated damage variable
+# -----------------------------------------------------------------------------
+# Integer material properties                                   iprops(:,group)
 
-------------------------------------------------------------------------
-lalgva(1)   :   matrix ifplas (plasticity flag)
-lalgva(2)   :   sufail (failure flag in State Update procedure)
-lalgva(3)   :   fibers ifdama (damage flag)
+1   :   material type               :   mattyp
+2   :   material class              :   matcls
+3   :   matrix num. hardening curve :   nhardm
 
-------------------------------------------------------------------------
-ralgva(1)   :   dgama for matrix
-ralgva(2)   :   qmaxf : damage threshold
+# -----------------------------------------------------------------------------
+# Real material state variables                             rstava(:,gp,elem,2)
+
+1   :   composite updated strain xx
+2   :   composite updated strain yy
+3   :   composite updated strain xy
+4   :   composite updated strain zz
+5   :   matrix converged accumulated plastic strain
+6   :   fibers converged accumulated damage variable
+7   :   dgama for matrix
+8   :   qmaxf : damage threshold
+
+# -----------------------------------------------------------------------------
+# Logical material algorithmic variables                    lalgva(:,gp,elem,2)
+
+1   :   matrix ifplas (plasticity flag)
+2   :   sufail (failure flag in State Update procedure)
+3   :   fibers ifdama (damage flag)
+
+# -----------------------------------------------------------------------------
+# Real material algorithmic variables                       ralgva(:,gp,elem,2)
+
+1   :   dgama for matrix
+2   :   qmaxf : damage threshold
+
+# -----------------------------------------------------------------------------
+# Real element state variables                                    restv(:,elem)
+
+1   :   Element length          :   eleng
+2   :   Strong disc. band width :   elk
+3   :   de=dvol/elen for integr.:   eld
+4   :   q at bifurcation time   :   qbif
+5   :   q at 1st injection time :   qinj
+6   :   q at strong disc. inj.  :   qsda
+7   :   bif. analisys vector 1x :   vnbif1(1)
+8   :   bif. analisys vector 1y :   vnbif1(2)
+9   :   bif. analisys vector 2x :   vnbif2(1)
+10  :   bif. analisys vector 2y :   vnbif2(2)
+11  :   vector perpen. disc. x  :   vnn(1), vecn(1,1), vecn(3,1)
+12  :   vector perpen. disc. y  :   vnn(2), vecn(2,2), vecn(3,1)
+13  :   vector parall. disc. x  :   vnm(1)
+14  :   vector parall. disc. y  :   vnm(2)
+15  :   displ. gradient norm    :   graun
+16  :   normalized disp. grad. x:   grau(1)
+17  :   normalized disp. grad. y:   grau(2)
+18  :   internal var. to smooth :   gn
+19  :   gradient of phi x       :   graphi(1,1) & graphi(3,2)
+20  :   gradient of phi y       :   graphi(2,2) & graphi(3,1)
+21  :   jump x                  :   eljump(1)
+22  :   jump y                  :   eljump(2)
+23-30   :   not used
+31                              :   kub(1,1)
+32                              :   kub(1,2)
+.                                     .
+.                                     .
+.                                     .
+31+nevab*ndofn-1                :   kub(nevab,ndofn)
+31+nevab*ndofn                  :   kbu(1,1)
+31+nevab*ndofn                  :   kbu(1,2)
+.                                     .
+.                                     .
+.                                     .
+31+nevab*ndofn*2-1              :   kbu(ndofn,nevab)
+31+nevab*ndofn*2                :   kbb(1,1)
+31+nevab*ndofn                  :   kbb(1,2)
+.                                     .
+.                                     .
+.                                     .
+31+nevab*ndofn*2+ndofn*ndofn-1  :   kbb(ndofn,ndofn)
+
+# -----------------------------------------------------------------------------
+# Integer element state variables                                 iestv(:,elem)
+
+1   :   bifurcation state       :   ebif
+2   :                           :   etrack
+3   :   injection state         :   einj
+4   :                           :   eload
+5   :                           :   nselect
+
+# -----------------------------------------------------------------------------
+# Integer element group variables                               ielprp(:,group)
+
+1   :   Type of element         :   ieltyp = q4wsd
+2   :   Class of element        :   ielcls = wsdisc
+3   :   Number of nodes         :   nnode
+4   :   Number of Gauss points  :   ngausp
+5   :   Num. degrees of freedom :   ndofel
+6   :   Num. of edges           :   nedgel
+7   :   Num. nodes per edge     :   mnodeg
+8   :   Num. GP boundary integr :   ngausb
+9   :   node num. order on bound:   nordeb(inode=1,iedgel=1)
+10  :   node num. order on bound:   nordeb(inode=2,iedgel=1)
+.                                           .
+.                                           .
+.                                           .
+
+# -----------------------------------------------------------------------------
+# Real element group variables                                  relprp(:,group)
+
+1   :   Gauss point x possition :   posgp(1,gp=1)
+2   :   Gauss point y possition :   posgp(2,gp=1)
+3   :   Gauss point x possition :   posgp(1,gp=2)
+4   :   Gauss point y possition :   posgp(2,gp=2)
+5   :   Gauss point x possition :   posgp(1,gp=3)
+6   :   Gauss point y possition :   posgp(2,gp=3)
+7   :   Gauss point x possition :   posgp(1,gp=4)
+8   :   Gauss point y possition :   posgp(2,gp=4)
+9   :   Gauss point x possition :   posgp(1,gp=5)
+10  :   Gauss point y possition :   posgp(2,gp=5)
+11  :   Gauss point x possition :   posgp(1,gp=6)
+12  :   Gauss point y possition :   posgp(2,gp=6)
+13  :   Gauss point weight      :   weigp(gp=1)
+14  :   Gauss point weight      :   weigp(gp=2)
+15  :   Gauss point weight      :   weigp(gp=3)
+16  :   Gauss point weight      :   weigp(gp=4)
+17  :   Gauss point weight      :   weigp(gp=5)
+18  :   Gauss point weight      :   weigp(gp=6)
+19  :   GP pos. boundary integr :   posgpb(gp=1)
+20  :   GP wei. boundary integr :   weigpb(gp=1)
 
 
-========================================================================
-HYPLAS variables for elements with strong discontinuity (rsq4sd.f)
-========================================================================
-
-ielprp(1)   :   Type of element         :   ieltyp=qua4sd
-ielprp(2)   :   Class of element        :   ielcls=strdis
-ielprp(3)   :   Number of nodes         :   nnode
-ielprp(4)   :   Number of Gauss points  :   ngausp
-ielprp(5)   :   Num. degrees of freedom :   ndofel
-ielprp(6)   :   Num. of edges           :   nedgel
-ielprp(7)   :   Num. nodes per edge     :   mnodeg
-ielprp(8)   :   Num. GP boundary integr :   ngausb
-ielprp(9)   :   node num. order on bound:   nordeb(inode=1,iedgel=1)
-ielprp(10)  :   node num. order on bound:   nordeb(inode=2,iedgel=1)
-    .                                           .
-    .                                           .
-    .                                           .
-ielprp(16)  :   node num. order on bound:   nordeb(inode=4,iedgel=4)
-ielprp(17)  :   bifurcation state       :   ebif
-ielprp(18)  :                           :   etrack
-ielprp(19)  :   injection state         :   einj
-ielprp(20)  :                           :   eload
-ielprp(21)  :                           :   nselect
-
-------------------------------------------------------------------------
-relprp(1)   :   Gauss point x possition :   posgp(1,gp=1)
-relprp(2)   :   Gauss point y possition :   posgp(2,gp=1)
-relprp(3)   :   Gauss point x possition :   posgp(1,gp=2)
-relprp(4)   :   Gauss point y possition :   posgp(2,gp=2)
-relprp(5)   :   Gauss point x possition :   posgp(1,gp=3)
-relprp(6)   :   Gauss point y possition :   posgp(2,gp=3)
-relprp(7)   :   Gauss point x possition :   posgp(1,gp=4)
-relprp(8)   :   Gauss point y possition :   posgp(2,gp=4)
-relprp(9)   :   Gauss point x possition :   posgp(1,gp=5)
-relprp(10)  :   Gauss point y possition :   posgp(2,gp=5)
-relprp(11)  :   Gauss point x possition :   posgp(1,gp=6)
-relprp(12)  :   Gauss point y possition :   posgp(2,gp=6)
-relprp(13)  :   Gauss point weight      :   weigp(gp=1)
-relprp(14)  :   Gauss point weight      :   weigp(gp=2)
-relprp(15)  :   Gauss point weight      :   weigp(gp=3)
-relprp(16)  :   Gauss point weight      :   weigp(gp=4)
-relprp(17)  :   Gauss point weight      :   weigp(gp=5)
-relprp(18)  :   Gauss point weight      :   weigp(gp=6)
-relprp(19)  :   GP pos. boundary integr :   posgpb(gp=1)
-relprp(20)  :   GP wei. boundary integr :   weigpb(gp=1)
-relprp(21)  :   Element length          :   eleng
-relprp(22)  :   Strong disc. band width :   elk
-relprp(23)  :   de=dvol/elen for integr.:   eld
-relprp(24)  :   q at bifurcation time   :   qbif
-relprp(25)  :   q at 1st injection time :   qinj
-relprp(26)  :   q at strong disc. inj.  :   qsda
-relprp(27)  :   bif. analisys vector 1x :   vnbif1(1)
-relprp(28)  :   bif. analisys vector 1y :   vnbif1(2)
-relprp(29)  :   bif. analisys vector 2x :   vnbif2(1)
-relprp(30)  :   bif. analisys vector 2y :   vnbif2(2)
-relprp(31)  :   vector perpen. disc. x  :   vnn(1)
-relprp(32)  :   vector perpen. disc. y  :   vnn(2)
-relprp(33)  :   vector parall. disc. x  :   vnm(1)
-relprp(34)  :   vector parall. disc. y  :   vnm(2)
-relprp(35)  :   displ. gradient norm    :   graun
-relprp(36)  :   normalized disp. grad. x:   grau(1)
-relprp(37)  :   normalized disp. grad. y:   grau(2)
-relprp(38)  :   internal var. to smooth :   gn
-relprp(39)  :   gradient of phi x       :   graphi(1,1) & graphi(3,2)
-relprp(40)  :   gradient of phi y       :   graphi(2,2) & graphi(3,1)
-relprp(41)  :   jump x                  :   eljump(1)
-relprp(42)  :   jump y                  :   eljump(2)
-relprp(43-50)                           :   not used
-relprp(51)                              :   kub(1,1)
-relprp(52)                              :   kub(1,2)
-    .                                           .
-    .                                           .
-    .                                           .
-relprp(51+nevab*ndofn-1)                :   kub(nevab,ndofn)
-relprp(51+nevab*ndofn)                  :   kbu(1,1)
-relprp(51+nevab*ndofn)                  :   kbu(1,2)
-    .                                           .
-    .                                           .
-    .                                           .
-relprp(51+nevab*ndofn*2-1)              :   kbu(ndofn,nevab)
-relprp(51+nevab*ndofn*2)                :   kbb(1,1)
-relprp(51+nevab*ndofn)                  :   kbb(1,2)
-    .                                           .
-    .                                           .
-    .                                           .
-relprp(51+nevab*ndofn*2+ndofn*ndofn-1)  :   kbb(ndofn,ndofn)
-
-
-========================================================================
-HYPLAS common block for strong discontinuity (COMMON/LOCALIZA)
-========================================================================
+# =============================================================================
+# HYPLAS common block for strong discontinuity (COMMON/LOCALI/)
+# =============================================================================
 
 gamloc      :   Gamma for localization time
 gamwsd      :   Gamma weak/strong discontinuity
 vecnre(1)   :   Vector n of reference x
 vecnre(2)   :   Vector n of reference y
-tauloc      :   Tau for localization time
-taumxd      :   Tau for mixed formulation
-qinj        :   Q for first intection time
-qinf        :   Q at infinity
-parak       :   k parameter
-injtyp      :   Injection type
+tauloc      :   Tau for localization time (0 <= x <= 1)
+taumxd      :   Tau for mixed formulation (0 <= x <= 1)
+qinj        :   Q for first intection time (0 <= x <= 1)
+qinf        :   Q at infinity (0 <= x <= 1)
+parak       :   k parameter (0 <= x <= 1)
+injtyp      :   Injection type (1=noinj, 2=wdinj, 3=symsdinj, 4=sdinj)
 
 

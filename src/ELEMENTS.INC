@@ -16,12 +16,14 @@ C
 C***********************************************************************
 C
       integer mnode, mdofn, mtotg, mevab, mreprp, mieprp
-      PARAMETER( MNODE=8    )
-      PARAMETER( MDOFN=2    )
-      PARAMETER( MTOTG=9    )
-      PARAMETER( MEVAB=16   )
-      PARAMETER( MREPRP=120 )
-      PARAMETER( MIEPRP=40  )
+      PARAMETER( MNODE = 8    )
+      PARAMETER( MDOFN = 2    )
+      PARAMETER( MTOTG = 9    )
+      PARAMETER( MEVAB = 16   )
+      PARAMETER( MREPRP = 120 )
+      PARAMETER( MIEPRP = 40  )
+      parameter( mrestv = 100 )
+      parameter( miestv = 10  )
 C
 C
 C   * MNODE  = Maximun number of nodes per element.
@@ -37,6 +39,12 @@ C              stored in array RELPRP for each element type.
 C
 C   * MIEPRP = Maximun number of integer element properties that can be
 C              stored in array IELPRP for each element type.
+C
+C   * mrestv = Maximun number of real element state variables that can be
+C              stored in array RESTV for each element.
+C
+C   * miestv = Maximun number of integer element state variables that can be
+C              stored in array IESTV for each element.
 C
 C
 C

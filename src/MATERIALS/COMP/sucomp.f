@@ -33,7 +33,7 @@ c ... arguments
       integer
      &  iprops(*)   ,ntype
       real(kind=8)
-     &  ralgva(2)   ,rprops(*)  ,rstava(6)  ,strat(4)   ,stres(4)
+     &  ralgva(2)   ,rprops(*)  ,rstava(*)  ,strat(4)   ,stres(4)
 c
 c ... local variables
       logical
@@ -62,7 +62,7 @@ c Initialize some algorithmic and internal variables
       ifplas = .false.
       sufail = .false.
 c...set previously (equilibrium) converged accumulated plastic strain
-      epbarn = rstava(5)
+      epbarn = rstava(9)
 c Set some material properties
       young = rprops(1)
       poiss = rprops(2)
@@ -71,40 +71,40 @@ c Set some material properties
 c Shear and bulk moduli and other necessary constants
       gmodu = young/(2.d0*(1.d0+poiss))
       bulk = young/(3.d0*(1.d0-2.d0*poiss))
-      R2G=R2*GMODU
-      R4G=R4*GMODU
-      R1D3=R1/R3
-      R1D6=R1/R6
-      R2D3=R2*R1D3
-      SQR2D3=SQRT(R2D3)
-      R4GD3=R4G*R1D3
+      r2g=r2*gmodu
+      r4g=r4*gmodu
+      r1d3=r1/r3
+      r1d6=r1/r6
+      r2d3=r2*r1d3
+      sqr2d3=sqrt(r2d3)
+      r4gd3=r4g*r1d3
 c Elastic predictor: Compute elastic trial state
 c ----------------------------------------------
 c Volumetric strain
-      FACTOR=R2G/(BULK+R4GD3)
-      EEV=(STRAT(1)+STRAT(2))*FACTOR
+      factor=r2g/(bulk+r4gd3)
+      eev=(strat(1)+strat(2))*factor
 c Elastic trial deviatoric strain
-      EEVD3=EEV/R3
-      EET(1)=STRAT(1)-EEVD3
-      EET(2)=STRAT(2)-EEVD3
+      eevd3=eev/r3
+      eet(1)=strat(1)-eevd3
+      eet(2)=strat(2)-eevd3
 c Convert engineering shear component into physical component
-      EET(3)=STRAT(3)*RP5
+      eet(3)=strat(3)*rp5
 c Elastic trial stress components
-      PT=BULK*EEV
-      STREST(1)=R2G*EET(1)+PT
-      STREST(2)=R2G*EET(2)+PT
-      STREST(3)=R2G*EET(3)
+      pt=bulk*eev
+      strest(1)=r2g*eet(1)+pt
+      strest(2)=r2g*eet(2)+pt
+      strest(3)=r2g*eet(3)
 c Compute yield function value at trial state
-      A1=(STREST(1)+STREST(2))*(STREST(1)+STREST(2))
-      A2=(STREST(2)-STREST(1))*(STREST(2)-STREST(1))
-      A3=STREST(3)*STREST(3)
-      XI=R1D6*A1+RP5*A2+R2*A3
-      SIGMAY=PLFUN(EPBARN,NHARD,RPROPS(IPHARD))
+      a1=(strest(1)+strest(2))*(strest(1)+strest(2))
+      a2=(strest(2)-strest(1))*(strest(2)-strest(1))
+      a3=strest(3)*strest(3)
+      xi=r1d6*a1+rp5*a2+r2*a3
+      sigmay=plfun(epbarn,nhard,rprops(iphard))
 c...yield function
-      PHI=RP5*XI-R1D3*SIGMAY*SIGMAY
+      phi=rp5*xi-r1d3*sigmay*sigmay
 c Check for plastic admissibility
 c -------------------------------
-      IF(PHI/SIGMAY.GT.TOL)THEN
+      if(phi/sigmay.gt.tol)then
 c Plastic step: Apply return mapping - use Newton-Raphson algorithm
 c               to solve the plane stress-projected return mapping
 c               equation for the plastic multiplier (Box 9.5)
@@ -135,7 +135,7 @@ c Check for convergence
           RESNOR=ABS(PHI/SIGMAY)
           IF(RESNOR.LE.TOL)THEN
 c update accumulated plastic strain
-            RSTAVA(5)=EPBAR
+            RSTAVA(9)=EPBAR
 c update stress components:   sigma := A sigma^trial
             ASTAR1=R3*(R1-POISS)/(R3*(R1-POISS)+YOUNG*DGAMA)
             ASTAR2=R1/(R1+R2G*DGAMA)
@@ -188,7 +188,7 @@ c Initialize algorithmic and internal variables
       ifdama = .false.
       sufail = .false.
 c ... set previously accumulated damage variable
-      damage = rstava(6)
+      damage = rstava(10)
 c ... set previously accumulated threshold yield function
       qmaxf = ralgva(2)
 c
@@ -248,7 +248,7 @@ c ------------------------------------------------
 c
 c Damage variable (Weibull distribution)
           damage = 1.d0-dexp(-(streff/betaf)**alphaf)
-          rstava(6) = damage
+          rstava(10) = damage
 c
 c Update longitudinal stress on fibers
           streff = (1.d0-damage) * streff
