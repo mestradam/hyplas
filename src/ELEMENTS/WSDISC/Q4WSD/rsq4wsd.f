@@ -92,12 +92,12 @@
 ! gaussian constants for boundary integration (intergration over edges)
       call gaus1d
      &  (ngausb     ,posgpb     ,weigpb     )
-      ipos=ngausp*ndime+ngausp+ngausp*nnode+1
+      ipos=ngausp*ndime+ngausp+(ngausp-2)*nnode+1
       do igausb=1,ngausb
         relprp(ipos)=posgpb(igausb)
         ipos=ipos+1
       end do
-      ipos=ngausp*ndime+ngausp+ngausp*nnode+ngausb+1
+      ipos=ngausp*ndime+ngausp+(ngausp-2)*nnode+ngausb+1
       do igausb=1,ngausb
         relprp(ipos)=weigpb(igausb)
         ipos=ipos+1

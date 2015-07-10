@@ -12,6 +12,8 @@ mstre = 4
 
 1   :   matrix young modulus        :   youngm
 2   :   matrix poisson ratio        :   poissm
+3   :   matrix yield stress         :   sigmaum
+4   :   matrix fracture energy      :   gfvalm
 11  :   fibers young modulus        :   youngf
 12  :   fibers poisson ratio        :   poissf
 13  :   fibers ultimate stress      :   sigmauf
@@ -29,7 +31,8 @@ mstre = 4
 
 1   :   material type               :   mattyp
 2   :   material class              :   matcls
-3   :   matrix num. hardening curve :   nhardm
+3   :   matrix model                :   msmode  (1=implicit, 2=implex)
+4   :   matrix hardening type       :   mhtype  (1=linear, 2=exponential)
 
 # -----------------------------------------------------------------------------
 # Real material state variables                             rstava(:,gp,elem,2)
@@ -38,10 +41,15 @@ mstre = 4
 2   :   composite updated strain yy
 3   :   composite updated strain xy
 4   :   composite updated strain zz
-5   :   matrix converged accumulated plastic strain
-6   :   fibers converged accumulated damage variable
-7   :   dgama for matrix
-8   :   qmaxf : damage threshold
+5   :   composite updated stress (tilstr) xx
+6   :   composite updated stress (tilstr) yy
+7   :   composite updated stress (tilstr) xy
+8   :   composite updated stress (tilstr) zz
+9   :   matrix converged accumulated plastic strain
+10  :   fibers converged accumulated damage variable
+11  :   dgama for matrix
+12  :   qmaxf : damage threshold
+13  :   variable to smooth (effective plastic strain?)
 
 # -----------------------------------------------------------------------------
 # Logical material algorithmic variables                    lalgva(:,gp,elem,2)
@@ -53,8 +61,8 @@ mstre = 4
 # -----------------------------------------------------------------------------
 # Real material algorithmic variables                       ralgva(:,gp,elem,2)
 
-1   :   dgama for matrix
-2   :   qmaxf : damage threshold
+1   :   
+2   :   
 
 # -----------------------------------------------------------------------------
 # Real element state variables                                    restv(:,elem)
@@ -65,41 +73,47 @@ mstre = 4
 4   :   q at bifurcation time   :   qbif
 5   :   q at 1st injection time :   qinj
 6   :   q at strong disc. inj.  :   qsda
-7   :   bif. analisys vector 1x :   vnbif1(1)
-8   :   bif. analisys vector 1y :   vnbif1(2)
-9   :   bif. analisys vector 2x :   vnbif2(1)
-10  :   bif. analisys vector 2y :   vnbif2(2)
-11  :   vector perpen. disc. x  :   vnn(1), vecn(1,1), vecn(3,1)
-12  :   vector perpen. disc. y  :   vnn(2), vecn(2,2), vecn(3,1)
-13  :   vector parall. disc. x  :   vnm(1)
-14  :   vector parall. disc. y  :   vnm(2)
-15  :   displ. gradient norm    :   graun
-16  :   normalized disp. grad. x:   grau(1)
-17  :   normalized disp. grad. y:   grau(2)
-18  :   internal var. to smooth :   gn
-19  :   gradient of phi x       :   graphi(1,1) & graphi(3,2)
-20  :   gradient of phi y       :   graphi(2,2) & graphi(3,1)
-21  :   jump x                  :   eljump(1)
-22  :   jump y                  :   eljump(2)
-23-30   :   not used
-31                              :   kub(1,1)
-32                              :   kub(1,2)
+7   :   qq                      :   qq
+8   :   bif. analisys vector 1x :   vnbif1(1)
+9   :   bif. analisys vector 1y :   vnbif1(2)
+10  :   bif. analisys vector 2x :   vnbif2(1)
+11  :   bif. analisys vector 2y :   vnbif2(2)
+12  :   vector perpen. disc. x  :   vn(1), vecn(1,1), vecn(3,1)
+13  :   vector perpen. disc. y  :   vn(2), vecn(2,2), vecn(3,1)
+14  :   vector parall. disc. x  :   vm(1)
+15  :   vector parall. disc. y  :   vm(2)
+16  :   displ. gradient norm    :   graun
+17  :   normalized disp. grad. x:   gradxy(1)
+18  :   normalized disp. grad. y:   gradxy(2)
+19  :   internal var. to smooth :   gn
+20  :   gradient of phi x       :   graphi(1,1) & graphi(3,2)
+21  :   gradient of phi y       :   graphi(2,2) & graphi(3,1)
+22  :   jump x                  :   eljump(1)
+23  :   jump y                  :   eljump(2)
+24-30   :   not used
+
+31  :   jump residual 'r'       :   residb(1)
+32  :   jump residual 'r'       :   residb(2)
+33  :   condensed residual ||r||:   rbnorm
+
+34                              :   kub(1,1)
+35                              :   kub(1,2)
 .                                     .
 .                                     .
 .                                     .
-31+nevab*ndofn-1                :   kub(nevab,ndofn)
-31+nevab*ndofn                  :   kbu(1,1)
-31+nevab*ndofn                  :   kbu(1,2)
+34+nevab*ndofn-1                :   kub(nevab,ndofn)
+34+nevab*ndofn                  :   kbu(1,1)
+34+nevab*ndofn                  :   kbu(1,2)
 .                                     .
 .                                     .
 .                                     .
-31+nevab*ndofn*2-1              :   kbu(ndofn,nevab)
-31+nevab*ndofn*2                :   kbb(1,1)
-31+nevab*ndofn                  :   kbb(1,2)
+34+nevab*ndofn*2-1              :   kbu(ndofn,nevab)
+34+nevab*ndofn*2                :   kbb(1,1)
+34+nevab*ndofn                  :   kbb(1,2)
 .                                     .
 .                                     .
 .                                     .
-31+nevab*ndofn*2+ndofn*ndofn-1  :   kbb(ndofn,ndofn)
+34+nevab*ndofn*2+ndofn*ndofn-1  :   kbb(ndofn,ndofn)
 
 # -----------------------------------------------------------------------------
 # Integer element state variables                                 iestv(:,elem)
@@ -148,8 +162,24 @@ mstre = 4
 16  :   Gauss point weight      :   weigp(gp=4)
 17  :   Gauss point weight      :   weigp(gp=5)
 18  :   Gauss point weight      :   weigp(gp=6)
-19  :   GP pos. boundary integr :   posgpb(gp=1)
-20  :   GP wei. boundary integr :   weigpb(gp=1)
+19  :   Mtx for extrapolation from GP to nodes  :   exmatx(1,1)
+20  :   Mtx for extrapolation from GP to nodes  :   exmatx(1,2)
+21  :   Mtx for extrapolation from GP to nodes  :   exmatx(1,3)
+22  :   Mtx for extrapolation from GP to nodes  :   exmatx(1,4)
+23  :   Mtx for extrapolation from GP to nodes  :   exmatx(2,1)
+24  :   Mtx for extrapolation from GP to nodes  :   exmatx(2,2)
+25  :   Mtx for extrapolation from GP to nodes  :   exmatx(2,3)
+26  :   Mtx for extrapolation from GP to nodes  :   exmatx(2,4)
+27  :   Mtx for extrapolation from GP to nodes  :   exmatx(3,1)
+28  :   Mtx for extrapolation from GP to nodes  :   exmatx(3,2)
+29  :   Mtx for extrapolation from GP to nodes  :   exmatx(3,3)
+30  :   Mtx for extrapolation from GP to nodes  :   exmatx(3,4)
+31  :   Mtx for extrapolation from GP to nodes  :   exmatx(4,1)
+32  :   Mtx for extrapolation from GP to nodes  :   exmatx(4,2)
+33  :   Mtx for extrapolation from GP to nodes  :   exmatx(4,3)
+34  :   Mtx for extrapolation from GP to nodes  :   exmatx(4,4)
+35  :   GP pos for boundary integration         :   
+36  :   GP wei for boundary integration         :   
 
 
 # =============================================================================
@@ -158,7 +188,8 @@ mstre = 4
 
 gamloc      :   Gamma for localization time
 gamwsd      :   Gamma weak/strong discontinuity
-vecnre(1)   :   Vector n of reference x
+vecnre(1)   :   Vector n of reference x!      
+
 vecnre(2)   :   Vector n of reference y
 tauloc      :   Tau for localization time (0 <= x <= 1)
 taumxd      :   Tau for mixed formulation (0 <= x <= 1)
@@ -166,5 +197,9 @@ qinj        :   Q for first intection time (0 <= x <= 1)
 qinf        :   Q at infinity (0 <= x <= 1)
 parak       :   k parameter (0 <= x <= 1)
 injtyp      :   Injection type (1=noinj, 2=wdinj, 3=symsdinj, 4=sdinj)
+cpmeth      :   Crack path method (1=dsmooth)
+
+
+
 
 

@@ -15,7 +15,8 @@ C 1. Dimensioning parameters associated with the available elements
 C
 C***********************************************************************
 C
-      integer mnode, mdofn, mtotg, mevab, mreprp, mieprp
+      integer mnode, mdofn, mtotg, mevab, mreprp, mieprp, mrestv, miestv,
+     .        mside
       PARAMETER( MNODE = 8    )
       PARAMETER( MDOFN = 2    )
       PARAMETER( MTOTG = 9    )
@@ -24,6 +25,7 @@ C
       PARAMETER( MIEPRP = 40  )
       parameter( mrestv = 100 )
       parameter( miestv = 10  )
+      parameter( mside = 4    )
 C
 C
 C   * MNODE  = Maximun number of nodes per element.
@@ -45,6 +47,8 @@ C              stored in array RESTV for each element.
 C
 C   * miestv = Maximun number of integer element state variables that can be
 C              stored in array IESTV for each element.
+C
+C   * mside  = Maximun number of sides per element.
 C
 C
 C

@@ -48,7 +48,9 @@ C          directory where the file ERROR.RUN (containing the error/
 C          warning messages of HYPLAS) is kept in the file system. You
 C          may need to change this if your FORTRAN compiler does not
 C          support the instruction GETENV.
-      CALL GETENV('HYPLASHOME',HYPLASHOME)
+c      CALL GETENV('HYPLASHOME',HYPLASHOME)
+      HYPLASHOME = 
+     . '/home/martin/Dropbox/Documentos/programas/hyplas_current'
 C
 C Opens file ERROR.RUN
       NWRD=NWORD(HYPLASHOME,IWBEG,IWEND)

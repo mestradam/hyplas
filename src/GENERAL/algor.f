@@ -38,6 +38,8 @@ C Secant Newton - KT2
       IF(IABSN.EQ.7.AND.IINCS.EQ.1.AND.IITER.EQ.1) KRESL=1
       IF(IABSN.EQ.7.AND.IITER.EQ.1.AND.KUNLD.EQ.1) KRESL=1
       IF(IABSN.EQ.7.AND.IITER.EQ.2) KRESL=1
+C Implicit scheme for weak/strong discontinuities
+      if(iabsn.eq.8) kresl=1
 C
 C Zero prescribed displacements if not first iteration
 C ----------------------------------------------------

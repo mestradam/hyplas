@@ -35,6 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/_ext/657968171/algi.o \
+	${OBJECTDIR}/_ext/657968171/algstd.o \
+	${OBJECTDIR}/_ext/657968171/algwsd.o \
 	${OBJECTDIR}/_ext/553336375/exq4fb.o \
 	${OBJECTDIR}/_ext/553336375/rsq4fb.o \
 	${OBJECTDIR}/_ext/553336375/sfq4fb.o \
@@ -54,9 +57,11 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/2114358395/exq4wsd.o \
 	${OBJECTDIR}/_ext/2114358395/rsq4wsd.o \
 	${OBJECTDIR}/_ext/2114358395/sfq4wsd.o \
+	${OBJECTDIR}/_ext/1848315505/diwsd2.o \
 	${OBJECTDIR}/_ext/1848315505/ifwsd2.o \
 	${OBJECTDIR}/_ext/1848315505/stwsd2.o \
 	${OBJECTDIR}/_ext/655898801/chkndb.o \
+	${OBJECTDIR}/_ext/655898801/eleidi.o \
 	${OBJECTDIR}/_ext/655898801/eleiif.o \
 	${OBJECTDIR}/_ext/655898801/eleist.o \
 	${OBJECTDIR}/_ext/655898801/extnod.o \
@@ -69,10 +74,14 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/356920782/arrgo2.o \
 	${OBJECTDIR}/_ext/356920782/atmdfb.o \
 	${OBJECTDIR}/_ext/356920782/betria.o \
+	${OBJECTDIR}/_ext/356920782/celeng.o \
 	${OBJECTDIR}/_ext/356920782/check2.o \
 	${OBJECTDIR}/_ext/356920782/conver.o \
+	${OBJECTDIR}/_ext/356920782/cpathi.o \
+	${OBJECTDIR}/_ext/356920782/cpdsmo.o \
 	${OBJECTDIR}/_ext/356920782/cstep2.o \
 	${OBJECTDIR}/_ext/356920782/defgra.o \
+	${OBJECTDIR}/_ext/356920782/discon.o \
 	${OBJECTDIR}/_ext/356920782/errprt.o \
 	${OBJECTDIR}/_ext/356920782/fclose.o \
 	${OBJECTDIR}/_ext/356920782/fndkey.o \
@@ -81,6 +90,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/356920782/getbmx.o \
 	${OBJECTDIR}/_ext/356920782/getgco.o \
 	${OBJECTDIR}/_ext/356920782/getgmx.o \
+	${OBJECTDIR}/_ext/356920782/graphii.o \
+	${OBJECTDIR}/_ext/356920782/grauxy.o \
 	${OBJECTDIR}/_ext/356920782/greet.o \
 	${OBJECTDIR}/_ext/356920782/increm.o \
 	${OBJECTDIR}/_ext/356920782/indata.o \
@@ -98,6 +109,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/356920782/nfunc.o \
 	${OBJECTDIR}/_ext/356920782/nodave.o \
 	${OBJECTDIR}/_ext/356920782/nodgid.o \
+	${OBJECTDIR}/_ext/356920782/nselec.o \
 	${OBJECTDIR}/_ext/356920782/nword.o \
 	${OBJECTDIR}/_ext/356920782/outgid.o \
 	${OBJECTDIR}/_ext/356920782/output.o \
@@ -116,6 +128,27 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/356920782/switch.o \
 	${OBJECTDIR}/_ext/356920782/tangen.o \
 	${OBJECTDIR}/_ext/356920782/upconf.o \
+	${OBJECTDIR}/_ext/659829355/dgemm.o \
+	${OBJECTDIR}/_ext/659829355/dgemv.o \
+	${OBJECTDIR}/_ext/659829355/dgetrf.o \
+	${OBJECTDIR}/_ext/659829355/dgetri.o \
+	${OBJECTDIR}/_ext/659829355/disnan.o \
+	${OBJECTDIR}/_ext/659829355/dlaisnan.o \
+	${OBJECTDIR}/_ext/659829355/dlamch.o \
+	${OBJECTDIR}/_ext/659829355/dlaswp.o \
+	${OBJECTDIR}/_ext/659829355/dscal.o \
+	${OBJECTDIR}/_ext/659829355/dswap.o \
+	${OBJECTDIR}/_ext/659829355/dtrmm.o \
+	${OBJECTDIR}/_ext/659829355/dtrmv.o \
+	${OBJECTDIR}/_ext/659829355/dtrsm.o \
+	${OBJECTDIR}/_ext/659829355/dtrti2.o \
+	${OBJECTDIR}/_ext/659829355/dtrtri.o \
+	${OBJECTDIR}/_ext/659829355/idamax.o \
+	${OBJECTDIR}/_ext/659829355/ieeeck.o \
+	${OBJECTDIR}/_ext/659829355/ilaenv.o \
+	${OBJECTDIR}/_ext/659829355/iparmq.o \
+	${OBJECTDIR}/_ext/659829355/lsame.o \
+	${OBJECTDIR}/_ext/659829355/xerbla.o \
 	${OBJECTDIR}/_ext/343399866/ctcoda.o \
 	${OBJECTDIR}/_ext/343399866/orcoda.o \
 	${OBJECTDIR}/_ext/343399866/rdcoda.o \
@@ -243,6 +276,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/1558444847/dplfun.o \
 	${OBJECTDIR}/_ext/1558444847/exp2x.o \
 	${OBJECTDIR}/_ext/1558444847/expmap.o \
+	${OBJECTDIR}/_ext/1558444847/faclu.o \
+	${OBJECTDIR}/_ext/1558444847/invmt.o \
 	${OBJECTDIR}/_ext/1558444847/invmt2.o \
 	${OBJECTDIR}/_ext/1558444847/invmt3.o \
 	${OBJECTDIR}/_ext/1558444847/iso2.o \
@@ -280,6 +315,18 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/hyplas: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.f} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/hyplas ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/_ext/657968171/algi.o: ../src/ALGORITHM/algi.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/657968171
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/657968171/algi.o ../src/ALGORITHM/algi.f
+
+${OBJECTDIR}/_ext/657968171/algstd.o: ../src/ALGORITHM/algstd.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/657968171
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/657968171/algstd.o ../src/ALGORITHM/algstd.f
+
+${OBJECTDIR}/_ext/657968171/algwsd.o: ../src/ALGORITHM/algwsd.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/657968171
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/657968171/algwsd.o ../src/ALGORITHM/algwsd.f
 
 ${OBJECTDIR}/_ext/553336375/exq4fb.o: ../src/ELEMENTS/FBAR/QUA4FB/exq4fb.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/553336375
@@ -357,6 +404,10 @@ ${OBJECTDIR}/_ext/2114358395/sfq4wsd.o: ../src/ELEMENTS/WSDISC/Q4WSD/sfq4wsd.f
 	${MKDIR} -p ${OBJECTDIR}/_ext/2114358395
 	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/2114358395/sfq4wsd.o ../src/ELEMENTS/WSDISC/Q4WSD/sfq4wsd.f
 
+${OBJECTDIR}/_ext/1848315505/diwsd2.o: ../src/ELEMENTS/WSDISC/diwsd2.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1848315505
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/1848315505/diwsd2.o ../src/ELEMENTS/WSDISC/diwsd2.f
+
 ${OBJECTDIR}/_ext/1848315505/ifwsd2.o: ../src/ELEMENTS/WSDISC/ifwsd2.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1848315505
 	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/1848315505/ifwsd2.o ../src/ELEMENTS/WSDISC/ifwsd2.f
@@ -368,6 +419,10 @@ ${OBJECTDIR}/_ext/1848315505/stwsd2.o: ../src/ELEMENTS/WSDISC/stwsd2.f
 ${OBJECTDIR}/_ext/655898801/chkndb.o: ../src/ELEMENTS/chkndb.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/655898801
 	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/655898801/chkndb.o ../src/ELEMENTS/chkndb.f
+
+${OBJECTDIR}/_ext/655898801/eleidi.o: ../src/ELEMENTS/eleidi.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/655898801
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/655898801/eleidi.o ../src/ELEMENTS/eleidi.f
 
 ${OBJECTDIR}/_ext/655898801/eleiif.o: ../src/ELEMENTS/eleiif.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/655898801
@@ -417,6 +472,10 @@ ${OBJECTDIR}/_ext/356920782/betria.o: ../src/GENERAL/betria.f
 	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
 	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/356920782/betria.o ../src/GENERAL/betria.f
 
+${OBJECTDIR}/_ext/356920782/celeng.o: ../src/GENERAL/celeng.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/356920782/celeng.o ../src/GENERAL/celeng.f
+
 ${OBJECTDIR}/_ext/356920782/check2.o: ../src/GENERAL/check2.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
 	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/356920782/check2.o ../src/GENERAL/check2.f
@@ -425,6 +484,14 @@ ${OBJECTDIR}/_ext/356920782/conver.o: ../src/GENERAL/conver.f
 	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
 	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/356920782/conver.o ../src/GENERAL/conver.f
 
+${OBJECTDIR}/_ext/356920782/cpathi.o: ../src/GENERAL/cpathi.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/356920782/cpathi.o ../src/GENERAL/cpathi.f
+
+${OBJECTDIR}/_ext/356920782/cpdsmo.o: ../src/GENERAL/cpdsmo.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/356920782/cpdsmo.o ../src/GENERAL/cpdsmo.f
+
 ${OBJECTDIR}/_ext/356920782/cstep2.o: ../src/GENERAL/cstep2.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
 	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/356920782/cstep2.o ../src/GENERAL/cstep2.f
@@ -432,6 +499,10 @@ ${OBJECTDIR}/_ext/356920782/cstep2.o: ../src/GENERAL/cstep2.f
 ${OBJECTDIR}/_ext/356920782/defgra.o: ../src/GENERAL/defgra.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
 	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/356920782/defgra.o ../src/GENERAL/defgra.f
+
+${OBJECTDIR}/_ext/356920782/discon.o: ../src/GENERAL/discon.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/356920782/discon.o ../src/GENERAL/discon.f
 
 ${OBJECTDIR}/_ext/356920782/errprt.o: ../src/GENERAL/errprt.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
@@ -464,6 +535,14 @@ ${OBJECTDIR}/_ext/356920782/getgco.o: ../src/GENERAL/getgco.f
 ${OBJECTDIR}/_ext/356920782/getgmx.o: ../src/GENERAL/getgmx.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
 	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/356920782/getgmx.o ../src/GENERAL/getgmx.f
+
+${OBJECTDIR}/_ext/356920782/graphii.o: ../src/GENERAL/graphii.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/356920782/graphii.o ../src/GENERAL/graphii.f
+
+${OBJECTDIR}/_ext/356920782/grauxy.o: ../src/GENERAL/grauxy.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/356920782/grauxy.o ../src/GENERAL/grauxy.f
 
 ${OBJECTDIR}/_ext/356920782/greet.o: ../src/GENERAL/greet.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
@@ -532,6 +611,10 @@ ${OBJECTDIR}/_ext/356920782/nodave.o: ../src/GENERAL/nodave.f
 ${OBJECTDIR}/_ext/356920782/nodgid.o: ../src/GENERAL/nodgid.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
 	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/356920782/nodgid.o ../src/GENERAL/nodgid.f
+
+${OBJECTDIR}/_ext/356920782/nselec.o: ../src/GENERAL/nselec.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/356920782/nselec.o ../src/GENERAL/nselec.f
 
 ${OBJECTDIR}/_ext/356920782/nword.o: ../src/GENERAL/nword.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
@@ -604,6 +687,90 @@ ${OBJECTDIR}/_ext/356920782/tangen.o: ../src/GENERAL/tangen.f
 ${OBJECTDIR}/_ext/356920782/upconf.o: ../src/GENERAL/upconf.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/356920782
 	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/356920782/upconf.o ../src/GENERAL/upconf.f
+
+${OBJECTDIR}/_ext/659829355/dgemm.o: ../src/LIB/dgemm.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/dgemm.o ../src/LIB/dgemm.f
+
+${OBJECTDIR}/_ext/659829355/dgemv.o: ../src/LIB/dgemv.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/dgemv.o ../src/LIB/dgemv.f
+
+${OBJECTDIR}/_ext/659829355/dgetrf.o: ../src/LIB/dgetrf.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/dgetrf.o ../src/LIB/dgetrf.f
+
+${OBJECTDIR}/_ext/659829355/dgetri.o: ../src/LIB/dgetri.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/dgetri.o ../src/LIB/dgetri.f
+
+${OBJECTDIR}/_ext/659829355/disnan.o: ../src/LIB/disnan.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/disnan.o ../src/LIB/disnan.f
+
+${OBJECTDIR}/_ext/659829355/dlaisnan.o: ../src/LIB/dlaisnan.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/dlaisnan.o ../src/LIB/dlaisnan.f
+
+${OBJECTDIR}/_ext/659829355/dlamch.o: ../src/LIB/dlamch.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/dlamch.o ../src/LIB/dlamch.f
+
+${OBJECTDIR}/_ext/659829355/dlaswp.o: ../src/LIB/dlaswp.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/dlaswp.o ../src/LIB/dlaswp.f
+
+${OBJECTDIR}/_ext/659829355/dscal.o: ../src/LIB/dscal.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/dscal.o ../src/LIB/dscal.f
+
+${OBJECTDIR}/_ext/659829355/dswap.o: ../src/LIB/dswap.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/dswap.o ../src/LIB/dswap.f
+
+${OBJECTDIR}/_ext/659829355/dtrmm.o: ../src/LIB/dtrmm.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/dtrmm.o ../src/LIB/dtrmm.f
+
+${OBJECTDIR}/_ext/659829355/dtrmv.o: ../src/LIB/dtrmv.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/dtrmv.o ../src/LIB/dtrmv.f
+
+${OBJECTDIR}/_ext/659829355/dtrsm.o: ../src/LIB/dtrsm.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/dtrsm.o ../src/LIB/dtrsm.f
+
+${OBJECTDIR}/_ext/659829355/dtrti2.o: ../src/LIB/dtrti2.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/dtrti2.o ../src/LIB/dtrti2.f
+
+${OBJECTDIR}/_ext/659829355/dtrtri.o: ../src/LIB/dtrtri.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/dtrtri.o ../src/LIB/dtrtri.f
+
+${OBJECTDIR}/_ext/659829355/idamax.o: ../src/LIB/idamax.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/idamax.o ../src/LIB/idamax.f
+
+${OBJECTDIR}/_ext/659829355/ieeeck.o: ../src/LIB/ieeeck.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/ieeeck.o ../src/LIB/ieeeck.f
+
+${OBJECTDIR}/_ext/659829355/ilaenv.o: ../src/LIB/ilaenv.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/ilaenv.o ../src/LIB/ilaenv.f
+
+${OBJECTDIR}/_ext/659829355/iparmq.o: ../src/LIB/iparmq.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/iparmq.o ../src/LIB/iparmq.f
+
+${OBJECTDIR}/_ext/659829355/lsame.o: ../src/LIB/lsame.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/lsame.o ../src/LIB/lsame.f
+
+${OBJECTDIR}/_ext/659829355/xerbla.o: ../src/LIB/xerbla.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/659829355
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/659829355/xerbla.o ../src/LIB/xerbla.f
 
 ${OBJECTDIR}/_ext/343399866/ctcoda.o: ../src/MATERIALS/CODA/ctcoda.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/343399866
@@ -1112,6 +1279,14 @@ ${OBJECTDIR}/_ext/1558444847/exp2x.o: ../src/MATHS/exp2x.f
 ${OBJECTDIR}/_ext/1558444847/expmap.o: ../src/MATHS/expmap.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1558444847
 	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/1558444847/expmap.o ../src/MATHS/expmap.f
+
+${OBJECTDIR}/_ext/1558444847/faclu.o: ../src/MATHS/faclu.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1558444847
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/1558444847/faclu.o ../src/MATHS/faclu.f
+
+${OBJECTDIR}/_ext/1558444847/invmt.o: ../src/MATHS/invmt.f 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1558444847
+	$(COMPILE.f) -O2 -o ${OBJECTDIR}/_ext/1558444847/invmt.o ../src/MATHS/invmt.f
 
 ${OBJECTDIR}/_ext/1558444847/invmt2.o: ../src/MATHS/invmt2.f 
 	${MKDIR} -p ${OBJECTDIR}/_ext/1558444847

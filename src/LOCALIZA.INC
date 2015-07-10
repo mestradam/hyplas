@@ -13,8 +13,8 @@
 !   -------------------------------------------------
 !
       common/locali/
-     &  gamloc      ,gamwsd     ,vecnre(2)  ,tauloc     ,taumxd     ,
-     &  qinj        ,qinf       ,parak      ,injtyp
+     .  gamloc      ,gamwsd     ,vecnre(2)  ,tauloc     ,taumxd     ,
+     .  qinjec      ,qinf       ,parak      ,injtyp     ,cpmeth
 !
 !       - gamloc    : Gamma for localization time
 !
@@ -28,7 +28,7 @@
 !
 !       - taumxd    : Tau for mixed formulation
 !
-!       - qinj      : Q for first injection time
+!       - qinjec    : Q for first injection time
 !
 !       - qinf      : Q at infinity
 !
@@ -40,4 +40,8 @@
       parameter ( wdinj     =   2   )
       parameter ( symsdinj  =   3   )
       parameter ( sdinj     =   4   )
+!
+!       - cpmeth    : Crack path method
+      integer   cpmeth, dsmooth
+      parameter ( dsmooth   =   1   )
 !

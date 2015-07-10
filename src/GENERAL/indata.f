@@ -48,7 +48,8 @@ C***********************************************************************
      6 '        4 = Modified Newton KT2'/
      7 '        5 = Secant Newton - Initial stiffness'/
      8 '        6 = Secant Newton - KT1'/
-     9 '        7 = Secant Newton - KT2')
+     9 '        7 = Secant Newton - KT2'/
+     . '        8 = Weak/strong discontinuities')
  1065 FORMAT(/
      1 ' Arc-length option ................................... =',I5/
      2 '        1 = Follow stiffness determinant sign'/
@@ -191,7 +192,7 @@ C
       WRITE(16,1060)NALGO
       IF(IABS(NALGO).NE.1.AND.IABS(NALGO).NE.2.AND.IABS(NALGO).NE.3.AND.
      1   IABS(NALGO).NE.4.AND.IABS(NALGO).NE.5.AND.IABS(NALGO).NE.6.AND.
-     2   IABS(NALGO).NE.7)CALL ERRPRT('ED0010')
+     2   IABS(NALGO).NE.7.and.iabs(nalgo).ne.8)CALL ERRPRT('ED0010')
       NARCL=0
       IF(NALGO.LT.0)THEN
         CALL FNDKEY
@@ -439,8 +440,8 @@ C accepts data either in polar or cartesian system
       ENDIF
 	WRITE(21,1112)
       IF(NPOIN.LE.0)     CALL ERRPRT('ED0003')
-      IF(NPOIN.GT.MPOIN) CALL ERRPRT('ED0004')
-      IF(NPOIN.GT.MPOSPO)CALL ERRPRT('ED0049')
+      IF(NPOIN.GT. MPOIN) CALL ERRPRT('ED0004')
+      IF(NPOIN.GT. MPOSPO)CALL ERRPRT('ED0049')
 C
 C Set global variable NTOTV (total number of degrees of freedom)
 C

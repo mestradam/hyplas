@@ -66,12 +66,14 @@ C Start by initializing everything that matters to zero
         IF(.NOT.UNSYM)THEN
           MSTIF=(MXFRON*(MXFRON+1))/2
           DO 150 ISTIF=1,MSTIF
+C .. Global stiffness matrix
             GSTIF(ISTIF)=R0
   150     CONTINUE
         ENDIF
       ENDIF
       DO 160 IFRON=1,MXFRON
         DO 152 IRHS=1,NRHS
+C .. Right hand side
           GLOAD(IFRON,IRHS)=R0
           VECRV(IFRON,IRHS)=R0
   152   CONTINUE

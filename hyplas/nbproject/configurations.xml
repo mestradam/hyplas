@@ -5,6 +5,11 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="src" displayName="src" projectFiles="true">
+        <logicalFolder name="ALGORITHM" displayName="ALGORITHM" projectFiles="true">
+          <itemPath>../src/ALGORITHM/algi.f</itemPath>
+          <itemPath>../src/ALGORITHM/algstd.f</itemPath>
+          <itemPath>../src/ALGORITHM/algwsd.f</itemPath>
+        </logicalFolder>
         <logicalFolder name="ELEMENTS" displayName="ELEMENTS" projectFiles="true">
           <logicalFolder name="FBAR" displayName="FBAR" projectFiles="true">
             <logicalFolder name="QUA4FB" displayName="QUA4FB" projectFiles="true">
@@ -40,10 +45,12 @@
               <itemPath>../src/ELEMENTS/WSDISC/Q4WSD/rsq4wsd.f</itemPath>
               <itemPath>../src/ELEMENTS/WSDISC/Q4WSD/sfq4wsd.f</itemPath>
             </logicalFolder>
+            <itemPath>../src/ELEMENTS/WSDISC/diwsd2.f</itemPath>
             <itemPath>../src/ELEMENTS/WSDISC/ifwsd2.f</itemPath>
             <itemPath>../src/ELEMENTS/WSDISC/stwsd2.f</itemPath>
           </logicalFolder>
           <itemPath>../src/ELEMENTS/chkndb.f</itemPath>
+          <itemPath>../src/ELEMENTS/eleidi.f</itemPath>
           <itemPath>../src/ELEMENTS/eleiif.f</itemPath>
           <itemPath>../src/ELEMENTS/eleist.f</itemPath>
           <itemPath>../src/ELEMENTS/extnod.f</itemPath>
@@ -58,10 +65,14 @@
           <itemPath>../src/GENERAL/arrgo2.f</itemPath>
           <itemPath>../src/GENERAL/atmdfb.f</itemPath>
           <itemPath>../src/GENERAL/betria.f</itemPath>
+          <itemPath>../src/GENERAL/celeng.f</itemPath>
           <itemPath>../src/GENERAL/check2.f</itemPath>
           <itemPath>../src/GENERAL/conver.f</itemPath>
+          <itemPath>../src/GENERAL/cpathi.f</itemPath>
+          <itemPath>../src/GENERAL/cpdsmo.f</itemPath>
           <itemPath>../src/GENERAL/cstep2.f</itemPath>
           <itemPath>../src/GENERAL/defgra.f</itemPath>
+          <itemPath>../src/GENERAL/discon.f</itemPath>
           <itemPath>../src/GENERAL/errprt.f</itemPath>
           <itemPath>../src/GENERAL/fclose.f</itemPath>
           <itemPath>../src/GENERAL/fndkey.f</itemPath>
@@ -70,6 +81,8 @@
           <itemPath>../src/GENERAL/getbmx.f</itemPath>
           <itemPath>../src/GENERAL/getgco.f</itemPath>
           <itemPath>../src/GENERAL/getgmx.f</itemPath>
+          <itemPath>../src/GENERAL/graphii.f</itemPath>
+          <itemPath>../src/GENERAL/grauxy.f</itemPath>
           <itemPath>../src/GENERAL/greet.f</itemPath>
           <itemPath>../src/GENERAL/increm.f</itemPath>
           <itemPath>../src/GENERAL/indata.f</itemPath>
@@ -87,6 +100,7 @@
           <itemPath>../src/GENERAL/nfunc.f</itemPath>
           <itemPath>../src/GENERAL/nodave.f</itemPath>
           <itemPath>../src/GENERAL/nodgid.f</itemPath>
+          <itemPath>../src/GENERAL/nselec.f</itemPath>
           <itemPath>../src/GENERAL/nword.f</itemPath>
           <itemPath>../src/GENERAL/outgid.f</itemPath>
           <itemPath>../src/GENERAL/output.f</itemPath>
@@ -105,6 +119,29 @@
           <itemPath>../src/GENERAL/switch.f</itemPath>
           <itemPath>../src/GENERAL/tangen.f</itemPath>
           <itemPath>../src/GENERAL/upconf.f</itemPath>
+        </logicalFolder>
+        <logicalFolder name="LIB" displayName="LIB" projectFiles="true">
+          <itemPath>../src/LIB/dgemm.f</itemPath>
+          <itemPath>../src/LIB/dgemv.f</itemPath>
+          <itemPath>../src/LIB/dgetrf.f</itemPath>
+          <itemPath>../src/LIB/dgetri.f</itemPath>
+          <itemPath>../src/LIB/disnan.f</itemPath>
+          <itemPath>../src/LIB/dlaisnan.f</itemPath>
+          <itemPath>../src/LIB/dlamch.f</itemPath>
+          <itemPath>../src/LIB/dlaswp.f</itemPath>
+          <itemPath>../src/LIB/dscal.f</itemPath>
+          <itemPath>../src/LIB/dswap.f</itemPath>
+          <itemPath>../src/LIB/dtrmm.f</itemPath>
+          <itemPath>../src/LIB/dtrmv.f</itemPath>
+          <itemPath>../src/LIB/dtrsm.f</itemPath>
+          <itemPath>../src/LIB/dtrti2.f</itemPath>
+          <itemPath>../src/LIB/dtrtri.f</itemPath>
+          <itemPath>../src/LIB/idamax.f</itemPath>
+          <itemPath>../src/LIB/ieeeck.f</itemPath>
+          <itemPath>../src/LIB/ilaenv.f</itemPath>
+          <itemPath>../src/LIB/iparmq.f</itemPath>
+          <itemPath>../src/LIB/lsame.f</itemPath>
+          <itemPath>../src/LIB/xerbla.f</itemPath>
         </logicalFolder>
         <logicalFolder name="MATERIALS" displayName="MATERIALS" projectFiles="true">
           <logicalFolder name="CODA" displayName="CODA" projectFiles="true">
@@ -282,6 +319,8 @@
           <itemPath>../src/MATHS/dplfun.f</itemPath>
           <itemPath>../src/MATHS/exp2x.f</itemPath>
           <itemPath>../src/MATHS/expmap.f</itemPath>
+          <itemPath>../src/MATHS/faclu.f</itemPath>
+          <itemPath>../src/MATHS/invmt.f</itemPath>
           <itemPath>../src/MATHS/invmt2.f</itemPath>
           <itemPath>../src/MATHS/invmt3.f</itemPath>
           <itemPath>../src/MATHS/iso2.f</itemPath>
@@ -323,6 +362,12 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <item path="../src/ALGORITHM/algi.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/ALGORITHM/algstd.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/ALGORITHM/algwsd.f" ex="false" tool="2" flavor2="0">
+      </item>
       <item path="../src/ELEMENTS.INC" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../src/ELEMENTS/FBAR/QUA4FB/exq4fb.f"
@@ -399,11 +444,15 @@
             tool="2"
             flavor2="0">
       </item>
+      <item path="../src/ELEMENTS/WSDISC/diwsd2.f" ex="false" tool="2" flavor2="0">
+      </item>
       <item path="../src/ELEMENTS/WSDISC/ifwsd2.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/ELEMENTS/WSDISC/stwsd2.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/ELEMENTS/chkndb.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/ELEMENTS/eleidi.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/ELEMENTS/eleiif.f" ex="false" tool="2" flavor2="0">
       </item>
@@ -429,13 +478,21 @@
       </item>
       <item path="../src/GENERAL/betria.f" ex="false" tool="2" flavor2="0">
       </item>
+      <item path="../src/GENERAL/celeng.f" ex="false" tool="2" flavor2="0">
+      </item>
       <item path="../src/GENERAL/check2.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GENERAL/conver.f" ex="false" tool="2" flavor2="0">
       </item>
+      <item path="../src/GENERAL/cpathi.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/GENERAL/cpdsmo.f" ex="false" tool="2" flavor2="0">
+      </item>
       <item path="../src/GENERAL/cstep2.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GENERAL/defgra.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/GENERAL/discon.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GENERAL/errprt.f" ex="false" tool="2" flavor2="0">
       </item>
@@ -452,6 +509,10 @@
       <item path="../src/GENERAL/getgco.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GENERAL/getgmx.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/GENERAL/graphii.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/GENERAL/grauxy.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GENERAL/greet.f" ex="false" tool="2" flavor2="0">
       </item>
@@ -486,6 +547,8 @@
       <item path="../src/GENERAL/nodave.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GENERAL/nodgid.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/GENERAL/nselec.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GENERAL/nword.f" ex="false" tool="2" flavor2="0">
       </item>
@@ -524,6 +587,48 @@
       <item path="../src/GENERAL/upconf.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GLBDBASE.INC" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../src/LIB/dgemm.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dgemv.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dgetrf.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dgetri.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/disnan.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dlaisnan.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dlamch.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dlaswp.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dscal.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dswap.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dtrmm.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dtrmv.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dtrsm.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dtrti2.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dtrtri.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/idamax.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/ieeeck.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/ilaenv.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/iparmq.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/lsame.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/xerbla.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/LOCALIZA.INC" ex="false" tool="3" flavor2="0">
       </item>
@@ -929,6 +1034,10 @@
       <item path="../src/MATHS/exp2x.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/MATHS/expmap.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/MATHS/faclu.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/MATHS/invmt.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/MATHS/invmt2.f" ex="false" tool="2" flavor2="0">
       </item>
@@ -977,6 +1086,12 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="../src/ALGORITHM/algi.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/ALGORITHM/algstd.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/ALGORITHM/algwsd.f" ex="false" tool="2" flavor2="0">
+      </item>
       <item path="../src/ELEMENTS.INC" ex="false" tool="3" flavor2="0">
       </item>
       <item path="../src/ELEMENTS/FBAR/QUA4FB/exq4fb.f"
@@ -1053,11 +1168,15 @@
             tool="2"
             flavor2="0">
       </item>
+      <item path="../src/ELEMENTS/WSDISC/diwsd2.f" ex="false" tool="2" flavor2="0">
+      </item>
       <item path="../src/ELEMENTS/WSDISC/ifwsd2.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/ELEMENTS/WSDISC/stwsd2.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/ELEMENTS/chkndb.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/ELEMENTS/eleidi.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/ELEMENTS/eleiif.f" ex="false" tool="2" flavor2="0">
       </item>
@@ -1083,13 +1202,21 @@
       </item>
       <item path="../src/GENERAL/betria.f" ex="false" tool="2" flavor2="0">
       </item>
+      <item path="../src/GENERAL/celeng.f" ex="false" tool="2" flavor2="0">
+      </item>
       <item path="../src/GENERAL/check2.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GENERAL/conver.f" ex="false" tool="2" flavor2="0">
       </item>
+      <item path="../src/GENERAL/cpathi.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/GENERAL/cpdsmo.f" ex="false" tool="2" flavor2="0">
+      </item>
       <item path="../src/GENERAL/cstep2.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GENERAL/defgra.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/GENERAL/discon.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GENERAL/errprt.f" ex="false" tool="2" flavor2="0">
       </item>
@@ -1106,6 +1233,10 @@
       <item path="../src/GENERAL/getgco.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GENERAL/getgmx.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/GENERAL/graphii.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/GENERAL/grauxy.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GENERAL/greet.f" ex="false" tool="2" flavor2="0">
       </item>
@@ -1140,6 +1271,8 @@
       <item path="../src/GENERAL/nodave.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GENERAL/nodgid.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/GENERAL/nselec.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GENERAL/nword.f" ex="false" tool="2" flavor2="0">
       </item>
@@ -1178,6 +1311,48 @@
       <item path="../src/GENERAL/upconf.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/GLBDBASE.INC" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../src/LIB/dgemm.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dgemv.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dgetrf.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dgetri.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/disnan.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dlaisnan.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dlamch.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dlaswp.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dscal.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dswap.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dtrmm.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dtrmv.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dtrsm.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dtrti2.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/dtrtri.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/idamax.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/ieeeck.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/ilaenv.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/iparmq.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/lsame.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/LIB/xerbla.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/LOCALIZA.INC" ex="false" tool="3" flavor2="0">
       </item>
@@ -1583,6 +1758,10 @@
       <item path="../src/MATHS/exp2x.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/MATHS/expmap.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/MATHS/faclu.f" ex="false" tool="2" flavor2="0">
+      </item>
+      <item path="../src/MATHS/invmt.f" ex="false" tool="2" flavor2="0">
       </item>
       <item path="../src/MATHS/invmt2.f" ex="false" tool="2" flavor2="0">
       </item>

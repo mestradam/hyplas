@@ -20,12 +20,12 @@
 !            E Hinton & DRJ Owen. An introduction to finite element
 !            computations. Pineridge Press, Swansea, 1979.
 !***********************************************************************
-      if(ngausp.eq.1)then
+      if(ngausp.eq.3)then
         exmatx(1,1)=r1
         exmatx(2,1)=r1
         exmatx(3,1)=r1
         exmatx(4,1)=r1
-      elseif(ngausp.eq.4)then
+      elseif(ngausp.eq.6)then
         exmatx(1,1)=a4         
         exmatx(1,2)=b4         
         exmatx(1,3)=b4         

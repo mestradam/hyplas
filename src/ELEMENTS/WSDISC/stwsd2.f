@@ -1,10 +1,10 @@
       subroutine stwsd2
-     &  (ielem      ,kunld      ,mdime      ,melem      ,mpoin      ,
-     &   mstre      ,mtotv      ,naxis      ,nlarge     ,ntype      ,
-     &   unsym      ,coord1     ,dincr      ,estif      ,ielprp     ,
-     &   iprops     ,lalgva     ,lnods      ,ralgva     ,relprp     ,
-     &   rprops     ,rstava     ,rstav2     ,strsg      ,thkgp      ,
-     &   tdisp      ,restv      ,iestv      )
+     .  (ielem      ,kunld      ,mdime      ,melem      ,mpoin      ,
+     .   mstre      ,mtotv      ,naxis      ,nlarge     ,ntype      ,
+     .   unsym      ,coord1     ,dincr      ,estif      ,ielprp     ,
+     .   iprops     ,lalgva     ,lnods      ,ralgva     ,relprp     ,
+     .   rprops     ,rstava     ,rstav2     ,strsg      ,thkgp      ,
+     .   tdisp      ,restv      ,iestv      )
 !***********************************************************************
 ! Evaluates the element tangent stiffness matrix for elements of class
 ! 'wsdisc' (Isoparametric elements enriched with weak or strong
@@ -12,7 +12,7 @@
 !
 ! (M. Estrada, 2015)
 !
-! REFERENCE: Diaz, 2012: Apendix C
+! REFERENCE: Diaz, 2012: Appendix C
 !***********************************************************************
 !
 ! Variable declaration
@@ -26,37 +26,37 @@
 !
 ! Arguments
       logical  
-     &   lalgva(mlalgv,mtotg)   ,unsym
+     .   lalgva(mlalgv,mtotg)   ,unsym
       integer
-     &   ielprp(mieprp)     ,iprops(miprop)     ,lnods(melem,mevab) ,
-     &   ielem      ,kunld      ,mdime      ,melem      ,mpoin      ,
-     &   mstre      ,mtotv      ,naxis      ,nlarge     ,ntype
+     .   ielprp(mieprp)     ,iprops(miprop)     ,lnods(melem,mevab) ,
+     .   ielem      ,kunld      ,mdime      ,melem      ,mpoin      ,
+     .   mstre      ,mtotv      ,naxis      ,nlarge     ,ntype
       double precision
-     &   coord1(mdime,mpoin)  ,dincr(mtotv)     ,estif(mevab,mevab) ,
-     &   ralgva(mralgv,mtotg) ,relprp(mreprp)   ,rprops(mrprop)     ,
-     &   rstava(mrstav,mtotg) ,rstav2(mrstav,mtotg)                 ,
-     &   strsg(mstre,mtotg)   ,thkgp(mtotg)     ,tdisp(mtotv)       ,
-     &   restv(mrestv)        ,iestv(miestv)
+     .   coord1(mdime,mpoin)  ,dincr(mtotv)     ,estif(mevab,mevab) ,
+     .   ralgva(mralgv,mtotg) ,relprp(mreprp)   ,rprops(mrprop)     ,
+     .   rstava(mrstav,mtotg) ,rstav2(mrstav,mtotg)                 ,
+     .   strsg(mstre,mtotg)   ,thkgp(mtotg)     ,tdisp(mtotv)       ,
+     .   restv(mrestv)        ,iestv(miestv)
 !
 ! Local arrays and variables
       integer
-     &   reg        ,dis        ,ela        ,mbdim      ,ndime      ,
-     &   ndofn      ,einj
+     .   reg        ,dis        ,ela        ,mbdim      ,ndime      ,
+     .   ndofn      ,einj
       parameter
-     &  (reg = 0    ,dis = 1    ,ela = 2    ,mbdim = 4  ,ndime = 2  ,
-     &   ndofn = 2  )
+     .  (reg = 0    ,dis = 1    ,ela = 2    ,mbdim = 4  ,ndime = 2  ,
+     .   ndofn = 2  )
       double precision
-     &   auxm(mevab,mbdim)  ,amatx(mbdim,mbdim) ,bmatx(mbdim,mevab) ,
-     &   cartd(ndime,mnode) ,deldis(mdofn,mnode),deriv(ndime,mnode) ,
-     &   dmatx(mbdim,mbdim) ,eincr(mbdim)       ,elcod(ndime,mnode) ,
-     &   fincin(3,3)        ,fincr(3,3)         ,finv(3,3)          ,
-     &   gpcod(ndime)       ,shape(mnode)       ,
-     &   teldis(2,mnode)    ,graphi(3,ndofn)    ,vecn(3,2)          ,
-     &   kub(mevab,ndofn)   ,kbu(ndofn,mevab)   ,kbb(ndofn,ndofn)   ,
-     &   kbbinv(ndofn,ndofn),kubt(mevab,mevab)  ,
-     &   de         ,dvolu      ,detf       ,detjac     ,eleng      ,
-     &   eljump     ,elk        ,elkinv     ,etasp      ,exisp      ,
-     &   scalar
+     .   auxm(mevab,mbdim)  ,amatx(mbdim,mbdim) ,bmatx(mbdim,mevab) ,
+     .   cartd(ndime,mnode) ,deldis(mdofn,mnode),deriv(ndime,mnode) ,
+     .   dmatx(mbdim,mbdim) ,eincr(mbdim)       ,elcod(ndime,mnode) ,
+     .   fincin(3,3)        ,fincr(3,3)         ,finv(3,3)          ,
+     .   gpcod(ndime)       ,shape(mnode)       ,resid(mevab)       ,
+     .   teldis(2,mnode)    ,graphi(3,ndofn)    ,vecn(3,2)          ,
+     .   kub(mevab,ndofn)   ,kbu(ndofn,mevab)   ,kbb(ndofn,ndofn)   ,
+     .   kbbinv(ndofn,ndofn),kubt(mevab,mevab)  ,residb(2)          ,
+     .   de         ,dvolu      ,detf       ,detjac     ,eleng      ,
+     .   eljump     ,elk        ,elkinv     ,etasp      ,exisp      ,
+     .   scalar
 !
 ! Set and read variables from arrays
 ! ==================================
@@ -93,19 +93,19 @@
 ! Injection type
       einj = iestv(3)
 ! Gradient of phi
-      graphi(1,1) = restv(19)
+      graphi(1,1) = restv(20)
       graphi(1,2) = 0.d0
       graphi(2,1) = 0.d0
-      graphi(2,2) = restv(20)
-      graphi(3,1) = restv(20)
-      graphi(3,2) = restv(19)
+      graphi(2,2) = restv(21)
+      graphi(3,1) = restv(21)
+      graphi(3,2) = restv(20)
 ! Vector normal to discontinuity
-      vecn(1,1) = restv(11)
+      vecn(1,1) = restv(12)
       vecn(1,2) = 0.d0
       vecn(2,1) = 0.d0
-      vecn(2,2) = restv(12)
+      vecn(2,2) = restv(13)
+      vecn(3,1) = restv(13)
       vecn(3,1) = restv(12)
-      vecn(3,1) = restv(11)
 !
 ! Set stabilization term (tau), and injection type term (xi)
 ! REFERENCE: Box 5.10 (Diaz, 2012)
@@ -136,7 +136,7 @@
         end do
       end do
 !
-! Initialize the element stiffness matrixes
+! Initialize the element stiffness matrices
       do ievab = 1,nevab
         do jevab = 1,nevab
           estif(ievab,jevab) = 0.d0
@@ -167,11 +167,11 @@
         if (igausp.lt.ngausp-1) gptype = reg
 ! Evaluate the shape functions and derivatives
         call shpfun
-     &  (deriv      ,etasp      ,exisp      ,0          ,ieltyp     ,
-     &   ndime      ,shape      )
+     .  (deriv      ,etasp      ,exisp      ,0          ,ieltyp     ,
+     .   ndime      ,shape      )
         call jacob2
-     &  (cartd      ,deriv      ,detjac     ,elcod      ,ielem      ,
-     &   ndime      ,ndime      ,nnode      )
+     .  (cartd      ,deriv      ,detjac     ,elcod      ,ielem      ,
+     .   ndime      ,ndime      ,nnode      )
         if(detjac.le.0.d0)then
 !... stops program if element jacobian is not positive definite
           call errprt('EE0012')
@@ -188,13 +188,13 @@
 ! -------------------------------------------------------
 ! compute the symmetric gradient operator b
           call getbmx
-     &  (bmatx      ,gpcod      ,cartd      ,ndime      ,4          ,
-     &   naxis      ,nnode      ,ntype      ,shape      )
+     .  (bmatx      ,gpcod      ,cartd      ,ndime      ,4          ,
+     .   naxis      ,nnode      ,ntype      ,shape      )
 ! and the incremental infinitesimal strain
           call sdstra
-     &  (bmatx      ,deldis     ,ndofn      ,4          ,ndofn      ,
-     &   nnode      ,ntype      ,gptype     ,xi         ,graphi     ,
-     &   eincr      ,eljump     ,vecn       ,elkinv     )
+     .  (bmatx      ,deldis     ,ndofn      ,4          ,ndofn      ,
+     .   nnode      ,ntype      ,gptype     ,xi         ,graphi     ,
+     .   eincr      ,eljump     ,vecn       ,elkinv     )
         end if
 !
 ! Call material interface routine for consistent tangent computation
@@ -203,12 +203,12 @@
 ! ====================================================================
 !
         call matict
-     &  (detf       ,kunld      ,mbdim      ,mgdim      ,
-     &   nlarge     ,ntype      ,
-     &   amatx      ,dmatx      ,eincr      ,fincr      ,iprops     ,
-     &   lalgva(1,igausp)       ,ralgva(1,igausp)       ,rprops     ,
-     &   rstava(1,igausp)       ,rstav2(1,igausp)       ,
-     &   strsg(1,igausp)        )
+     .  (detf       ,kunld      ,mbdim      ,mgdim      ,
+     .   nlarge     ,ntype      ,
+     .   amatx      ,dmatx      ,eincr      ,fincr      ,iprops     ,
+     .   lalgva(1,igausp)       ,ralgva(1,igausp)       ,rprops     ,
+     .   rstava(1,igausp)       ,rstav2(1,igausp)       ,
+     .   strsg(1,igausp)        )
 !
 ! Add current gauss point contribution to element stiffness
 ! =========================================================
@@ -237,9 +237,9 @@
 ! k = (1-xi)*tau [B C B] dV
           scalar = (1.d0-xi)*tau*dvolu
           call rtsr
-     &  (auxm       ,0          ,mevab      ,4          ,nevab      ,
-     &   nbdim      ,estif      ,bmatx      ,dmatx      ,scalar     ,
-     &   unsym      )
+     .  (auxm       ,0          ,mevab      ,4          ,nevab      ,
+     .   nbdim      ,estif      ,bmatx      ,dmatx      ,scalar     ,
+     .   unsym      )
 !
         else if (gptype .eq. dis) then
 ! Reduced integration gauss point
@@ -247,41 +247,41 @@
 ! k = (1-xi)(1-tau)[B C B]dV + xi(1-gamma_wsd)[B C B]dV
           scalar = ((1.d0-xi)*(1.d0-tau) + xi*(1.d0-gamwsd))*dvolu
           call rtsr
-     &  (auxm       ,0          ,mevab      ,4          ,nevab      ,
-     &   nbdim      ,estif      ,bmatx      ,dmatx      ,scalar     ,
-     &   unsym      )
+     .  (auxm       ,0          ,mevab      ,4          ,nevab      ,
+     .   nbdim      ,estif      ,bmatx      ,dmatx      ,scalar     ,
+     .   unsym      )
           if (einj.eq.2) then
 !                        t                                     t
 ! kub = -(1-gamma_wsd) [B C grad(phi)] dV + (1-gamma_wsd)1/k [B C n]dV
             scalar = -(1.d0-gamwsd)*dvolu
             call rtsx
-     &  (auxm       ,0          ,mevab      ,4          ,nevab      ,
-     &   nbdim      ,kub        ,bmatx      ,dmatx      ,graphi     ,
-     &   scalar     )
+     .  (auxm       ,0          ,mevab      ,4          ,nevab      ,
+     .   nbdim      ,kub        ,bmatx      ,dmatx      ,graphi     ,
+     .   scalar     )
             scalar = (1.d0-gamwsd)*elkinv*dvolu
             call rtsx
-     &  (auxm       ,0          ,mevab      ,4          ,nevab      ,
-     &   nbdim      ,kub        ,bmatx      ,dmatx      ,vecn       ,
-     &   scalar     )
+     .  (auxm       ,0          ,mevab      ,4          ,nevab      ,
+     .   nbdim      ,kub        ,bmatx      ,dmatx      ,vecn       ,
+     .   scalar     )
 !         t
 ! kbu = [n C B] de
             scalar = de
             call rtsx
-     &  (auxm       ,0          ,ndofn      ,3          ,ndofn      ,
-     &   3          ,kbu        ,vecn       ,dmatx      ,bmatx      ,
-     &   scalar     )
+     .  (auxm       ,0          ,ndofn      ,3          ,ndofn      ,
+     .   3          ,kbu        ,vecn       ,dmatx      ,bmatx      ,
+     .   scalar     )
 !           t                        t
 ! kbb = - [n C grad(phi)] de + 1/k [n C n] de
               scalar = -de
               call rtsx
-     &  (auxm       ,0          ,ndofn      ,3          ,ndofn      ,
-     &   3          ,kbb        ,vecn       ,dmatx      ,graphi     ,
-     &   scalar     )
+     .  (auxm       ,0          ,ndofn      ,3          ,ndofn      ,
+     .   3          ,kbb        ,vecn       ,dmatx      ,graphi     ,
+     .   scalar     )
               scalar = elkinv*de
               call rtsx
-     &  (auxm       ,0          ,ndofn      ,3          ,ndofn      ,
-     &   3          ,kbb        ,vecn       ,dmatx      ,vecn       ,
-     &   scalar     )
+     .  (auxm       ,0          ,ndofn      ,3          ,ndofn      ,
+     .   3          ,kbb        ,vecn       ,dmatx      ,vecn       ,
+     .   scalar     )
           end if
         else if (gptype .eq. ela) then
 ! Elastic gauss point: 
@@ -289,17 +289,17 @@
 ! k = xi*gamma_wsd [B C B]dV
           scalar = xi*gamwsd*dvolu
           call rtsr
-     &  (auxm       ,0          ,mevab      ,4          ,nevab      ,
-     &   nbdim      ,estif      ,bmatx      ,dmatx      ,scalar     ,
-     &   unsym      )
+     .  (auxm       ,0          ,mevab      ,4          ,nevab      ,
+     .   nbdim      ,estif      ,bmatx      ,dmatx      ,scalar     ,
+     .   unsym      )
           if (einj.eq.2) then
 !                    t
 ! kub = -gamma_wsd [B C grad(phi)] dV
             scalar = -gamwsd*dvolu
             call rtsx
-     &  (auxm       ,0          ,mevab      ,4          ,nevab      ,
-     &   nbdim      ,kub        ,bmatx      ,dmatx      ,graphi     ,
-     &   scalar     )
+     .  (auxm       ,0          ,mevab      ,4          ,nevab      ,
+     .   nbdim      ,kub        ,bmatx      ,dmatx      ,graphi     ,
+     .   scalar     )
             if (injtyp.eq.symsdinj) then
 ! ... symetric strong discontinuity formulation
 ! ... REFERENCE: Box C.1 (Dias, 2012)
@@ -307,16 +307,16 @@
 ! kbu = - [grad(phi) C B] dV
               scalar = -dvolu
               call rtsx
-     &  (auxm       ,0          ,ndofn      ,3          ,ndofn      ,
-     &   3          ,kbu        ,graphi     ,dmatx      ,bmatx      ,
-     &   scalar     )
+     .  (auxm       ,0          ,ndofn      ,3          ,ndofn      ,
+     .   3          ,kbu        ,graphi     ,dmatx      ,bmatx      ,
+     .   scalar     )
 !                 t
 ! kbb = [grad(phi) C grad(phi)] dV
               scalar = dvolu
               call rtsx
-     &  (auxm       ,0          ,ndofn      ,3          ,ndofn      ,
-     &   3          ,kbu        ,graphi     ,dmatx      ,graphi     ,
-     &   scalar     )
+     .  (auxm       ,0          ,ndofn      ,3          ,ndofn      ,
+     .   3          ,kbu        ,graphi     ,dmatx      ,graphi     ,
+     .   scalar     )
             else
 ! ... non-symetric strong/weak discontinuity formulation
 ! ... REFERENCE: Box C.2 and C.3 (Dias, 2012)
@@ -324,16 +324,16 @@
 ! kbu = - [n C B] de
               scalar = -de
               call rtsx
-     &  (auxm       ,0          ,ndofn      ,3          ,ndofn      ,
-     &   3          ,kbu        ,vecn       ,dmatx      ,bmatx      ,
-     &   scalar     )
+     .  (auxm       ,0          ,ndofn      ,3          ,ndofn      ,
+     .   3          ,kbu        ,vecn       ,dmatx      ,bmatx      ,
+     .   scalar     )
 !         t
 ! kbb = [n C grad(phi)] de
               scalar = de
               call rtsx
-     &  (auxm       ,0          ,ndofn      ,3          ,ndofn      ,
-     &   3          ,kbb        ,vecn       ,dmatx      ,graphi     ,
-     &   scalar     )
+     .  (auxm       ,0          ,ndofn      ,3          ,ndofn      ,
+     .   3          ,kbb        ,vecn       ,dmatx      ,graphi     ,
+     .   scalar     )
             end if
           end if
         end if
@@ -348,18 +348,27 @@
         kubt = tranmt(kub, nevab, ndofn)
         scalar = (1.d0-xi)*tau
         call rtsx
-     &  (auxm       ,0          ,mevab      ,ndofn      ,nevab      ,
-     &   ndofn      ,estif      ,kubt       ,kbbinv     ,kbu        ,
-     &   scalar     )
+     .  (auxm       ,0          ,mevab      ,ndofn      ,nevab      ,
+     .   ndofn      ,estif      ,kubt       ,kbbinv     ,kbu        ,
+     .   scalar     )
+!                                                         -1
+! ... Compute condensed residual: resid = resid - [kub kbb  residb]
+        scalar = -1.d0
+        residb(1) = restv(31)
+        residb(2) = restv(32)
+        call rtsx
+     .  (auxm       ,0          ,mevab      ,ndofn      ,nevab      ,
+     .   ndofn      ,resid      ,kubt       ,kbbinv     ,residb     ,
+     .   scalar     )
       end if
 ! 
 ! Save alternate stifness matrices: kub, kbu, and kbb
 ! ---------------------------------------------------
-! These matrices are stored in relprp array, from position 51 onwards.
+! These matrices are stored in restv array, from position 34 onwards.
 ! Values are stored in row order (first all row 1, then all row 2, and
 ! so on)
 !
-      irestv = 31
+      irestv = 34
 ! Matrix kub
       do ievab = 1, nevab
         do idofn = 1, ndofn
@@ -385,5 +394,6 @@
           irestv = irestv + 1
         end do
       end do
+!      
       return
       end

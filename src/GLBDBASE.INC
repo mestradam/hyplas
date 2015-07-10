@@ -73,7 +73,8 @@ C                     4 - Modified Newton KT2;
 C                     5 - Secant Newton - Initial stiffness;
 C                     6 - Secant Newton - KT1;
 C                     7 - Secant Newton - KT2,
-C                 with negative values for combined Arc-length method.
+C                 with negative values for combined Arc-length method;
+C                     8 - Weak/strong discontinuities,
 C
 C       - NDIME = Number of spatial dimensions.
 C
