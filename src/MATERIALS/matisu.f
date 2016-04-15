@@ -154,11 +154,11 @@ C Elastico de prueba ( )
 C...set elasto-plastic flag and state update failure flag
           LALGVA(1)=.FALSE.
           LALGVA(2)=.FALSE.
-        ELSEIF (MATTYP.EQ.COMP) THEN
-c Composite material model (M Estrada 2014)
-          CALL SUCOMP
-     &( RALGVA      ,IPROPS     ,LALGVA     ,NTYPE      ,RPROPS     ,
-     &  RSTAVA      ,STRAT      ,STRES      )
+        ELSEIF (MATTYP.EQ.compvm) THEN
+c Composite material: VonMises + damage (M. Estrada 2014)
+          call sucovm
+     &( ralgva      ,iprops     ,lalgva     ,ntype      ,rprops     ,
+     &  rstava      ,strat      ,stres      )
         ELSE
 C Error: Material type not recognised
           CALL ERRPRT('EI0042')

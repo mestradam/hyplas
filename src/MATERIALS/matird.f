@@ -114,12 +114,12 @@ C Elastico de prueba
         CALL RDELPRU
      1(   MRPROP ,MRSTAV ,RPROPS ,UNSAUX)
       elseif (matnam.eq.'COMPOSITE') then
-c Composite material (M. Estrada 2014)
-        mattyp = comp
+c Composite material: VonMises + damage (M. Estrada 2014)
+        mattyp = compvm
         matcls = hypepl
-        call rdcomp
-     &( iprops      ,rprops     ,unsym      ,miprop     ,mlalgv     ,
-     &  mrprop      ,mrstav     )
+        call rdcovm
+     &( iprops      ,miprop     ,mlalgv      ,mrprop     ,mrstav     ,
+     &  rprops      ,unsaux     )
       ELSE
         CALL ERRPRT('ED0015')
       ENDIF

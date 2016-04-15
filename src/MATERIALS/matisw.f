@@ -92,9 +92,9 @@ C Elastico de prueba ( )
         CALL SWELPRU
      1(   MODE       ,NTYPE      ,RSTAVC     ,RSTAVL     ,STRESC     ,
      2    STRESL     )
-      elseif (mattyp.eq.comp) then
-c Composite material (M Estrada 2014)
-          call swcomp
+      elseif (mattyp.eq.compvm) then
+c Composite material: VonMises + damage (M. Estrada 2014)
+          call swcovm
      &( mode        ,ntype      ,lalgvc     ,lalgvl     ,ralgvc     ,
      &  rstavc      ,rstavl     ,stresc     ,stresl     )
       ELSE

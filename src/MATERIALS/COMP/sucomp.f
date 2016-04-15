@@ -2,12 +2,13 @@
      &( ralgva      ,iprops     ,lalgva     ,ntype      ,rprops     ,
      &  rstava      ,strat      ,stres      )
 !***********************************************************************
-! State update procedure for the COMPOSITE material model with two
-! material components.
-!   Fibers: Damage from Weibull analysis
+! State update procedure 
+! for composite material (plane strain and axisymmetric only).
+!   
+!   Fibers: Damage Weibull model
 !   Matrix: Elastoplastic Von-Mises J2 model
 !
-! (M. Estrada, 2014)
+! (M. Estrada, 2014
 !-----------------------------------------------------------------------
 ! Subroutine arguments:
 !
@@ -43,19 +44,21 @@
       real(kind=8)
      &  youngm      ,poissm     ,youngf     ,poissf     ,sigmauf    ,
      &  alphaf      ,betaf      ,volfrf     ,anglef     ,eet(4)     ,
-     &  strest(3)   ,tol        ,dgama      ,stresf(3)  ,streff     ,
+     &  strest(4)   ,tol        ,dgama      ,stresf(4)  ,streff     ,
      &  damage      ,mx         ,my
       parameter(
-     &  mstre=4     ,nstre=3    ,tol=1.d-08 ,mxiter=50  )
+     &  mstre=4     ,nstre=3    ,iphard=21  ,tol=1.d-08 ,mxiter=50  )
       DATA
-     1    R0   ,RP5  ,R1   ,R2   ,R3   ,R4   ,R6   ,TOL   /
-     2    0.0D0,0.5D0,1.0D0,2.0D0,3.0D0,4.0D0,6.0D0,1.D-08/
+     &    R0    ,RP5   ,R1    ,R2    ,R3    ,R4    ,R6    ,TOL   /
+     &    0.0D0 ,0.5D0 ,1.0D0 ,2.0D0 ,3.0D0 ,4.0D0 ,6.0D0 ,1.D-06/
 !
+! ==============================================================
+! Start state update process for MATRIX 
+! (Von Mises plane strain and axisymmetric)
+! ==============================================================
+!     
 ! Stop program if not plane stress
       if (ntype.ne.1) call errprt('EI0031')
-!
-! Start state update process for MATRIX (Von Mises plane stress)
-! ==============================================================
 !
 ! Initialize some algorithmic and internal variables
       dgama = 0.d0
@@ -67,123 +70,95 @@
       young = rprops(1)
       poiss = rprops(2)
       nhard = iprops(3)
-      iphard = 21
 ! Shear and bulk moduli and other necessary constants
       gmodu = young/(2.d0*(1.d0+poiss))
       bulk = young/(3.d0*(1.d0-2.d0*poiss))
       r2g=r2*gmodu
       r4g=r4*gmodu
-      r1d3=r1/r3
-      r1d6=r1/r6
-      r2d3=r2*r1d3
-      sqr2d3=sqrt(r2d3)
-      r4gd3=r4g*r1d3
 ! Elastic predictor: Compute elastic trial state
 ! ----------------------------------------------
 ! Volumetric strain
-      factor=r2g/(bulk+r4gd3)
-      eev=(strat(1)+strat(2))*factor
+      eev = strat(1)+strat(2)+strat(4)
+      p = bulk*eev
 ! Elastic trial deviatoric strain
-      eevd3=eev/r3
+      eevd3=eev/3.d0
       eet(1)=strat(1)-eevd3
       eet(2)=strat(2)-eevd3
+      eet(4)=strat(4)-eevd3
 ! Convert engineering shear component into physical component
-      eet(3)=strat(3)*rp5
-! Elastic trial stress components
-      pt=bulk*eev
-      strest(1)=r2g*eet(1)+pt
-      strest(2)=r2g*eet(2)+pt
-      strest(3)=r2g*eet(3)
-! Compute yield function value at trial state
-      a1=(strest(1)+strest(2))*(strest(1)+strest(2))
-      a2=(strest(2)-strest(1))*(strest(2)-strest(1))
-      a3=strest(3)*strest(3)
-      xi=r1d6*a1+rp5*a2+r2*a3
+      eet(3)=strat(3)/2.d0
+! Compute trial effective stress and uniaxial yield stress
+      varj2t=r2g*r2g*(eet(3)*eet(3)+rp5*(eet(1)*eet(1)+
+     .                eet(2)*eet(2)+eet(4)*eet(4)))
+      qtrial=sqrt(r3*varj2t)
       sigmay=plfun(epbarn,nhard,rprops(iphard))
-!...yield function
-      phi=rp5*xi-r1d3*sigmay*sigmay
 ! Check for plastic admissibility
 ! -------------------------------
+      phi=qtrial-sigmay
       if(phi/sigmay.gt.tol)then
 ! Plastic step: Apply return mapping - use Newton-Raphson algorithm
-!               to solve the plane stress-projected return mapping
-!               equation for the plastic multiplier (Box 9.5)
+!               to solve the return mapping equation (Box 7.4)
 ! -----------------------------------------------------------------
-        IFPLAS=.TRUE.
-        EPBAR=EPBARN
-        SQRTXI=SQRT(XI)
-        B1=R1
-        B2=R1
-        FMODU=YOUNG/(R3*(R1-POISS))
-        DO NRITER=1,MXITER
-! Compute residual derivative
-          HSLOPE=DPLFUN(EPBAR,NHARD,RPROPS(IPHARD))
-          DXI=-A1*FMODU/(R3*B1*B1*B1)-R2G*(A2+R4*A3)/(B2*B2*B2)
-          HBAR=R2*SIGMAY*HSLOPE*SQR2D3*(SQRTXI+DGAMA*DXI/(R2*SQRTXI))
-          DPHI=RP5*DXI-R1D3*HBAR
-! Compute Newton-Raphson increment and update equation variable DGAMA
-          DGAMA=DGAMA-PHI/DPHI
-! Compute new residual (yield function value)
-          B1=R1+FMODU*DGAMA
-          B2=R1+R2G*DGAMA
-          XI=R1D6*A1/(B1*B1)+(RP5*A2+R2*A3)/(B2*B2)
-          SQRTXI=SQRT(XI)
-          EPBAR=EPBARN+DGAMA*SQR2D3*SQRTXI
-          SIGMAY=PLFUN(EPBAR,NHARD,RPROPS(IPHARD))
-          PHI=RP5*XI-R1D3*SIGMAY*SIGMAY
-! Check for convergence
-          RESNOR=ABS(PHI/SIGMAY)
-          IF(RESNOR.LE.TOL)THEN
+        ifplas = .true.
+        epbar = epbarn
+        do nriter = 1,mxiter
+! compute residual derivative
+          denom=-r3g-dplfun(epbar,nhard,rprops(iphard))
+! compute newton-raphson increment and update variable dgama
+          ddgama=-phi/denom
+          dgama=dgama+ddgama
+! compute new residual
+          epbar=epbar+ddgama
+          sigmay=plfun(epbar,nhard,rprops(iphard))
+          phi=qtrial-r3g*dgama-sigmay
+! check convergence
+          resnor=abs(phi/sigmay)
+          if(resnor.le.tol)then
 ! update accumulated plastic strain
-            RSTAVA(9)=EPBAR
-! update stress components:   sigma := A sigma^trial
-            ASTAR1=R3*(R1-POISS)/(R3*(R1-POISS)+YOUNG*DGAMA)
-            ASTAR2=R1/(R1+R2G*DGAMA)
-            A11=RP5*(ASTAR1+ASTAR2)
-            A22=A11
-            A12=RP5*(ASTAR1-ASTAR2)
-            A21=A12
-            A33=ASTAR2
-            STRES(1)=A11*STREST(1)+A12*STREST(2)
-            STRES(2)=A21*STREST(1)+A22*STREST(2)
-            STRES(3)=A33*STREST(3)
-! compute corresponding elastic (engineering) strain components
-            FACTG=R1/R2G
-            P=R1D3*(STRES(1)+STRES(2))
-            EEV=P/BULK
-            EEVD3=R1D3*EEV
-            RSTAVA(1)=FACTG*(R2D3*STRES(1)-R1D3*STRES(2))+EEVD3
-            RSTAVA(2)=FACTG*(R2D3*STRES(2)-R1D3*STRES(1))+EEVD3
-            RSTAVA(3)=FACTG*STRES(3)*R2
-            RSTAVA(4)=-POISS/(R1-POISS)*(RSTAVA(1)+RSTAVA(2))
-            GOTO 998
-          ENDIF
-        end do
-! reset failure flag and print warning message if N-R algorithm fails
-        SUFAIL=.TRUE.
-        CALL ERRPRT('WE0013')
-      ELSE
-! Elastic step: Update stress using linear elastic law
+            rstava(mstre+1)=epbar
+! update stress components
+            factor=r2g*(r1-r3g*dgama/qtrial)
+            stres(1)=factor*eet(1)+p
+            stres(2)=factor*eet(2)+p
+            stres(3)=factor*eet(3)
+            stres(4)=factor*eet(4)+p
+! compute converged elastic (engineering) strain components
+            factor=factor/r2g
+            rstava(1)=factor*eet(1)+eevd3
+            rstava(2)=factor*eet(2)+eevd3
+            rstava(3)=factor*eet(3)*r2
+            rstava(4)=factor*eet(4)+eevd3
+            goto 999
+          endif
+        enddo
+! reset failure flag and print warning message if the algorithm fails
+        sufail=.true.
+        call errprt('we0004')
+      else
+! elastic step: update stress using linear elastic law
 ! ----------------------------------------------------
-        STRES(1)=STREST(1)
-        STRES(2)=STREST(2)
-        STRES(3)=STREST(3)
+        stres(1)=r2g*eet(1)+p
+        stres(2)=r2g*eet(2)+p
+        stres(3)=r2g*eet(3)
+        stres(4)=r2g*eet(4)+p
 ! elastic engineering strain
-        RSTAVA(1)=STRAT(1)
-        RSTAVA(2)=STRAT(2)
-        RSTAVA(3)=STRAT(3)
-        RSTAVA(4)=-POISS/(R1-POISS)*(STRAT(1)+STRAT(2))
-      ENDIF
-  998 CONTINUE
+        rstava(1)=strat(1)
+        rstava(2)=strat(2)
+        rstava(3)=strat(3)
+        rstava(4)=strat(4)
+      endif
+  999 continue
 ! Update some algorithmic variables before exit
-      LALGVA(1)=IFPLAS
-      LALGVA(2)=SUFAIL
+      lalgva(1) = ifplas
+      lalgva(2) = sufail
       ralgva(1) = dgama
+!      
 !
-!
-! Start state update process for FIBERS (Damage Weibull uniaxial)
 ! ===============================================================
-!
+! Start state update process for FIBERS 
+! (Damage Weibull uniaxial)
+! ===============================================================
+! 
 ! Initialize algorithmic and internal variables
       ifdama = .false.
       sufail = .false.
@@ -240,6 +215,7 @@
           stresf(1) = streff*mx*mx
           stresf(2) = streff*my*my
           stresf(3) = streff*mx*my
+          stresf(4) = 0.d0
       else
 !
 ! Plastic step: Update damage variable and nominal
@@ -257,6 +233,7 @@
           stresf(1) = streff*mx*mx
           stresf(2) = streff*my*my
           stresf(3) = streff*mx*my
+          stresf(4) = 0.d0
       end if
 !
 ! Update some algorithmic variables before exit
@@ -274,6 +251,7 @@
       stres(1) = volfrm*stres(1) + volfrf*stresf(1)
       stres(2) = volfrm*stres(2) + volfrf*stresf(2)
       stres(3) = volfrm*stres(3) + volfrf*stresf(3)
+      stres(3) = volfrm*stres(4) + volfrf*stresf(4)
 !
       return
       end

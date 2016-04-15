@@ -100,7 +100,7 @@ C
       PARAMETER( COPLAS=12)
       PARAMETER( CODAMA=13)
       PARAMETER( ELAPRU=14)
-      parameter( comp  =15)
+      parameter( compvm=15)
 C
 C
 C   * ELASTC = Standard linear elastic model (generalized Hooke's law).
@@ -160,4 +160,7 @@ C              (L. Herrera 2010).
 C
 C   * ELAPRU = Modelo elastico de prueba. ( )
 C
-c   * comp   = Composite material model (M. Estrada 2014)
+c   * compvm = Composite material model with the following components
+c              Fibers: Damage Weibull model
+c              Matrix: Plasticity Von mises
+c              (M. Estrada 2014)

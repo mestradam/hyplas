@@ -171,9 +171,9 @@ C Concrete damage model (L. Herrera 2010)
 C Elastico de prueba
           CALL CTELPRU
      1(   DMATX      ,NTYPE      ,RPROPS     )
-        elseif(mattyp.eq.comp)then
-c Composite material (M. Estrada 2014)
-          call ctcomp
+        elseif(mattyp.eq.compvm)then
+c Composite material: VonMises + damage (M. Estrada 2014)
+          call ctcovm
      &( ralgva      ,dmatx      ,lalgva     ,iprops     ,ntype      ,
      &  rprops      ,rstava     ,stresk     ,strat      )
         ELSE

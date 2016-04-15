@@ -53,7 +53,7 @@ c
 c Set number of variables of each kind
       if (ntype.eq.1.or.ntype.eq.2.or.ntype.eq.3) then
           nstre = 4
-          nrstav = 6
+          nrstav = 13
           nralgv = 2
           nlalgv = 3
       end if

@@ -65,9 +65,9 @@ C Concrete damage model (L. Herrera 2010)
       ELSEIF(MATTYP.EQ.ELAPRU)THEN
 C Elastico de prueba
         CALL ORELPRU(16      ,NTYPE   ,STRES   )
-      elseif (mattyp.eq.comp) then
-c Composite Material (M Estrada 2014)
-          call orcomp(
+      elseif (mattyp.eq.compvm) then
+c Composite material: VonMises + damage (M. Estrada 2014)
+          call orcovm(
      &  ralgva      ,16         ,22         ,ntype      ,rstava     ,
      &  stres       ,ielem      ,iincs      ,igausp     ,outda      )
       ELSE

@@ -4,7 +4,7 @@
 c***********************************************************************
 c Read and echo material properties for composite material with two
 c material components.
-c   Fibers: Elastoplastic Von-Mises J2 model
+c   Fibers: Damage Weibull model
 c   Matrix: Elastoplastic Von-Mises J2 model
 c
 c (M. Estrada, 2014)

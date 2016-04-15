@@ -236,7 +236,7 @@
 !         Note: Large strains is not yet implemented. The use of large
 !               strains will produce an error and stop the program
 !          
-          call errprt('ED0200')
+          call errprt('ED0206')
         else
 !          
 !         Small strains: compute incremental infinitesimal strain: EINCR
