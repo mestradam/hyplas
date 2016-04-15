@@ -1,14 +1,35 @@
-      SUBROUTINE ORcoVM
-     1(   DGAMA   ,NOUTF1   ,NOUTF2  ,NTYPE   ,RSTAVA   ,STRES,
+      SUBROUTINE ORCOVM
+     1(   ralgva  ,NOUTF1   ,NOUTF2  ,NTYPE   ,RSTAVA   ,STRES,
      2    IELEM   ,IINCS    ,IGAUSP  ,OUTDA)
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      PARAMETER(IPHARD=5  ,MSTRE=4)
-      DIMENSION  RSTAVA(MSTRE+1), STRES(*)
+      PARAMETER(IPHARD=21  ,MSTRE=4)
+      DIMENSION  RSTAVA(13), STRES(*)  ,ralgva(*)
       DATA   R2   ,R3    / 2.0D0,3.0D0 /
-C***********************************************************************
-C OUTPUT RESULTS (INTERNAL AND ALGORITHMIC VARIABLES) FOR VON MISES
-C TYPE ELASTO-PLASTIC MATERIAL WITH NON-LINEAR ISOTROPIC HARDENING
-C***********************************************************************
+!***********************************************************************
+! Output results (int and alg variables) 
+! for composite material (plane strain and axisymmetric only).
+!   
+!   Fibers: Damage Weibull model
+!   Matrix: Elastoplastic Von-Mises J2 model
+!
+! (M. Estrada, 2014)
+!-----------------------------------------------------------------------
+! Subroutine arguments:
+!
+!   ralgva  (in)    : real algorithmic variables
+!   noutf1  (in)    : regular output file
+!   noutf2  (in)    : GiD output file
+!   ntype   (in)    : Analysis type
+!                       1   plane stress
+!                       2   plane strain
+!                       3   axisymmetric
+!   rstava  (in)    : real state variables
+!   stres   (in)    : stress array
+!   ielem   (in)    : element number
+!   iincs   (in)    : increment number
+!   igausp  (in)    : Gauss point number
+!   outda   (in)    : type of output
+!***********************************************************************
  1000 FORMAT(' S-eff = ',G12.4,' Eps.  = ',G12.4,' dgama = ',G12.4)
  1205 FORMAT('Result "INTERNAL-VARIABLES" "LOAD ANALYSIS"',I3,
      1       ' Vector OnGaussPoints "Board gauss internal"',/,
@@ -20,8 +41,8 @@ C***********************************************************************
      3       'Values')
  1211 FORMAT(I5,2X,3G15.6)
  1212 FORMAT(7X,3G15.6)
-C
-      EPBAR=RSTAVA(MSTRE+1)
+!
+      EPBAR=RSTAVA(9)
       IF(IELEM.EQ.1.AND.IGAUSP.EQ.1.AND.OUTDA.EQ.2)THEN
         WRITE(NOUTF2,1205)IINCS
       ELSEIF(IELEM.EQ.1.AND.OUTDA.EQ.3)THEN
@@ -29,17 +50,17 @@ C
       ENDIF
 c
       IF(NTYPE.EQ.1)THEN
-C Plane stress
+! Plane stress
         P=(STRES(1)+STRES(2))/R3
         EFFST=SQRT(R3/R2*((STRES(1)-P)**2+(STRES(2)-P)**2+
      1                     R2*STRES(3)**2+P**2))
       ELSEIF(NTYPE.EQ.2.OR.NTYPE.EQ.3)THEN
-C Plane strain and axisymmetric
+! Plane strain and axisymmetric
         P=(STRES(1)+STRES(2)+STRES(4))/R3
         EFFST=SQRT(R3/R2*((STRES(1)-P)**2+(STRES(2)-P)**2+
      1                     R2*STRES(3)**2+(STRES(4)-P)**2))
       ENDIF
-C Write to output file and GiD output file
+! Write to output file and GiD output file
       IF(OUTDA.EQ.1)THEN
         WRITE(NOUTF1,1000)EFFST,EPBAR,DGAMA
       ELSEIF(OUTDA.EQ.2)THEN

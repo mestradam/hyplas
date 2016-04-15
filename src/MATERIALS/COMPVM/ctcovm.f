@@ -1,15 +1,16 @@
-      SUBROUTINE CTcoVM
-     1(   DGAMA      ,DMATX      ,EPFLAG     ,IPROPS     ,NTYPE      ,
+      SUBROUTINE CTCOVM
+     1(   ralgva     ,DMATX      ,lalgva     ,IPROPS     ,NTYPE      ,
      2    RPROPS     ,RSTAVA     ,STRES      )
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      PARAMETER(IPHARD=4  ,MSTRE=4)
+      PARAMETER(IPHARD=21  ,MSTRE=4)
       LOGICAL EPFLAG
       DIMENSION
-     1    DMATX(MSTRE,MSTRE),IPROPS(*)           ,RPROPS(*)          ,
-     2    RSTAVA(MSTRE+1)   ,STRES(MSTRE)
+     1    DMATX(4,4),IPROPS(*)           ,RPROPS(*)          ,
+     2    RSTAVA(13)   ,STRES(4)        ,ralgva(*)          ,
+     &    lalgva(*)
       DIMENSION
-     1    DEVPRJ(MSTRE,MSTRE),FOID(MSTRE,MSTRE)  ,S(MSTRE)           ,
-     2    SOID(MSTRE)
+     1    DEVPRJ(4,4),FOID(4,4)  ,S(4)           ,
+     2    SOID(4)
       DATA
      1    FOID(1,1),FOID(1,2),FOID(1,3),FOID(1,4)/
      2    1.0D0    ,0.0D0    ,0.0D0    ,0.0D0    /
@@ -25,27 +26,42 @@
       DATA
      1    R1   ,R2   ,R3   ,R6   /
      2    1.0D0,2.0D0,3.0D0,6.0D0/
-C***********************************************************************
-C COMPUTATION OF THE CONSISTENT TANGENT MODULUS FOR VON MISES TYPE
-C ELASTO-PLASTIC MATERIAL WITH PIECE-WISE LINEAR ISOTROPIC HARDENING.
-C PLANE STRAIN AND AXISYMMETRIC IMPLEMENTATIONS.
-C
-C REFERENCE: Section 7.4.3
-C***********************************************************************
-C Stops program if neither plane strain nor axisymmetric state
+!***********************************************************************
+! Computation of the consistent tangent modulus 
+! for composite material (plane strain and axisymmetric only).
+!   
+!   Fibers: Damage Weibull model
+!   Matrix: Elastoplastic Von-Mises J2 model
+!
+! (M. Estrada, 2014)
+!-----------------------------------------------------------------------
+! Subroutine arguments:
+!
+!   ralgva  () :
+!   dmatx   () :
+!   epflag  () :
+!   iprops  () :
+!   ntype   () :
+!   rprops  () :
+!   rstava  () :
+!   stresk  () :
+!***********************************************************************
+! Stops program if neither plane strain nor axisymmetric state
       IF(NTYPE.NE.2.AND.NTYPE.NE.3)CALL ERRPRT('EI0030')
-C Current accumulated plastic strain
-      EPBAR=RSTAVA(MSTRE+1)
-C Set material properties
+! Current accumulated plastic strain
+      EPBAR=RSTAVA(9)
+      epflag = lalgva(1)
+      dgama = rstava(11)
+! Set material properties
       YOUNG=RPROPS(2)
       POISS=RPROPS(3)
       NHARD=IPROPS(3)
-C Shear and bulk moduli
+! Shear and bulk moduli
       GMODU=YOUNG/(R2*(R1+POISS))
       BULK=YOUNG/(R3*(R1-R2*POISS))
       R2G=R2*GMODU
       R1D3=R1/R3
-C Set deviatoric projection tensor
+! Set deviatoric projection tensor
       IF(NTYPE.EQ.2)THEN
         NSTRE=3
       ELSEIF(NTYPE.EQ.3)THEN
@@ -57,22 +73,22 @@ C Set deviatoric projection tensor
    10   CONTINUE
    20 CONTINUE
       IF(EPFLAG)THEN
-C Compute elastoplastic consistent tangent
-C ----------------------------------------
+! Compute elastoplastic consistent tangent
+! ----------------------------------------
         R3G=R3*GMODU
         ROO3D2=SQRT(R3/R2)
-C Hydrostatic pressure
+! Hydrostatic pressure
         P=(STRES(1)+STRES(2)+STRES(4))*R1D3
-C Deviatoric stress components
+! Deviatoric stress components
         S(1)=STRES(1)-P
         S(2)=STRES(2)-P
         S(3)=STRES(3)
         S(4)=STRES(4)-P
-C Recover last elastic trial von Mises effective stress
+! Recover last elastic trial von Mises effective stress
         SNORM=SQRT(S(1)*S(1)+S(2)*S(2)+R2*S(3)*S(3)+S(4)*S(4))
         Q=ROO3D2*SNORM
         QTRIAL=Q+R3G*DGAMA
-C Assemble elastoplastic tangent (upper triangle only)
+! Assemble elastoplastic tangent (upper triangle only)
         AFACT=R2G*(R1-R3G*DGAMA/QTRIAL)
         BFACT=R6*GMODU*GMODU*(DGAMA/QTRIAL-
      1        R1/(R3G+DPLFUN(EPBAR,NHARD,RPROPS(IPHARD))))/
@@ -84,16 +100,16 @@ C Assemble elastoplastic tangent (upper triangle only)
    30     CONTINUE       
    40   CONTINUE
       ELSE
-C Compute elasticity matrix (upper triangle only)
-C -----------------------------------------------
+! Compute elasticity matrix (upper triangle only)
+! -----------------------------------------------
         DO 60 I=1,NSTRE
           DO 50 J=I,NSTRE
             DMATX(I,J)=R2G*DEVPRJ(I,J)+BULK*SOID(I)*SOID(J)
    50     CONTINUE       
    60   CONTINUE
       ENDIF
-C Assemble lower triangle
-C -----------------------
+! Assemble lower triangle
+! -----------------------
       DO 80 J=1,NSTRE-1
         DO 70 I=J+1,NSTRE
           DMATX(I,J)=DMATX(J,I)
