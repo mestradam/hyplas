@@ -1,0 +1,42 @@
+ <pre>
+ SUBOUTINE <a href=swvm.html>SWVM</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Initialise/switch state variables for the von Mises model          
+                                                                    
+ This initialises and switches state variables (between current and 
+ previous values) for the von Mises elasto-plastic material model   
+ with isotropic hardening.                                          
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            MODE   >  Initialisation/Switching mode.          
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   LALGVC <> Array of logical algorithmic variables  
+                              at Gauss point. Current values.         
+
+ double precision   LALGVL <> Array of logical algorithmic variables  
+                              at Gauss point. Last converged          
+                              (equilibrium) values.                   
+
+ double precision   RALGVC <> Array of real algorithmic variables at  
+                              Gauss point. Current values.            
+
+ double precision   RSTAVC <> Array of real state variables at Gauss  
+                              point. Current values.                  
+
+ double precision   RSTAVL <> Array of real state variables at Gauss  
+                              point. Last converged (equilibrium)     
+                              values.                                 
+
+ double precision   STRESC <> Array of stress (Cauchy in large strain)
+                              components. Current values.             
+
+ double precision   STRESL <> Array of stress (Cauchy in large strain)
+                              components. Last converged (equilibrium)
+                              values.                                 
+ </pre>

@@ -1,0 +1,37 @@
+ <pre>
+ SUBOUTINE <a href=jacob2.html>JACOB2</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Jacobian det. and cartesian deriv. for 2-D isoparametric elements. 
+                                                                    
+ This routine computes the Jacobian of the isoparametric mapping for
+ 2-D isoparametric elements and returns the Jacobian determinant and
+ the cartesian derivatives of the shape functions.                  
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+ CARTD                                                              
+
+ double precision   CARTD  <  Matrix of cartesian derivatives of the  
+                              element shape functions.                
+
+ double precision   DERIV  >  Matrix of isoparametric derivatives of  
+                              the element shape functions.            
+
+ double precision   DETJAC <  Isoparametric mapping Jacobian          
+                              determinant.                            
+
+ double precision   ELCOD  >  Array of element nodal coordinates.     
+
+ integer            IELEM  >  Element number (used only if warning    
+                              messages are issued).                   
+
+ integer            MDIME  >  Dimensioning parameter for arguments    
+                              CARTD, DERIV and ELCOD.                 
+
+ integer            NDIME  >  Number of spatial dimensions.           
+
+ integer            NNODE  >  Number of nodes of the element.         
+                                                                    
+ </pre>

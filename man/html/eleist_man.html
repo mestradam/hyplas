@@ -1,0 +1,27 @@
+ <pre>
+ SUBOUTINE <a href=eleist.html>ELEIST</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Element interface for element tangent stiffness matrix computation 
+                                                                    
+ This routine calls the tangent stiffness matrix calculation        
+ routines for all element classes available in HYPLAS.              
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   ESTIF  <  Tangent stiffness matrix of the current 
+                              element.                                
+
+ integer            IELEM  >  Number of the element whose stiffness   
+                              matrix is to be computed.               
+
+ integer            KUNLD  >  Unloading flag. KUNLD is set to 1 if the
+                              the loading programme is currently      
+                              unloading.                              
+
+ logical            UNSYM  >  Tangent stiffness symmetry flag.        
+                              .TRUE. if tangent stiffness is          
+                              unsymmetric, .FALSE. otherwise.         
+ </pre>

@@ -1,0 +1,35 @@
+ <pre>
+ SUBOUTINE <a href=cstogd.html>CSTOGD</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Spatial elasticity tensor for the Ogden hyperelastic material model
+                                                                    
+ This routine computes the spatial elasticity tensor, a, for the    
+ regularised Ogden hyperelastic material model under plane stress,  
+ plane strain and axisymmetric conditions. Note that under plane    
+ stress the model implemented here is exactly incompressible,       
+ whereas under plane strain and axisymmetric conditions the         
+ regularised (penalty type) approach is used to enforce             
+ incompressibility. The (Cauchy) stress tensor components of the    
+ Ogden hyperelastic model under plane stress/strain and axisymmetric
+ states are evaluated in subroutine SUOGD.                          
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   AMATX  <  Matrix of components of the spatial     
+                              elasticity (fourth order) tensor.       
+
+ double precision   B      >  Array of components of the left         
+                              Cauchy-Green strain tensor.             
+
+ integer            IPROPS >  Array of integer material properties.   
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   RPROPS >  Array of real material properties.      
+
+ double precision   STRES  >  Array of Cauchy stress tensor           
+                              components.                             
+ </pre>

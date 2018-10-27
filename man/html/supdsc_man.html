@@ -1,0 +1,82 @@
+ <pre>
+ SUBOUTINE <a href=supdsc.html>SUPDSC</a> - MANUAL PAGE
+
+ DESCRIPTION
+ State update for the planar double-slip single crystal model.      
+                                                                    
+ This routine uses an implicit elastic predictor/return             
+ mapping algorithm as the state update procedure for the            
+ anisotropic finite strain planar double-slip single crystal model  
+ with Taylor isotropic hardening. This model is compatible only     
+ with the plane strain assumption.                                  
+ It has two slip planes comprising a total of four slip directions  
+ (two directions opposite to each other in each plane).             
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DGAM   <  Array of incremental plastic            
+                              multipliers.                            
+
+ double precision   FINCR  >  Incremental deformation gradient.       
+
+ integer            IPROPS >  Array of integer material properties.   
+                              The number of points on the piece-wise  
+                              linear hardening curve is the only      
+                              element of this array used here.        
+                              This array is set in routines INDATA and
+                              RDTR.                                   
+
+ logical            LALGVA <  Array of logical algorithmic flags.     
+                              For the present material model, this    
+                              array contains the plastic yielding     
+                              flag, IFPLAS, the state update failure  
+                              flag, SUFAIL and the active slip-system 
+                              flags, S1ACT, S2ACT, S3ACT and S4ACT.   
+                              The plastic yielding flag is set to     
+                              .TRUE. if plastic yielding has occurred 
+                              and to .FALSE. if the step is elastic.  
+                              The algorithm failure flag is set to    
+                              .FALSE. if the state update algorithm   
+                              has been successful and to .TRUE. if the
+                              return mapping algorithm has failed for 
+                              any reason.                             
+                              Each active slip-system flags is set to 
+                              .TRUE. only if the                      
+                              corresponding system is currently       
+                              active, i.e., S1ACT is set to .TRUE.    
+                              if system 1 is active, S2ACT is set to  
+                              .TRUE. if system 2 is active and so on. 
+                              Each flag will be set to .FALSE. if the 
+                              corresponding system is not currently   
+                              active.                                 
+
+ integer            NTYPE  >  Stress state type flag. The present     
+                              implementation is compatible only with  
+                              plane strain (NTYPE=2).                 
+
+ double precision   RPROPS >  Array of real material properties.      
+                              This array contains the density         
+                              (not used in this routine), the elastic 
+                              properties: Shear and bulk modulus      
+                              (neo-Hookean constants) and the plastic 
+                              properties: the pairs ``Taylor hardening
+                              variable-resolved yield shear stress''  
+                              that define the (user supplied)         
+                              piece-wise linear Taylor hardening      
+                              curve. This array is set in routine     
+                              RDPDSC.                                 
+
+ double precision   RSTAVA <> Array of real state variables other     
+                              than the stress tensor components.      
+                              Previous converged values on entry,     
+                              updated values on exit.                 
+                              The state variables stored in           
+                              this array are the in-plane components  
+                              of the elastic deformation gradient and 
+                              the Taylor hardening internal variable. 
+
+ double precision   STRES  <  Array of updated stress tensor          
+                              components.                             
+ </pre>

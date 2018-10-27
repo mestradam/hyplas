@@ -1,0 +1,36 @@
+ <pre>
+ SUBOUTINE <a href=defgra.html>DEFGRA</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Deformation gradient for 2D isoparametric finite element           
+                                                                    
+ Given the element nodal displacements and the discrete gradient    
+ operator, G-matrix, at a point, this routine computes the          
+ corresponding deformation gradient at that point. This routine     
+ contains the plane strain, plane stress and axisymmetric           
+ implementations.                                                   
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   ELDISP >  Array of nodal displacements of the     
+                              finite element.                         
+
+ double precision   F      <  Deformation gradient.                   
+
+ double precision   GMATX  >  Discrete (full) gradient operator,      
+                              G-matrix, at the point of interest.     
+
+ integer            MDOFN  >  Dimensioning parameter: number of       
+                              rows of array ELDISP.                   
+
+ integer            MGDIM  >  Dimensioning parameter: number of       
+                              rows of array GMATX.                    
+
+ integer            NDOFN  >  Number of degrees of freedom per node.  
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ integer            NNODE  >  Number of nodes of the element.         
+ </pre>

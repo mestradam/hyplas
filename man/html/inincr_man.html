@@ -1,0 +1,69 @@
+ <pre>
+ SUBOUTINE <a href=inincr.html>ININCR</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Reads input data for load increments                               
+                                                                    
+ This routine reads from the data file and echos to the results file
+ the data required for load incrementation.                         
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DFACT  <  Initial incremental load factor (for    
+                              Arc-Length control).                    
+
+ double precision   DLENP  <  Maximum arc-length parameter (for       
+                              Arc-Length control).                    
+
+ double precision   FSTOP  <  Maximum total load factor, above which  
+                              the analysis will stop (for             
+                              Arc-Length control).                    
+
+ integer            ITDES  <  Desired number of equilibrium           
+                              iterations (for Arc-Length control).    
+
+ integer            MINCS  >  Dimensioning parameter: maximum         
+                              permissible number of prescribed load   
+                              increments under fixed load increments  
+                              option. Defines size of                 
+                              DFACTV, MITERV and NOUTPV.              
+
+ integer            MITER  <  Maximum allowed number of equilibrium   
+                              iterations in any increment (for        
+                              Arc-Length control).                    
+
+ integer            NALGO  >  Solution algorithm flag (positive for   
+                              fixed increments option, negative for   
+                              Arc-Length control).                    
+
+ integer            NINCS  <  For fixed increments option: total      
+                              number of specified load increments.    
+                              For Arc-Length control: maximum         
+                              specified number of load increments.    
+
+ double precision   TOLER  <  Equilibrium convergence for all load    
+                              increments (for Arc-Length control).    
+
+ double precision   DFACTV <  Array with the incremental load factor  
+                              of each specified load increment (for   
+                              fixed load increments option).          
+
+ integer            MITERV <  Array with the maximum allowed number of
+                              global (equilibrium) iterations for each
+                              specified load increment (for           
+                              fixed load increments option).          
+
+ integer            NOUTP  <  Output code array with output frequency 
+                              flags (for Arc-Length control).         
+
+ integer            NOUTPV <  Array with the output code for each     
+                              specified load increment (for fixed load
+                              increments option).                     
+
+ double precision   TOLERV <  Array with the equilibrium convergence  
+                              tolerance for each specified load       
+                              increment (for fixed load increments    
+                              option).                                
+ </pre>

@@ -1,0 +1,70 @@
+ <pre>
+ SUBOUTINE <a href=suvm.html>SUVM</a> - MANUAL PAGE
+
+ DESCRIPTION
+ State update procedure for the von Mises material model.           
+                                                                    
+ This routine uses the fully implicit elastic predictor/return      
+ mapping algorithm as the state update procedure for the von Mises  
+ elasto-plastic material model with general non-linear (piece-wise  
+ linear) isotropic hardening under plane strain or axisymmetric     
+ conditions.                                                        
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DGAMA  <  Incremental plastic multiplier.         
+
+ integer            IPROPS >  Array of integer material properties.   
+                              The number of points on the piece-wise  
+                              linear hardening curve is the only      
+                              element of this array used here.        
+                              This array is set in routines INDATA    
+                              and RDVM.                               
+
+ logical            LALGVA <  Array of logical algorithmic flags.     
+                              For the present material model, this    
+                              array contains the plastic yielding     
+                              flag and the return algorithm failure   
+                              flag. The plastic yielding flag is set  
+                              to .TRUE. if plastic yielding           
+                              has occurred and to .FALSE. if          
+                              the step is elastic. The algorithm      
+                              failure flag is set to .FALSE. if       
+                              the state update algorithm has been     
+                              successful and to .TRUE. if the         
+                              return mapping algorithm has failed     
+                              to converge.                            
+
+ integer            NTYPE  >  Stress state type flag. The present     
+                              routine is compatible only with NTYPE=2 
+                              (plane strain) and NTYPE=3              
+                              (axisymmetric condition).               
+
+ double precision   RPROPS >  Array of real material properties.      
+                              This array contains the density         
+                              (not used in this routine), the elastic 
+                              properties: Young's modulus and         
+                              Poisson's ratio, and the pairs          
+                              ``accumulated plastic strain-uniaxial   
+                              yield stress'' defining the (user       
+                              supplied) piece-wise linear hardening   
+                              curve. This array is set in routine     
+                              RDVM.                                   
+
+ double precision   RSTAVA <> Array of real state variables other     
+                              than the stress tensor components.      
+                              Previous converged values on entry,     
+                              updated values on exit.                 
+                              The state variables stored in           
+                              this array are the (engineering)        
+                              elastic strain components and the       
+                              accumulated plastic strain.             
+
+ double precision   STRAT  >  Array of elastic trial (engineering)    
+                              strain components.                      
+
+ double precision   STRES  <  Array of updated stress tensor          
+                              components.                             
+ </pre>

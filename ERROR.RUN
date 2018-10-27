@@ -1245,7 +1245,8 @@ ED0169   6
 
 ED0170   5
  Description:  Invalid specification of damage evolution constant
-               (exponent of damage law) for LEMAITRE_DAMAGE
+               (exponent of damage la      failinv = .false.
+w) for LEMAITRE_DAMAGE
                elasto-plastic material model.
  Action:       Correct the input data file and re-run HYPLAS. This
                material constant must be greater than zero.
@@ -1472,12 +1473,52 @@ ED0200   4
                implemented for large strains when under plane stress.
                The requested analisys cannot be carried out.
 
-ED0200   5
+ED0201   5
+ Description:  Hardening type for matrix 'mhtype' on COMPOSITE material
+               not known. 
+ Action:       Correct your data file and re-run HYPLAS. Please use only: 
+               1 for linear
+               2 for nonlinear
+               
+ED0202   7
+ Description:  Number of real properties required by COMPOSITE type
+               material exceeds the maximum permissible number.
+ Action:       If the data file is correct, change the dimensioning
+               parameter MRPROP in the file MATERIAL.INC, re-compile
+               and re-run HYPLAS. For this material, MRPROP must be
+               greater than or equal to 17.
+               
+ED0203   7
+ Description:  Number of integer properties required by COMPOSITE type
+               material exceeds the maximum permissible number.
+ Action:       If the data file is correct, change the dimensioning
+               parameter MIPROP in the file MATERIAL.INC, re-compile
+               and re-run HYPLAS. For this material, MIPROP must be
+               greater than or equal to 4.
+               
+ED0204   7
+ Description:  Number of real state variables required by COMPOSITE type
+               material exceeds the maximum permissible number.
+ Action:       If the data file is correct, change the dimensioning
+               parameter MRSTAV in the file MATERIAL.INC, re-compile
+               and re-run HYPLAS. For this material, MRSTAV must be
+               greater than or equal to 23.
+               
+ED0205   7
+ Description:  Number of logical algorithmic variables required by COMPOSITE
+               typematerial exceeds the maximum permissible number.
+ Action:       If the data file is correct, change the dimensioning
+               parameter MLALGV in the file MATERIAL.INC, re-compile
+               and re-run HYPLAS. For this material, MLALGV must be
+               greater than or equal to 23.
+
+ED0206   5
  Description:  Large strain formulation not implemented for
                elements with strong discontinuities.
  Action:       Correct your data file and re-run HYPLAS. This finite 
                elements are currently implemented only for the 
                infinitesimal strain theory.
+
 
 *-----------------------------------------------------------------------
 *-----------------------------------------------------------------------
@@ -1846,6 +1887,13 @@ EI0063   3
                strain computation routine SDSTRA. This routine accepts
                plane stress, plane strain and axisymmetric conditions.
 
+EI0063   3
+ Description:  Element class not compatible with the calculation of
+               discontinuity values. Please change the element type to
+               'wsdisc' and rerun the program.
+
+               
+
 *-----------------------------------------------------------------------
 *                                                                      |
 *                                                                      |
@@ -1944,6 +1992,11 @@ EE0012   8
                element which caused the error is printed above. If the
                sequence of its node numbers is wrong, correct the
                corresponding data file and re-run HYPLAS.
+               
+EE0013   2
+ Description:  The matrix is numerically singular or the inversion 
+               procedure failed in subroutine cpdsmo.
+               
 *-----------------------------------------------------------------------
 *                                                                      |
 *                                                                      |

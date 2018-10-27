@@ -1,0 +1,56 @@
+ <pre>
+ SUBOUTINE <a href=fndkey.html>FNDKEY</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Finds and reads a line containing a specified keyword from a file. 
+                                                                    
+ This routine searches for a given keyword positioned as the first  
+ word of a line in a file.                                          
+ If the given keyword is found then the corresponding line is read  
+ and returned together with the number of words in the line and two 
+ integer arrays containing the position of the beginning and end of 
+ each word.                                                         
+ If there is more than one line in the given file containing the    
+ the specified keyword as its first word, then this routine will    
+ return the first line found in the search which, in general, does  
+ not coincide with the first occurrence of the keyword in the file. 
+ In this case, which line is returned depends on which line of the  
+ file the search started. Hence, it is recommended that files to be 
+ searched contain only one occurrence of the keyword as first word  
+ of a line (occurrences of the keyword in positions other than as   
+ the first word of a line are not detected by this routine and can  
+ safely be present in the file).                                    
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ logical            FOUND  <  Logical flag. Its return value is set to
+                              .TRUE. if the specified keyword         
+                              is found at the beginning of a line in  
+                              the specified file and set to           
+                              .FALSE. otherwise.                      
+
+ integer            IWBEG  <  Integer array containg the position of  
+                              the beginning of each word in the line  
+                              containing the specified keyword.       
+                              IWBEG(K) is the position of the         
+                              beginning of the Kth word in the line.  
+
+ integer            IWEND  <  Integer array containg the position of  
+                              the end of each word in the line        
+                              containing the specified keyword.       
+                              IWEND(K) is the position of the end of  
+                              the Kth word in the line.               
+
+ character          KEYWRD >  Keyword.                                
+
+ character          INLINE <  Contents of the line whose first word is
+                              the specified  keyword.                 
+
+ integer            NFILE  >  Unit identifier of the file to be       
+                              searched.                               
+
+ integer            NWRD   <  Total number of words in the line       
+                              containing the specified keyword.       
+ </pre>

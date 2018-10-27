@@ -1,0 +1,62 @@
+ <pre>
+ SUBOUTINE <a href=cttr.html>CTTR</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Consistent tangent matrix for the Tresca model                     
+                                                                    
+ The tangent matrix computed in this routine is consistent with     
+ fully implicit elastic predictor/return mapping algorithm for the  
+ Tresca elasto-plastic material model with piece-wise linear        
+ isotropic hardening carried out in subroutine SUTR.                
+ This routine contains the plane strain and axisymmetric            
+ implementations of the model.                                      
+ It returns either the elastic tangent or the elasto-plastic        
+ consistent tangent matrix depending on the input value of          
+ the logical argument EPFLAG.                                       
+ The present implementation is based on the use of closed formulae  
+ for the derivatives of general isotropic                           
+ tensor functions of one tensor in which the eigenvalues of the     
+ function are expressed as functions (the algorithmic incremental   
+ principal stress-based constitutive relation in the present case)  
+ of the eigenvalues of its tensor argument.                         
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DMATX  <  Consistent tangent matrix.              
+
+ logical            EPFLAG >  Elasto-plastic flag.                    
+                              If .FALSE., DMATX returns as the elastic
+                              matrix. If .TRUE., DMATX returns as the 
+                              elasto-plastic tangent consistent with  
+                              the return mapping algorithm implemented
+                              in routine SUTR.                        
+
+ integer            IPROPS >  Array of integer material properties.   
+                              This array is set in routines INDATA    
+                              and RDTR.                               
+                              The number of points on the piece-wise  
+                              linear hardening curve is the only      
+                              element of this array used here.        
+
+ logical            LALGVA >  Array of logical algorithmic flags.     
+                              See list of arguments of SUTR.          
+
+ integer            NTYPE  >  Stress state type.                      
+
+ double precision   RPROPS >  Array of real material properties.      
+                              Same as in the argument list of         
+                              subroutine SUTR.                        
+
+ double precision   RSTAVA >  Array of real state variables other     
+                               than the stress tensor components.     
+                              Output of SUTR.                         
+
+ double precision   STRAT  >  Array of elastic trial (engineering)    
+                              strain components. Same as in the input 
+                              of SUTR.                                
+
+ double precision   STRES  >  Array of current stress tensor          
+                              components.                             
+ </pre>

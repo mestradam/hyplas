@@ -1,0 +1,55 @@
+ <pre>
+ SUBOUTINE <a href=ctmc.html>CTMC</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Consistent tangent matrix for the Mohr-Coulomb model               
+                                                                    
+ The tangent matrix computed in this routine is consistent with     
+ fully implicit elastic predictor/return mapping algorithm for the  
+ Mohr-Coulomb elasto-plastic material model with piece-wise linear  
+ isotropic hardening carried out in subroutine SUMC.                
+ It contains the plane strain and axisymmetric implementations of   
+ the model.                                                         
+ It returns either the elastic tangent or the elasto-plastic        
+ consistent tangent matrix depending on the input value of EPFLAG.  
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DMATX  <  Consistent tangent matrix.              
+
+ logical            EPFLAG >  Elasto-plastic flag.                    
+                              If .FALSE., DMATX returns as the elastic
+                              matrix. If .TRUE., DMATX returns as the 
+                              elasto-plastic tangent consistent with  
+                              the return mapping algorithm implemented
+                              in routine SUMC.                        
+
+ integer            IPROPS >  Array of integer material properties.   
+                              This array is set in routines INDATA and
+                              RDMC.                                   
+                              The number of points on the piece-wise  
+                              linear hardening curve is the only      
+                              element of this array used here.        
+
+ logical            LALGVA >  Array of logical algorithmic flags.     
+                              See list of arguments of SUMC.          
+
+ integer            NTYPE  >  Stress state type.                      
+
+ double precision   RPROPS >  Array of real material properties.      
+                              Same as in the argument list of         
+                              subroutine SUMC.                        
+
+ double precision   RSTAVA >  Array of real state variables other than
+                              the stress tensor components.           
+                              Output of SUMC.                         
+
+ double precision   STRAT  >  Array of elastic trial (engineering)    
+                              strain components. Same as in the input 
+                              SUMC.                                   
+
+ double precision   STRES  >  Array of current stress tensor          
+                              components.                             
+ </pre>

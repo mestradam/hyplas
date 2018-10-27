@@ -1,0 +1,61 @@
+ <pre>
+ SUBOUTINE <a href=matisw.html>MATISW</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Material interface for initialisation and switching state variables
+                                                                    
+ This routine calls the state/algorithmic variables                 
+ initialising/switching routines according to the material type.    
+ Each material type has its own routine that initialises and        
+ switches Gauss point data (between current and last converged      
+ values).                                                           
+ The initialised/switched data comprises state and algorithmic      
+ variables whose initialisation/switching rules depend on the       
+ particular material type considered.                               
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            MODE   >  Initialisation/switching mode flag.     
+
+ integer            NLARGE >  Large strain flag. Large strain         
+                              analysis if NLARGE=1 and infinitesimal  
+                              strain analysis otherwise.              
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ integer            IPROPS >  Array of integer material properties.   
+
+ logical            LALGVC <> Array of current logical algorithmic    
+                              variables at the current Gauss point.   
+
+ logical            LALGVL <> Array of logical algorithmic variables  
+                              at the last equilibrium                 
+                              configuration for the Gauss point in    
+                              question.                               
+
+ double precision   RALGVC <> Array of current real algorithmic       
+                              variables at the current Gauss point.   
+
+ double precision   RALGVL <> Array of real algorithmic variables     
+                              at the last equilibrium                 
+                              configuration for the current Gauss     
+                              point.                                  
+
+ double precision   RPROPS >  Array of real material properties.      
+
+ double precision   RSTAVC <> Array of current real state variables   
+                              at the current Gauss point.             
+
+ double precision   RSTAVL <> Array of real state variables at the    
+                              last equilibrium configuration          
+                              at the current Gauss point.             
+
+ double precision   STRESC <> Array of current (Cauchy) stress        
+                              components at the current Gauss point.  
+
+ double precision   STRESL <> Array of (Cauchy) stress components at  
+                              last equilibrium configuration for      
+                              the current Gauss point.                
+ </pre>

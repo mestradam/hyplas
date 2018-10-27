@@ -1,0 +1,26 @@
+ <pre>
+ SUBOUTINE <a href=orvmmx.html>ORVMMX</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Output results for the von Mises model with mixed hardening        
+                                                                    
+ This routine writes to the results file the internal and           
+ algorithmic variables of the von Mises elasto-plastic material     
+ with non-linear mixed hardening.                                   
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DGAMA  >  Incremental plastic multiplier.         
+                              Computed in routine SUVMMX.             
+
+ integer            NOUTF  >  Results file unit identifier.           
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   RSTAVA >  Array of real state variables other than
+                              the stress tensor components.           
+
+ double precision   STRES  >  Array of stress tensor components.      
+ </pre>

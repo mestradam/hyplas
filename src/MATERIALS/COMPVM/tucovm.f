@@ -1,9 +1,5 @@
-      SUBROUTINE TUCOVM
-     1(   DETF       ,RSTAVA     ,THICK      ,MODE    )
-      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      PARAMETER( MSTRE=4 )
-      DIMENSION
-     1    RSTAVA(13)
+      subroutine tucovm
+     .(   detf       ,rstava     ,thick      ,mode    )
 !***********************************************************************
 ! Thickness update
 ! for composite material (plane strain and axisymmetric only).
@@ -39,25 +35,33 @@
 !   stresl (inout): Last stress
 !***********************************************************************
 !     
+! Variable declaration
+      implicit double precision (a-h,o-z)
+      parameter( mstre=4 )
+!      
+! ... arguments
+      dimension
+     .    rstava(14)
+!     
 ! Compute determinant of total deformation gradient (including
 ! out-of-plane contribution). Note that, for this model, the determinant
 ! of the total and elastic deformation gradient coincide due to plastic
 ! incompressibility.
 !... start by retrieving the diagonal components of the elastic
 !    logarithmic strain tensor
-      EE11=RSTAVA(1)
-      EE22=RSTAVA(2)
-      EE33=RSTAVA(4)
+      ee11 = rstava(1)
+      ee22 = rstava(2)
+      ee33 = rstava(4)
 !... then compute determinant of total deformation gradient
-      DETFT=EXP(EE11+EE22+EE33)
-      IF(MODE.EQ.1)THEN
+      detft = exp(ee11+ee22+ee33)
+      if(mode.eq.1)then
 ! Compute thickness stretch
-        STRTC3=DETFT/DETF
+        strtc3 = detft/detf
 ! Update thickness
-        THICK=THICK*STRTC3
-      ENDIF
+        thick = thick*strtc3
+      endif
 ! return total deformation gradient determinant in DETF
-      DETF=DETFT
+      detf = detft
 !
-      RETURN
-      END
+      return
+      end

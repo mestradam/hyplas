@@ -1,0 +1,44 @@
+ <pre>
+ SUBOUTINE <a href=swvmmx.html>SWVMMX</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Initialise/switch variables for the mixed hardening von Mises model
+                                                                    
+ This initialises and switches state variables (between current and 
+ previous values) for the von Mises elasto-plastic material model   
+ with mixed isotropic/kinematic hardening.                          
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            MODE   >  Initialisation/Switching mode.          
+
+ integer            NLARGE >  Large strain flag.                      
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   LALGVC <> Array of logical algorithmic variables  
+                              at Gauss point. Current values.         
+
+ double precision   LALGVL <> Array of logical algorithmic variables  
+                              at Gauss point. Last converged          
+                              (equilibrium) values.                   
+
+ double precision   RALGVC <> Array of real algorithmic variables at  
+                              Gauss point. Current values.            
+
+ double precision   RSTAVC <> Array of real state variables at Gauss  
+                              point. Current values.                  
+
+ double precision   RSTAVL <> Array of real state variables at Gauss  
+                              point. Last converged (equilibrium)     
+                              values.                                 
+
+ double precision   STRESC <> Array of stress                         
+                              components. Current values.             
+
+ double precision   STRESL <> Array of stress                         
+                              components. Last converged (equilibrium)
+                              values.                                 
+ </pre>

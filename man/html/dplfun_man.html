@@ -1,0 +1,38 @@
+ <pre>
+ DOUBLE PRECISION FUNCTION <a href=dplfun.html>DPLFUN</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Returns the derivative of piece-wise linear scalar function        
+                                                                    
+ This procedure returns the derivative of the piece-wise linear     
+ scalar function of procedure PLFUN.                                
+ The piece-wise linear function F(X) is defined by a set            
+ of NPOINT pairs (X,F(X)) passed in the matrix argument XFX.        
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   X      >  Point at which the derivative will be   
+                              evaluated.                              
+
+ integer            NPOINT >  Number of points defining the piece-wise
+                              linear function.                        
+
+ double precision   XFX    >  Matrix (dimension 2*NPOINT)             
+                              containing the pairs (x,f(x)) which     
+                              define the piece-wise linear function.  
+                              evaluated. Each column of XFX           
+                              contains a pair (xi,f(xi)). The pairs   
+                              supplied in XFX                         
+                              must be ordered such that the x's are   
+                              monotonically increasing. That is, the  
+                              x [XFX(1,i+1)] of a column i+1 must be  
+                              greater than XFX(1,i) (x of column i).  
+                              If X < XFX(1,1) the                     
+                              piece-wise linear function is assumed   
+                              constant equal to XFX(1,1).             
+                              If X > XFX(1,NPOINT) the piece-wise     
+                              linear function is assumed constant     
+                              equal to XFX(1,NPOINT).                 
+ </pre>

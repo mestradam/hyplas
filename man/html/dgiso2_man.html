@@ -1,0 +1,49 @@
+ <pre>
+ SUBOUTINE <a href=dgiso2.html>DGISO2</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Derivative of a general isotropic tensor function of one tensor    
+                                                                    
+ This function computes the derivative, dY(X)/dX, of a general      
+ isotropic tensor function of one tensor, Y(X). This implementation 
+ is restricted to 2-D with one possible out-of-plane component      
+ (normally needed in axisymmetric problems). The tensor function    
+ Y(X) is assumed to be defined as Y(X)= Sum[yi(x1,x2,x3) ei(x)ei],  
+ where yi are the eigenvalues of the tensor Y and xi the eigenvalues
+ of the tensor X. ei are the egenvectors of X (which by definition  
+ of Y(X), coincide with those of tensor Y) and "(x)" denotes the    
+ tensor product.                                                    
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DEIGY  >  Matrix containing the derivatives       
+                              dyi/dxj of the eigenvalues of Y(X) with 
+                              respect to the eigenvalues of X.        
+
+ double precision   DYDX   <  Matrix of components of the derivative  
+                              (fourth order tensor) dY/dX.            
+
+ double precision   EIGPRJ >  Matrix with each column containing the  
+                              components of one eigenprojection tensor
+                              ei(x)ei.                                
+
+ double precision   EIGX   >  Array of eigenvalues of X.              
+
+ double precision   EIGY   >  Array of eigenvalues of Y.              
+
+ logical            OUTOFP >  Out-of-plane component flag. If set to  
+                              .TRUE. the out-of-plane                 
+                              component (normally required in         
+                              axisymmetric problems) is computed.     
+                              The out-of-plane component is not       
+                              computed otherwise.                     
+
+ logical            REPEAT >  Repeated in-plane eigenvalues flag.     
+                              If the in-plane eigenvalues are repeated
+                              this argument must be set to            
+                              .TRUE. on entry, so that the            
+                              appropriate limit expression for the    
+                              the derivative is employed.             
+ </pre>

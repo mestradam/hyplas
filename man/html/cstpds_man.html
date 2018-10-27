@@ -1,0 +1,56 @@
+ <pre>
+ SUBOUTINE <a href=cstpds.html>CSTPDS</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Spatial tangent modulus for planar double slip single crystal model
+                                                                    
+ This routine computes the (elastic or elasto-plastic) spatial      
+ tangent modulus, a, for the planar double slip single crystal      
+ elasto-plastic model.                                              
+ The tangent modulus computed here is fully consistent with the     
+ exponential map-based elastic predictor/return mapping integration 
+ algorithm implemented in subroutine SUPDSC.                        
+ This model is restricted to the plane strain case.                 
+ The elastic behaviour of the single crystal is assumed isotropic   
+ (regularised) Neo-Hookean.                                         
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   AMATX  <  Matrix of components of the spatial     
+                              tangent (fourth order) modulus.         
+
+ double precision   DGAM   >  Array of incremental plastic            
+                              multipliers last determined in          
+                              SUPDSC. All multipliers are set to zero 
+                              for the first iteration of each load    
+                              increment.                              
+
+ logical            EPFLAG >  Elasto-plastic flag.                    
+                              If .FALSE., AMATX returns as the elastic
+                              modulus. If .TRUE., AMATX returns as the
+                              elasto-plastic modulus.                 
+
+ double precision   FINCR  >  Last incremental deformation gradient.  
+
+ integer            IPROPS >  Array of integer material properties.   
+
+ logical            LALGVA >  Array of logical algorithmic flags.     
+
+ integer            NTYPE  >  Stress state type flag. The present     
+                              implementation is compatible only with  
+                              plane strain (NTYPE=2).                 
+
+ double precision   RPROPS >  Array of real material properties.      
+
+ double precision   RSTAVA >  Array of current real state variables   
+                              other than the stress tensor components.
+
+ double precision   RSTAVN >  Array of real state variables other than
+                              the stress tensor components at the     
+                              beginning of the curent load increment. 
+
+ double precision   STRES  >  Array of current Cauchy stress tensor   
+                              components.                             
+ </pre>

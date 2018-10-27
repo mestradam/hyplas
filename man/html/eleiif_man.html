@@ -1,0 +1,26 @@
+ <pre>
+ SUBOUTINE <a href=eleiif.html>ELEIIF</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Element interface for internal force vector calculation            
+                                                                    
+ This routine calls the internal force vector calculation routines  
+ for all element classes available in HYPLAS.                       
+ If the internal force vector calculation fails for some reason     
+ (such as due to failure of a material-specific state update        
+ procedure) the return value of the logical argument IFFAIL will be 
+ .TRUE., which will activate the increment cutting procedure in the 
+ main program.                                                      
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            IELEM  >  Number of the element whose internal    
+                              force vector is to be computed.         
+
+ logical            IFFAIL <  Internal force computation failure flag.
+                              Return value set to .FALSE. if internal 
+                              force vector was successfully evaluated 
+                              and set to .TRUE. otherwise.            
+ </pre>

@@ -1,0 +1,27 @@
+ <pre>
+ SUBOUTINE <a href=intfor.html>INTFOR</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Calls internal force vector calculation routines                   
+                                                                    
+ This routine calls the internal force vector calculation routines  
+ for all element classes available in HYPLAS. It loops over all     
+ elements of the mesh. If the internal force vector calculation     
+ fails for some reason (such as due to failure of an state update   
+ procedure) the return value of the logical argument INCCUT will be 
+ .TRUE., which will activate the increment cutting procedure in the 
+ main program.                                                      
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ logical            INCCUT <  Increment cutting flag. Return value set
+                              to .FALSE. if internal force vector was 
+                              successfully evaluated and set to .TRUE.
+                              otherwise.                              
+                              When the return value is set to .TRUE., 
+                              the main program will activate increment
+                              cutting and the current increment will  
+                              be divided into sub-increments.         
+ </pre>

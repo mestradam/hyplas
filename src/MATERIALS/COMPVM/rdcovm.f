@@ -1,12 +1,6 @@
-      SUBROUTINE RDCOVM
-     1(   IPROPS     ,MIPROP     ,MLALGV     ,MRPROP     ,MRSTAV     ,
-     2    RPROPS     ,UNSYM      )
-      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      LOGICAL UNSYM
-      PARAMETER( IPHARD=21  ,NLALGV=3  ,NRSTAV=13 )
-      DIMENSION
-     1    IPROPS(*)          ,RPROPS(*)
-      DATA R0   /0.0D0/
+      subroutine rdcovm
+     .(   iprops     ,miprop     ,mlalgv     ,mrprop     ,mrstav     ,
+     .    rprops     ,unsym      )
 !***********************************************************************
 ! Read and echo material properties
 ! for composite material (plane strain and axisymmetric only).
@@ -52,7 +46,9 @@
 ! Usage in the input file:
 !
 !   <num of material> COMPOSITE
+!       <densem>
 !       <youngm>  <poissm>
+!       <densef>
 !       <youngf>  <poissf>  <sigmauf>  <alphaf>  <betaf>
 !       <volfrf>  <anglef>
 !       <nhardm>
@@ -116,86 +112,97 @@
 !	1.00	0.702075988
 !	11.0	0.572836
 !***********************************************************************
+!     
+! Variable declaration
+      implicit double precision (a-h,o-z)
+      parameter( iphard=21  ,nlalgv=3  ,nrstav=13 )
+!      
+! ... arguments
+      logical unsym
+      dimension
+     .    iprops(*)          ,rprops(*)
+      data r0   /0.0d0/
  1000 FORMAT(' Composite material reinforced with long fibers '/
-     &' - Fibers: Damage Weibull model '/
-     &' - Matrix: Elasto-plastic VON MISES yield criterion'/)
+     .' - Fibers: Damage Weibull model '/
+     .' - Matrix: Elasto-plastic VON MISES yield criterion'/)
  1100 FORMAT(
-     &' Matrix mass density ............................... =',G15.6/
-     &' Matrix young''s modulus ............................ =',G15.6/
-     &' Matrix poisson''s ratio ............................ =',G15.6)
+     .' Matrix mass density ............................... =',G15.6/
+     .' Matrix young''s modulus ............................ =',G15.6/
+     .' Matrix poisson''s ratio ............................ =',G15.6)
  2100 FORMAT(
-     &' Fibers mass density ............................... =',G15.6/
-     &' Fibers young''s modulus ............................ =',G15.6/
-     &' Fibers poisson''s ratio ............................ =',G15.6/
-     &' Fibers ultimate stress ............................ =',g15.6/
-     &' Fibers Weibull shape factor ....................... =',g15.6/
-     &' Fibers Weibull scale factor ....................... =',g15.6)
- 1200 FORMAT(/
-     &' Number of points on hardening curve ............... =',I3//
-     &'           Epstn        uniaxial yield stress '/)
- 1300 FORMAT(2(5X,G15.6))
+     .' Fibers mass density ............................... =',G15.6/
+     .' Fibers young''s modulus ............................ =',G15.6/
+     .' Fibers poisson''s ratio ............................ =',G15.6/
+     .' Fibers ultimate stress ............................ =',g15.6/
+     .' Fibers Weibull shape factor ....................... =',g15.6/
+     .' Fibers Weibull scale factor ....................... =',g15.6)
+ 1200 format(/
+     .' Number of points on hardening curve ............... =',I3//
+     .'           Epstn        uniaxial yield stress '/)
+ 1300 format(2(5x,g15.6))
 !
 ! Set unsymmetric tangent stiffness flag
-      UNSYM=.FALSE.
+      unsym=.false.
 !
 ! Write heading
-      WRITE(16,1000)
+      write(16,1000)
 !
 ! Read and echo matrix properties
-      READ(15,*)DENSEM
-      READ(15,*)YOUNGM,POISSM
-      WRITE(16,1100)DENSEM,YOUNGM,POISSM
-      IF(YOUNGM.LE.R0)CALL ERRPRT('ED0100')
-      RPROPS(1) = DENSEM
-      RPROPS(2) = YOUNGM
-      RPROPS(3) = POISSM
-      RPROPS(4) = R0
-      RPROPS(5) = R0
-      RPROPS(6) = R0
-      RPROPS(7) = R0
-      RPROPS(8) = R0
-      RPROPS(9) = R0
-      RPROPS(10)= R0
+      read(15,*)densem
+      read(15,*)youngm,poissm
+      write(16,1100)densem,youngm,poissm
+      if(youngm.le.r0)call errprt('ED0100')
+      rprops(1) = densem
+      rprops(2) = youngm
+      rprops(3) = poissm
+      rprops(4) = r0
+      rprops(5) = r0
+      rprops(6) = r0
+      rprops(7) = r0
+      rprops(8) = r0
+      rprops(9) = r0
+      rprops(10)= r0
       
 !
 ! Read fibers properties
-      READ(15,*) DENSEF
-      READ(15,*) YOUNGF, POISSF, SIGMAUF, ALPHAF, BETAF
-      WRITE(16,2100) DENSEF, YOUNGF, POISSF, SIGMAUF, ALPHAF, BETAF
-      IF(YOUNGF.LE.R0)CALL ERRPRT('ED0100')
-      RPROPS(11) = DENSEF
-      RPROPS(12) = YOUNGF
-      RPROPS(13) = POISSF
-      RPROPS(14) = SIGMAUF
-      RPROPS(15) = ALPHAF
-      RPROPS(16) = BETAF
-      RPROPS(17) = R0
-      RPROPS(18) = R0
-      RPROPS(19) = R0
-      RPROPS(20) = R0
+      read(15,*) densef
+      read(15,*) youngf, poissf, sigmauf, alphaf, betaf
+      read(15,*) volfr, anglef
+      write(16,2100) densef, youngf, poissf, sigmauf, alphaf, betaf
+      if(youngf.le.r0)call errprt('ED0100')
+      rprops(11) = densef
+      rprops(12) = youngf
+      rprops(13) = poissf
+      rprops(14) = sigmauf
+      rprops(15) = alphaf
+      rprops(16) = betaf
+      rprops(17) = volfr
+      rprops(18) = anglef
+      rprops(19) = r0
+      rprops(20) = r0
 !
 ! number of points on hardening curve
-      READ(15,*)NHARD
-      WRITE(16,1200)NHARD
-      IF(NHARD.LT.2) CALL ERRPRT('ED0101')
+      read(15,*)nhard
+      write(16,1200)nhard
+      if(nhard.lt.2) call errprt('ED0101')
 ! check dimensions of IPROPS
-      IF(MIPROP.LT.3)CALL ERRPRT('ED0102')
-      IPROPS(3)=NHARD
+      if(miprop.lt.3)call errprt('ED0102')
+      iprops(3)=nhard
 ! check dimensions of RPROPS
-      NRPROP=IPHARD+NHARD*2-1
-      IF(NRPROP.GT.MRPROP)CALL ERRPRT('ED0103')
+      nrprop=iphard+nhard*2-1
+      if(nrprop.gt.mrprop)call errprt('ED0103')
 !
       
 ! Read and set hardening curve
-      DO 10 IHARD=1,NHARD
-        READ(15,*)RPROPS(IPHARD+IHARD*2-2),
-     1            RPROPS(IPHARD+IHARD*2-1)
-        WRITE(16,1300)RPROPS(IPHARD+IHARD*2-2),
-     1                RPROPS(IPHARD+IHARD*2-1)
-   10 CONTINUE
+      do ihard=1,nhard
+        read(15,*)rprops(iphard+ihard*2-2),
+     .            rprops(iphard+ihard*2-1)
+        write(16,1300)rprops(iphard+ihard*2-2),
+     .                rprops(iphard+ihard*2-1)
+      enddo
 ! Check dimension of RSTAVA and LALGVA
-      IF(NRSTAV.GT.MRSTAV)CALL ERRPRT('ED0104')
-      IF(NLALGV.GT.MLALGV)CALL ERRPRT('ED0105')
+      if(nrstav.gt.mrstav)call errprt('ED0104')
+      if(nlalgv.gt.mlalgv)call errprt('ED0105')
 !
-      RETURN
-      END
+      return
+      end

@@ -1,0 +1,28 @@
+ <pre>
+ SUBOUTINE <a href=gaus2d.html>GAUS2D</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Sets Gaussian quadrature constants for 2-D domains                 
+                                                                    
+ Given the type of domain and the required number of integration    
+ points, this routine sets the sampling point positions and the     
+ corresponding weights following standard Gauss quadrature rules    
+ for 2-D domains (quadrilateral and triangular domains).            
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ character          DOMAIN >  Character string with domain type flag. 
+                              Entry value of DOMAIN can be either     
+                              'QUA' (for quadrilateral domains or     
+                              'TRI' (for triangular domains).         
+
+ integer            NGAUS  >  Number of integration points.           
+
+ double precision   POSGP  <  Array containing the position of the    
+                              integration points.                     
+
+ double precision   WEIGP  <  Array containing the weights of the     
+                              integration points.                     
+ </pre>

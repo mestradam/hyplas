@@ -1,0 +1,24 @@
+ <pre>
+ SUBOUTINE <a href=setbe.html>SETBE</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Obtains the left Cauchy-Green strain tensor from the log strain    
+                                                                    
+ Given the Eulerian (Lagrangian) logarithmic strain tensor, this    
+ routine computes the corresponding left (right) Cauchy-Green       
+ strain tensor.                                                     
+ Plane strain, plane stress and axisymmetric implementations.       
+ In the present implementation, the out-of-plane component is       
+ always computed.                                                   
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   BE     <> Array of engineering logarithmic strain 
+                              components on entry. Returns as the     
+                              array of components of the corresponding
+                              Cauchy-Green strain tensor.             
+
+ integer            NTYPE  >  Stress state type flag.                 
+ </pre>

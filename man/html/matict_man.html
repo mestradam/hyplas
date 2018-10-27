@@ -1,0 +1,74 @@
+ <pre>
+ SUBOUTINE <a href=matict.html>MATICT</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Material interface for consistent tangent routine calls            
+                                                                    
+ This routine calls the consistent tangent computation routine      
+ according to the material type. Given the necessary                
+ material-independent kinematic quantities computed at the element  
+ level (and passed into the present routine through its list of     
+ arguments) this routine identifies the material type in question   
+ and calls the corresponding material-specific tangent computation  
+ routine.                                                           
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DETF   >  Current total deformation gradient at   
+                              the Gauss point of interest.            
+
+ integer            IITER  >  Number of the current equilibrium       
+                              iteration.                              
+
+ integer            KUNLD  >  Unloading flag. KUNLD is set to 1 if the
+                              loading programme is currently          
+                              unloading.                              
+
+ integer            MBDIM  >  Dimension of DMATX.                     
+
+ integer            MGDIM  >  Dimension of AMATX.                     
+
+ integer            NLARGE >  Large deformation flag. Large           
+                              deformation analysis if                 
+                              NLARGE=1 and infinitesimal deformation  
+                              analysis otherwise.                     
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   AMATX  <  Consistent spatial tangent modulus.     
+
+ double precision   DMATX  <  Consistent infinitesimal tangent        
+                              modulus.                                
+
+ double precision   EINCR  >  Current incremental engineering strain  
+                              components. Used only in small strain   
+                              analysis.                               
+
+ double precision   FINCR  >  Current incremental deformation         
+                              gradient. Used only in large strain     
+                              analysis.                               
+
+ integer            IPROPS >  Array of integer material properties.   
+
+ logical            LALGVA >  Array of current logical algorithmic    
+                              variables at the Gauss point of         
+                              interest.                               
+
+ double precision   RALGVA >  Array of current real algorithmic       
+                              variables at the Gauss points of        
+                              interest.                               
+
+ double precision   RPROPS >  Array of real material properties.      
+
+ double precision   RSTAVA >  Array of current real state variables   
+                              at the Gauss points of interest.        
+
+ double precision   RSTAV2 >  Array of real state variables at the    
+                              Gauss point of interest at the previous 
+                              equilibrium (converged) configuration.  
+
+ double precision   STRES  >  Array of current (Cauchy) stress        
+                              components at the current Gauss point.  
+ </pre>

@@ -1,0 +1,25 @@
+ <pre>
+ SUBOUTINE <a href=initia.html>INITIA</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Initialises some arrays and problem control variables.             
+                                                                    
+ This routine initialises various arrays and problem control        
+ variables. Gauss-point-related quantities (such as stresses and    
+ other state and algorithmic variables) are initialised by          
+ calling the corresponding material interface routine.              
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DLAMD  <  Iterative load factor.                  
+
+ integer            IFNEG  <  Signum (+1/-1) of the stiffness matrix  
+                              determinant.                            
+
+ integer            KLUND  <  Unloading flag.                         
+
+ double precision   TFACT  <  Total load factor.                      
+                                                                    
+ </pre>

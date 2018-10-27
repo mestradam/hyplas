@@ -1,0 +1,53 @@
+ <pre>
+ SUBOUTINE <a href=arclen.html>ARCLEN</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Computes the iterative displacements for the Arc-Length method     
+                                                                    
+ This routine updates the global array of iterative nodal           
+ displacements using the cylindrical Arc-Length method.             
+ Prior to the computation of the iterative displacement, the        
+ incremental and total load factors are computed according to the   
+ cylindrical arc-length equations. If the evaluation of the         
+ load factors fail, i.e., if there are no real roots to the         
+ arc-length constraint equation, the return value of the logical    
+ argument INCCUT is set to .TRUE. which will activate increment     
+ cutting in the main program.                                       
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DFACT  <> Incremental load factor.                
+
+ double precision   DLAMD  <  Iterative load factor.                  
+
+ double precision   DLENG  <> Arc-length.                             
+
+ double precision   DLENM  <  Maximum permissible Arc-length. Set only
+                              in the first iteration of the first     
+                              increment.                              
+
+ double precision   DLENP  >  Maximum Arc-length parameter. Needed    
+                              only in the first iteration of the first
+                              increment.                              
+
+ integer            IFNEG  >  Signum (-1/+1) of the determinant of the
+                              global tangent stiffness matrix.        
+                              Required in the first iteration of every
+                              load increment to define the sign of    
+                              the incremental load factor.            
+
+ integer            IINCS  >  Current load increment number.          
+
+ integer            IITER  >  Current equilibrium iteration number.   
+
+ logical            INCCUT <  Increment cutting flag. Set to          
+                              .TRUE. on return if no real roots       
+                              exist for the arc-length constraint     
+                              equation. This will activate the        
+                              increment cutting procedure in the      
+                              main program. Set to .FALSE. otherwise. 
+
+ double precision   TFACT  <> Total load factor.                      
+ </pre>

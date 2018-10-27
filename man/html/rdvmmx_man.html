@@ -1,0 +1,47 @@
+ <pre>
+ SUBOUTINE <a href=rdvmmx.html>RDVMMX</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Read data for the von Mises plasticity model with mixed hardening. 
+                                                                    
+ This routine reads from the data file and echos to the results file
+ the material parameters necessary for                              
+ the von Mises elasto-plastic model with piece-wise linear          
+ mixed isotropic/kinematic hardening.                               
+ It also sets the array of real properties and some components of   
+ the array of integer material properties.                          
+ These arrays are used by subroutines SUVMMX and CTVMMX.            
+ This routine also checks whether the number of integer and real    
+ material properties, the number of real state variables and the    
+ number of logical algorithmic variables required by the present    
+ model                                                              
+ is compatible with the dimension of the corresponding global       
+ arrays.                                                            
+ It also sets the unsymmetric tangent stiffness flag.               
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            IPROPS <  Array of integer material properties.   
+
+ integer            MIPROP >  Dimension of the global array of integer
+                              material properties.                    
+
+ integer            MLALGV >  Dimension of the global array of logical
+                              algorithmic variables.                  
+
+ integer            MRPROP >  Dimension of the global array of real   
+                              material variables.                     
+
+ integer            MRSTAV >  Dimension of the global array of real   
+                              state variables.                        
+
+ integer            NLARGE >  Large strain analysis flag.             
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   RPROPS <  Array of real material properties.      
+
+ logical            UNSYM  <  Unsymmetric tangent stiffness flag.     
+ </pre>

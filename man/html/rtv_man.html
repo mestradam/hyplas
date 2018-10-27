@@ -1,0 +1,34 @@
+ <pre>
+ SUBOUTINE <a href=rtv.html>RTV</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Matrix-vectot product s.Rt V                                       
+                                                                    
+ This routine performs the matrix-vector product s Rt V, where s is 
+ a scalar, R a real rectangular matrix and v a real vector.         
+ Rt denotes the transpose of R.                                     
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            MODE   >  If set to 1, the argument V             
+                              returns the resulting vector s Rt V.    
+                              Otherwise, s Rt v is added to the input 
+                              value of P.                             
+
+ integer            MROWR  >  Dimensioning parameter: maximum number  
+                              of rows of R.                           
+
+ integer            NCOLR  >  Number of columns of R.                 
+
+ integer            NROWR  >  Number of rows of R.                    
+
+ double precision   P      <> Vector where results are stored.        
+
+ double precision   R      >  Rectangular real matrix.                
+
+ double precision   V      >  Real vector.                            
+
+ double precision   SCAL   >  Real scalar.                            
+ </pre>

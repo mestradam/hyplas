@@ -1,31 +1,6 @@
-      SUBROUTINE CTCOVM
-     1(   ralgva     ,DMATX      ,lalgva     ,IPROPS     ,NTYPE      ,
-     2    RPROPS     ,RSTAVA     ,STRES      )
-      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      PARAMETER(IPHARD=21  ,MSTRE=4)
-      LOGICAL EPFLAG
-      DIMENSION
-     1    DMATX(4,4),IPROPS(*)           ,RPROPS(*)          ,
-     2    RSTAVA(13)   ,STRES(4)        ,ralgva(*)          ,
-     &    lalgva(*)
-      DIMENSION
-     1    DEVPRJ(4,4),FOID(4,4)  ,S(4)           ,
-     2    SOID(4)
-      DATA
-     1    FOID(1,1),FOID(1,2),FOID(1,3),FOID(1,4)/
-     2    1.0D0    ,0.0D0    ,0.0D0    ,0.0D0    /
-     3    FOID(2,1),FOID(2,2),FOID(2,3),FOID(2,4)/
-     4    0.0D0    ,1.0D0    ,0.0D0    ,0.0D0    /
-     5    FOID(3,1),FOID(3,2),FOID(3,3),FOID(3,4)/
-     6    0.0D0    ,0.0D0    ,0.5D0    ,0.0D0    /
-     7    FOID(4,1),FOID(4,2),FOID(4,3),FOID(4,4)/
-     8    0.0D0    ,0.0D0    ,0.0D0    ,1.0D0    /
-      DATA
-     1    SOID(1)  ,SOID(2)  ,SOID(3)  ,SOID(4)  /
-     2    1.0D0    ,1.0D0    ,0.0D0    ,1.0D0    /
-      DATA
-     1    R1   ,R2   ,R3   ,R6   /
-     2    1.0D0,2.0D0,3.0D0,6.0D0/
+      subroutine ctcovm
+     .(   ralgva     ,dmatx      ,lalgva     ,iprops     ,ntype      ,
+     .    rprops     ,rstava     ,stres      ,strat      )
 !***********************************************************************
 ! Computation of the consistent tangent modulus 
 ! for composite material (plane strain and axisymmetric only).
@@ -46,74 +21,203 @@
 !   rstava  () :
 !   stresk  () :
 !***********************************************************************
+!     
+! Variable declaration
+      implicit double precision (a-h,o-z)
+      parameter(iphard=21  ,mstre=4)
+!      
+! ... arguments
+      logical 
+     .    lalgva(3)
+      integer
+     .    iprops(4)  ,ntype
+      real(kind=8)
+     .    ralgva(*)  ,dmatx(4,4) ,rprops(*)  ,rstava(14) ,stres(4)   ,
+     .    strat(4)
+!     
+! ... local variables
+      logical
+     .    epflag     ,damflag
+      integer
+     .    nstre      ,nhard
+      real(kind=8)
+     .    devprj(4,4),foid(4,4)  ,s(4)       ,soid(4)    ,vecn(3)
+      real(kind=8)
+     .    young      ,poiss      ,youngf     ,poissf     ,sigmauf    ,
+     .    alphaf     ,betaf      ,volfrf     ,anglef     ,ee(4)      ,
+     .    eef        ,mx         ,my         ,damage     ,dmatxf(3,3),
+     .    rpropst(30),epbar      ,dgama      ,gmodu      ,bulk
+      data
+     1    foid(1,1),foid(1,2),foid(1,3),foid(1,4)/
+     2    1.0d0    ,0.0d0    ,0.0d0    ,0.0d0    /
+     3    foid(2,1),foid(2,2),foid(2,3),foid(2,4)/
+     4    0.0d0    ,1.0d0    ,0.0d0    ,0.0d0    /
+     5    foid(3,1),foid(3,2),foid(3,3),foid(3,4)/
+     6    0.0d0    ,0.0d0    ,0.5d0    ,0.0d0    /
+     7    foid(4,1),foid(4,2),foid(4,3),foid(4,4)/
+     8    0.0d0    ,0.0d0    ,0.0d0    ,1.0d0    /
+      data
+     1    soid(1)  ,soid(2)  ,soid(3)  ,soid(4)  /
+     2    1.0d0    ,1.0d0    ,0.0d0    ,1.0d0    /
+      data
+     1    r1   ,r2   ,r3   ,r6   /
+     2    1.0d0,2.0d0,3.0d0,6.0d0/
+!     
 ! Stops program if neither plane strain nor axisymmetric state
-      IF(NTYPE.NE.2.AND.NTYPE.NE.3)CALL ERRPRT('EI0030')
+      if(ntype.ne.2.and.ntype.ne.3)call errprt('EI0030')
+!
+! ======================================================================
+! Start tangent modulus computation for the LIGNIN MATRIX (Von Mises ps)
+! ======================================================================
+      
 ! Current accumulated plastic strain
-      EPBAR=RSTAVA(9)
+      epbar  = rstava(9)
       epflag = lalgva(1)
-      dgama = rstava(11)
+      dgama  = rstava(11)
 ! Set material properties
-      YOUNG=RPROPS(2)
-      POISS=RPROPS(3)
-      NHARD=IPROPS(3)
+      young=rprops(2)
+      poiss=rprops(3)
+      nhard=iprops(3)
 ! Shear and bulk moduli
-      GMODU=YOUNG/(R2*(R1+POISS))
-      BULK=YOUNG/(R3*(R1-R2*POISS))
-      R2G=R2*GMODU
-      R1D3=R1/R3
+      gmodu=young/(r2*(r1+poiss))
+      bulk=young/(r3*(r1-r2*poiss))
+      r2g=r2*gmodu
+      r1d3=r1/r3
 ! Set deviatoric projection tensor
-      IF(NTYPE.EQ.2)THEN
-        NSTRE=3
-      ELSEIF(NTYPE.EQ.3)THEN
-        NSTRE=4
-      ENDIF
-      DO 20 I=1,NSTRE
-        DO 10 J=1,NSTRE
-          DEVPRJ(I,J)=FOID(I,J)-SOID(I)*SOID(J)*R1D3
-   10   CONTINUE
-   20 CONTINUE
-      IF(EPFLAG)THEN
+      if(ntype.eq.2)then
+        nstre=3
+      elseif(ntype.eq.3)then
+        nstre=4
+      endif
+      do i=1,nstre
+        do j=1,nstre
+          devprj(i,j)=foid(i,j)-soid(i)*soid(j)*r1d3
+        enddo
+      enddo
+      if(epflag)then
 ! Compute elastoplastic consistent tangent
 ! ----------------------------------------
-        R3G=R3*GMODU
-        ROO3D2=SQRT(R3/R2)
+        r3g=r3*gmodu
+        roo3d2=sqrt(r3/r2)
 ! Hydrostatic pressure
-        P=(STRES(1)+STRES(2)+STRES(4))*R1D3
+        p=(stres(1)+stres(2)+stres(4))*r1d3
 ! Deviatoric stress components
-        S(1)=STRES(1)-P
-        S(2)=STRES(2)-P
-        S(3)=STRES(3)
-        S(4)=STRES(4)-P
+        s(1)=stres(1)-p
+        s(2)=stres(2)-p
+        s(3)=stres(3)
+        s(4)=stres(4)-p
 ! Recover last elastic trial von Mises effective stress
-        SNORM=SQRT(S(1)*S(1)+S(2)*S(2)+R2*S(3)*S(3)+S(4)*S(4))
-        Q=ROO3D2*SNORM
-        QTRIAL=Q+R3G*DGAMA
+        snorm=sqrt(s(1)*s(1)+s(2)*s(2)+r2*s(3)*s(3)+s(4)*s(4))
+        q=roo3d2*snorm
+        qtrial=q+r3g*dgama
 ! Assemble elastoplastic tangent (upper triangle only)
-        AFACT=R2G*(R1-R3G*DGAMA/QTRIAL)
-        BFACT=R6*GMODU*GMODU*(DGAMA/QTRIAL-
-     1        R1/(R3G+DPLFUN(EPBAR,NHARD,RPROPS(IPHARD))))/
-     2        (SNORM*SNORM)
-        DO 40 I=1,NSTRE
-          DO 30 J=I,NSTRE
-            DMATX(I,J)=AFACT*DEVPRJ(I,J)+BFACT*S(I)*S(J)+
-     1                 BULK*SOID(I)*SOID(J)
-   30     CONTINUE       
-   40   CONTINUE
-      ELSE
+        afact=r2g*(r1-r3g*dgama/qtrial)
+        bfact=r6*gmodu*gmodu*(dgama/qtrial-
+     .        r1/(r3g+dplfun(epbar,nhard,rprops(iphard))))/
+     .        (snorm*snorm)
+        do i=1,nstre
+          do j=i,nstre
+            dmatx(i,j)=afact*devprj(i,j)+bfact*s(i)*s(j)+
+     .                 bulk*soid(i)*soid(j)
+          enddo       
+        enddo
+      else
 ! Compute elasticity matrix (upper triangle only)
 ! -----------------------------------------------
-        DO 60 I=1,NSTRE
-          DO 50 J=I,NSTRE
-            DMATX(I,J)=R2G*DEVPRJ(I,J)+BULK*SOID(I)*SOID(J)
-   50     CONTINUE       
-   60   CONTINUE
-      ENDIF
+        do i=1,nstre
+          do j=i,nstre
+            dmatx(i,j)=r2g*devprj(i,j)+bulk*soid(i)*soid(j)
+          enddo      
+        enddo
+      endif
 ! Assemble lower triangle
 ! -----------------------
-      DO 80 J=1,NSTRE-1
-        DO 70 I=J+1,NSTRE
-          DMATX(I,J)=DMATX(J,I)
-   70   CONTINUE
-   80 CONTINUE
-      RETURN
-      END
+      do j=1,nstre-1
+        do i=j+1,nstre
+          dmatx(i,j)=dmatx(j,i)
+        enddo
+      enddo
+!
+! =================================================================
+! Start tangent modulus computation for the FIBERS (Damage Weibull)
+! =================================================================
+!
+! Set some material properties
+      youngf = rprops(12)
+      poissf = rprops(13)
+      alphaf = rprops(15)
+      betaf  = rprops(16)
+      anglef = rprops(18)
+      mx = dcos(anglef)
+      my = dsin(anglef)
+      volfrf = rprops(17)
+      volfrm = 1.d0-volfr
+      if (volfrf.le.tol) goto 888
+!      
+! Initialize algorithmic and internal variables
+      damflag = lalgva(3)
+! ... set previously accumulated damage variable
+      damage = rstava(10)
+!
+!       ******************************* borrar
+      damflag = .false.
+!       **************************** borrar
+      if (.not.damflag) then
+! Compute elastic modulus matrix
+! ------------------------------
+          dmatxf(1,1) = youngf * mx**4
+          dmatxf(1,2) = youngf * mx**2 * my**2
+          dmatxf(1,3) = youngf * mx**3 * my
+          dmatxf(2,1) = youngf * my**2 * mx**2
+          dmatxf(2,2) = youngf * my**4
+          dmatxf(2,3) = youngf * my**3 * mx
+          dmatxf(3,1) = youngf * mx**3 * my
+          dmatxf(3,2) = youngf * my**3 * mx
+          dmatxf(3,3) = youngf * mx**2 * my**2
+      else
+! Compute tangent modulus matrix
+! ------------------------------
+!
+! Elastic strain
+          ee(1) = strat(1)
+          ee(2) = strat(2)
+!
+! Convert engineering shear component into physical component
+          ee(3) = (strat(3))/2.d0
+!
+! Strain component parallel to fibers direction "anglef"
+          eef = ee(1)*mx**2+ee(2)*my**2 + 2.d0*ee(3)*mx*my
+!
+! Effective stress on fibers
+          streff = youngf*eef
+!
+! Compute tangent axial modulus
+          factor = (1.d0-damage)*(1.d0-alpha*(streff/beta)**alpha)
+          youngft = youngf*factor
+!
+! Transform axial modulus to global coordinate system
+          dmatxf(1,1) = youngft * mx**4
+          dmatxf(1,2) = youngft * mx**2 * my**2
+          dmatxf(1,3) = youngft * mx**3 * my
+          dmatxf(2,1) = youngft * my**2 * mx**2
+          dmatxf(2,2) = youngft * my**4
+          dmatxf(2,3) = youngft * my**3 * mx
+          dmatxf(3,1) = youngft * mx**3 * my
+          dmatxf(3,2) = youngft * my**3 * mx
+          dmatxf(3,3) = youngft * mx**2 * my**2
+      endif
+!
+! =============================================
+! Compute COMPOSITE tangent constitutive matrix
+! =============================================
+!
+! Homogenization by mixture law
+      do i=1, nstre
+          do j=1, nstre
+              dmatx(i,j) = volfrm*dmatx(i,j) + volfrf*dmatxf(i,j)
+          enddo
+      enddo
+!      
+  888 continue
+      return
+      end

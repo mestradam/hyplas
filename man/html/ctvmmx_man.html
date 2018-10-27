@@ -1,0 +1,70 @@
+ <pre>
+ SUBOUTINE <a href=ctvmmx.html>CTVMMX</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Consistent tangent matrix for von Mises model with mixed hardening.
+                                                                    
+ This routine computes the tangent matrix consistent with the       
+ fully implicit elastic predictor/return mapping algorithm          
+ for the von Mises model with mixed hardening coded in subroutine   
+ SUVMMX.                                                            
+ It contains the plane strain and axisymmetric implementations.     
+ It returns either the elastic tangent or the elasto-plastic        
+ consistent tangent matrix depending on the input value of          
+ the argument EPFLAG.                                               
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DGAMA  >  Incremental plastic multiplier.         
+
+ double precision   DMATX  <  Consistent tangent matrix.              
+
+ logical            EPFLAG >  Elasto-plastic flag.                    
+                              If .FALSE., DMATX returns as the elastic
+                              matrix.                                 
+                              If .TRUE., DMATX returns as the         
+                              elasto-plastic tangent consistent with  
+                              the return mapping algorithm            
+                              implemented in routine SUVM.            
+
+ integer            IPROPS >  Array of integer material properties.   
+                              This array is set in routines           
+                              MATIRD and RDVM.                        
+                              The number of points on the piece-wise  
+                              linear hardening curve is the only      
+                              element of this array used here.        
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   RPROPS >  Array of real material properties.      
+                              This array contains the density         
+                              (not used in this routine), the elastic 
+                              properties: Young's modulus and         
+                              Poisson's ratio, the pairs              
+                              ``accumulated plastic strain-isotropic  
+                              hard. stress'' defining the isotropic   
+                              hardening curve and the pairs           
+                              ``accumulated plastic strain-kinematic  
+                              hardening stress'' defining the         
+                              kinematic hardening curve.              
+                              This array is set in routine RDVMMX.    
+
+ double precision   RSTAVA >  Array of real state variables other     
+                              than the stress tensor components.      
+                              Current values.                         
+                              The state variables stored in           
+                              this array are the (engineering)        
+                              elastic strain components, the          
+                              accumulated plastic strain and the      
+                              backstress tensor components.           
+
+ double precision   RSTAV2 >  Array of real state variables other     
+                              than the stress tensor components.      
+                              Values at last converged (equilibrium)  
+                              solution.                               
+
+ double precision   STRES  >  Array of current stress tensor          
+                              components.                             
+ </pre>

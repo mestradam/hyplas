@@ -1,0 +1,29 @@
+ <pre>
+ SUBOUTINE <a href=getgco.html>GETGCO</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Gets coordinates of a point within an element by interpolation     
+                                                                    
+ This routine computes the global cartesian coordinates of a point  
+ within a finite element by interpolation of its nodal coordinates. 
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   CARTCO <  Cartesian coordinates of the point of   
+                              interest.                               
+
+ double precision   ELCOD  >  Array of nodal coordinates of the       
+                              element.                                
+
+ integer            MDIME  >  Dimensioning parameter: Number of rows  
+                              of ELCOD.                               
+
+ integer            NDIME  >  Number of spatial dimensions.           
+
+ integer            NNODE  >  Number of nodes of the element.         
+
+ double precision   SHAPE  >  Array containing the value of the shape 
+                              function at the point of interest.      
+ </pre>

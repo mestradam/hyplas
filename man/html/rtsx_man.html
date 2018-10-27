@@ -1,0 +1,43 @@
+ <pre>
+ SUBOUTINE <a href=rtsx.html>RTSX</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Matrix product s.Rt S X                                            
+                                                                    
+ This routine performs the matrix product s Rt S X, where s is a    
+ scalar, R and X rectangular real matrices of identical dimensions  
+ and S a square real matrix.  Rt denotes the transpose of R.        
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   AUXM   <  Auxiliary matrix used to store partial  
+                              results of the calculation.             
+
+ integer            MODE   >  If set to 1, the argument Q             
+                              returns the resulting matrix Rt S R.    
+                              Otherwise, Rt S R is added to the input 
+                              value of Q.                             
+
+ integer            MROWQ  >  Dimensioning parameter: maximum         
+                              dimension of the square matrix Q.       
+
+ integer            MROWR  >  Dimensioning parameter: maximum number  
+                              of rows of R (same as the               
+                              maximum dimension of square matrix S).  
+
+ integer            NCOLR  >  Number of columns of R.                 
+
+ integer            NROWR  >  Number of rows of R.                    
+
+ double precision   Q      <> Matrix where results are stored.        
+
+ double precision   R      >  Rectangular real matrix.                
+
+ double precision   S      >  Square real matrix.                     
+
+ double precision   X      >  Rectangular real matrix.                
+
+ double precision   SCAL   >  Real scalar.                            
+ </pre>

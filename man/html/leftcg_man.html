@@ -1,0 +1,30 @@
+ <pre>
+ SUBOUTINE <a href=leftcg.html>LEFTCG</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Computes the left Cauchy-Green strain tensor                       
+                                                                    
+ Given the previous total left Cauchy-Green strain tensor and the   
+ incremental deformation gradient between the previous and current  
+ configuration, this routine computes the current left Cauchy-Green 
+ strain tensor. This routine contains the plane strain, plane stress
+ and axisymmetric implementations.                                  
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   BN     >  Array of components of the previous     
+                              (at tn) left Cauchy-Green tensor.       
+
+ double precision   BNP1   <  Array of components of the current (at  
+                              tn+1) left Cauchy-Green strain tensor.  
+
+ double precision   FINCR  >  Incremental deformation gradient between
+                              the previous and current configuration. 
+
+ integer            NTYPE  >  Stress state type. Present routine is   
+                              compatible with NTYPE=1 (plane          
+                              stress), NTYPE=2 (plane strain)         
+                              and NTYPE=3 (axisymmetric condition).   
+ </pre>

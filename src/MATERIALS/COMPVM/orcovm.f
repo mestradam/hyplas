@@ -1,10 +1,6 @@
-      SUBROUTINE ORCOVM
-     1(   ralgva  ,NOUTF1   ,NOUTF2  ,NTYPE   ,RSTAVA   ,STRES,
-     2    IELEM   ,IINCS    ,IGAUSP  ,OUTDA)
-      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      PARAMETER(IPHARD=21  ,MSTRE=4)
-      DIMENSION  RSTAVA(13), STRES(*)  ,ralgva(*)
-      DATA   R2   ,R3    / 2.0D0,3.0D0 /
+      subroutine orcovm
+     .(   ralgva     ,noutf1     ,noutf2     ,ntype      ,rstava     ,
+     .    stres      ,ielem      ,iincs      ,igausp     ,outda      )
 !***********************************************************************
 ! Output results (int and alg variables) 
 ! for composite material (plane strain and axisymmetric only).
@@ -30,47 +26,60 @@
 !   igausp  (in)    : Gauss point number
 !   outda   (in)    : type of output
 !***********************************************************************
- 1000 FORMAT(' S-eff = ',G12.4,' Eps.  = ',G12.4,' dgama = ',G12.4)
- 1205 FORMAT('Result "INTERNAL-VARIABLES" "LOAD ANALYSIS"',I3,
+!     
+! Variable declaration
+      implicit double precision (a-h,o-z)
+      parameter(iphard=21  ,mstre=4)
+!      
+! ... arguments
+      dimension  
+     .    rstava(14) ,stres(*)   ,ralgva(*)
+      data   r2   ,r3    / 2.0d0,3.0d0 /
+!      
+ 1000 format(' S-eff = ',G12.4,' Eps.  = ',G12.4,' dgama = ',G12.4,/,
+     .       ' damage = ',G12.4,' qmax = ',G12.4)
+ 1205 format('Result "INTERNAL-VARIABLES" "LOAD ANALYSIS"',I3,
      1       ' Vector OnGaussPoints "Board gauss internal"',/,
-     2       'ComponentNames "S-EFF", "EPS", "DGAMA"',/,
+     2       'ComponentNames "S-EFF", "EPS", "DGAMA","DAMAGE","Q"',/,
      3       'Values')
- 1206 FORMAT('Result "INTERNAL-VARIABLES-MAT" "LOAD ANALYSIS"',I3,
+ 1206 format('Result "INTERNAL-VARIABLES-MAT" "LOAD ANALYSIS"',I3,
      1       ' Vector OnNodes ',/,
-     2       'ComponentNames "S-EFF", "EPS", "DGAMA"',/,
+     2       'ComponentNames "S-EFF", "EPS", "DGAMA","DAMAGE","Q"',/,
      3       'Values')
- 1211 FORMAT(I5,2X,3G15.6)
- 1212 FORMAT(7X,3G15.6)
+ 1211 format(i5,2x,5g15.6)
+ 1212 format(7x,5g15.6)
 !
-      EPBAR=RSTAVA(9)
-      IF(IELEM.EQ.1.AND.IGAUSP.EQ.1.AND.OUTDA.EQ.2)THEN
-        WRITE(NOUTF2,1205)IINCS
-      ELSEIF(IELEM.EQ.1.AND.OUTDA.EQ.3)THEN
-        WRITE(NOUTF2,1206)IINCS
-      ENDIF
+      epbar  = rstava(9)
+      damage = rstava(10)
+      qmax   = rstava(12)
+      if(ielem.eq.1.and.igausp.eq.1.and.outda.eq.2)then
+        write(noutf2,1205)iincs
+      elseif(ielem.eq.1.and.outda.eq.3)then
+        write(noutf2,1206)iincs
+      endif
 c
-      IF(NTYPE.EQ.1)THEN
+      if(ntype.eq.1)then
 ! Plane stress
-        P=(STRES(1)+STRES(2))/R3
-        EFFST=SQRT(R3/R2*((STRES(1)-P)**2+(STRES(2)-P)**2+
-     1                     R2*STRES(3)**2+P**2))
-      ELSEIF(NTYPE.EQ.2.OR.NTYPE.EQ.3)THEN
+        p=(stres(1)+stres(2))/r3
+        effst=sqrt(r3/r2*((stres(1)-p)**2+(stres(2)-p)**2+
+     1                     r2*stres(3)**2+p**2))
+      elseif(ntype.eq.2.or.ntype.eq.3)then
 ! Plane strain and axisymmetric
-        P=(STRES(1)+STRES(2)+STRES(4))/R3
-        EFFST=SQRT(R3/R2*((STRES(1)-P)**2+(STRES(2)-P)**2+
-     1                     R2*STRES(3)**2+(STRES(4)-P)**2))
-      ENDIF
+        p=(stres(1)+stres(2)+stres(4))/r3
+        effst=sqrt(r3/r2*((stres(1)-p)**2+(stres(2)-p)**2+
+     1                     r2*stres(3)**2+(stres(4)-p)**2))
+      endif
 ! Write to output file and GiD output file
-      IF(OUTDA.EQ.1)THEN
-        WRITE(NOUTF1,1000)EFFST,EPBAR,DGAMA
-      ELSEIF(OUTDA.EQ.2)THEN
-        IF(IGAUSP.EQ.1)THEN
-          WRITE(NOUTF2,1211)IELEM,EFFST,EPBAR,DGAMA
-        ELSE
-          WRITE(NOUTF2,1212)EFFST,EPBAR,DGAMA
-        ENDIF
-      ELSEIF(OUTDA.EQ.3)THEN
-        WRITE(NOUTF2,1211)IELEM,EFFST,EPBAR,DGAMA
-      ENDIF
-      RETURN
-      END
+      if(outda.eq.1)then
+        write(noutf1,1000)effst,epbar,dgama,damage,qmax
+      elseif(outda.eq.2)then
+        if(igausp.eq.1)then
+          write(noutf2,1211)ielem,effst,epbar,dgama,damage,qmax
+        else
+          write(noutf2,1212)effst,epbar,dgama,damage,qmax
+        endif
+      elseif(outda.eq.3)then
+        write(noutf2,1211)ielem,effst,epbar,dgama,damage,qmax
+      endif
+      return
+      end

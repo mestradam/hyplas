@@ -1,0 +1,36 @@
+ <pre>
+ SUBOUTINE <a href=sft3.html>SFT3</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Shape function and derivatives for element type TRI3               
+                                                                    
+ This routine computes the shape functions and shape function       
+ derivatives for the element type TRI3: Standard isoparametric      
+ 3-noded triangle for plane strain, plane stress and                
+ axisymmetric analysis.                                             
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DERIV  <  Array of shape function derivatives.    
+
+ double precision   ETASP  >  Isoparametric coordinate ETA of the     
+                              point where the shape functions or their
+                              derivatives are to be evaluated.        
+
+ double precision   EXISP  >  Isoparametric coordinate XI of the      
+                              point where the shape functions or their
+                              derivatives are to be evaluated.        
+
+ integer            IBOUND >  Boundary interpolation flag. Entry      
+                              must be 0 for domain interpolation.     
+                              Boundary interpolation is assumed       
+                              otherwise.                              
+
+ integer            MDIME  >  Maximum permissible number of spatial   
+                              dimensions. Used here only for array    
+                              dimensioning.                           
+
+ double precision   SHAPE  <  Array of shape function values.         
+ </pre>

@@ -1,0 +1,45 @@
+ <pre>
+ SUBOUTINE <a href=solqua.html>SOLQUA</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Solves a quadratic equation:  a x**2 + b x + c = 0                 
+                                                                    
+ Given the coeficients a, b and c, this routine computes the real   
+ roots of the associated quadratic equation, a x**2 + b x + c = 0.  
+ The return values of the arguments ROOT1 and ROOT2 (the roots) are 
+ set only if real roots exist.                                      
+ If the equation admits only one real solution, the return value    
+ of the logical argument ONEROO is set to .TRUE. (set to .FALSE.    
+ otherwise).                                                        
+ If the equation admits two real roots, the return value            
+ of the logical argument TWOROO is set to .TRUE.  (set to .FALSE.   
+ otherwise).                                                        
+ Consequently, if the roots are complex or no roots/infinite        
+ number of roots exist (the equation is ill-defined), the return    
+ value of the logical arguments ONEROO and TWOROO is set to .FALSE. 
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   A      >  Coefficient of the quadratic term.      
+
+ double precision   B      >  Coefficient of the linear term.         
+
+ double precision   C      >  Coefficient of the constant term.       
+
+ logical            ONEROO <  Logical flag. Set to .TRUE. if          
+                              there is only one (real) root.          
+                              Set to .FALSE. otherwise.               
+
+ logical            TWOROO <  Logical flag. Set to .TRUE. if          
+                              there are two distinct (real) root.     
+                              Set to .FALSE. otherwise.               
+
+ double precision   ROOT1  <  One of the roots (the only root if there
+                              is only one real root - not set if there
+                              are no real roots).                     
+
+ double precision   ROOT2  <  The other root (not set if there is only
+                              one real root or no real roots).        
+ </pre>

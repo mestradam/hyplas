@@ -1,0 +1,39 @@
+ <pre>
+ SUBOUTINE <a href=rdmc.html>RDMC</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Read data for the Mohr-Coulomb elasto-plastic material model.      
+                                                                    
+ This routine reads from the data file and echos to the results file
+ the material parameters necessary for the Mohr-Coulomb             
+ elasto-plastic model with piece-wise linear isotropic hardening.   
+ It also sets the array of real properties and some components of   
+ the array of integer material properties.                          
+ These arrays are used by subroutines SUMC and CTMC.                
+ It also sets the unsymmetric tangent stiffness flag.               
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            IPROPS <  Array of integer material properties.   
+
+ integer            MIPROP >  Dimension of the global array of integer
+                              material properties.                    
+
+ integer            MLALGV >  Dimension of the global array of logical
+                              algorithmic variables.                  
+
+ double precision   MRALGV >  Dimension of the global array of real   
+                              algorithmic variables.                  
+
+ integer            MRPROP >  Dimension of the global array of real   
+                              material variables.                     
+
+ integer            MRSTAV >  Dimension of the global array of real   
+                              state variables.                        
+
+ double precision   RPROPS <  Array of real material properties.      
+
+ logical            UNSYM  <  Unsymmetric tangent stiffness flag.     
+ </pre>

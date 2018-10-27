@@ -1,0 +1,37 @@
+ <pre>
+ SUBOUTINE <a href=iso2.html>ISO2</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Computes the value of isotropic tensor functions of one tensor.    
+                                                                    
+ This subroutine evaluates isotropic tensor functions Y(X), of one  
+ tensor belonging to the class described below.                     
+ This implementation is restricted to 2-D with one possible         
+ out-of-plane component (normally needed in axisymmetric problems). 
+ The class of symmetric tensor functions Y(X) is assumed to be      
+ defined as Y(X)= Sum[y(xi) ei(x)ei], where the scalar function     
+ y(xi) defines the eigenvalues of the tensor Y and xi the           
+ eigenvalues of the tensor X. ei are the egenvectors of X (which by 
+ definition of Y(X), coincide with those of tensor Y) and "(x)"     
+ denotes the tensor product.                                        
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ symbolic name      FUNC   >  Symbolic name of the double             
+                              precision function defining y(xi).      
+
+ logical            OUTOFP >  Out-of-plane component flag. If set to  
+                              .TRUE. the out-of-plane                 
+                              component (normally required in         
+                              axisymmetric problems) is computed.     
+                              The out-of-plane component is not       
+                              computed otherwise.                     
+
+ double precision   X      >  Array of components of the tensor at    
+                              which the function is to be evaluated.  
+
+ double precision   Y      <  Array of components of the tensor       
+                              function at X.                          
+ </pre>

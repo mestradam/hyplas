@@ -1,0 +1,40 @@
+ <pre>
+ SUBOUTINE <a href=listra.html>LISTRA</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Computes the infinitesimal strain components in 2-D                
+                                                                    
+ Given the nodal displacements of the element and the B-matrix      
+ (discrete symmetric gradient operator) at a point in the element   
+ domain, this routine computes the corresponding (engineering)      
+ infinitesimal strain components at that point by performing        
+ the standard operation: e = B u, where e is the array of           
+ engineering strain components and u is the array of nodal          
+ displacements. This routine contains the plane strain/stress and   
+ axisymmetric implementations.                                      
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   BMATX  >  The discrete symmetric gradient         
+                              operator, B-matrix.                     
+
+ double precision   ELDISP >  Array containing the element nodal      
+                              displacements.                          
+
+ integer            MDOFN  >  Dimensioning parameter: Number of rows  
+                              of ELDISP.                              
+
+ integer            MBDIM  >  Dimensioning parameter: Number of rows  
+                              of BMATX.                               
+
+ integer            NDOFN  >  Number of degrees of freedom per node.  
+
+ integer            NNODE  >  Number of nodes of the element.         
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   STRAN  <  Array of engineering infinitesimal      
+                              strain components.                      
+ </pre>

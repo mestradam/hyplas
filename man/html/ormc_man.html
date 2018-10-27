@@ -1,0 +1,29 @@
+ <pre>
+ SUBOUTINE <a href=ormc.html>ORMC</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Output results for the Mohr-Coulomb elasto-plastic material model  
+                                                                    
+ This routine writes to the results file the internal and           
+ algorithmic variables of the Mohr-Coulomb elasto-plastic material  
+ with non-linear isotropic hardening. The results printed here      
+ are obtained by the return mapping algorithm implemented in routine
+ SUMC.                                                              
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DGAM   >  Array of incremental plastic            
+                              multipliers.                            
+                              Computed in routine SUMC.               
+
+ integer            NOUTF  >  Results file unit identifier.           
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   RSTAVA >  Array of real state variables other than
+                              the stress tensor components.           
+
+ double precision   STRES  >  Array of stress tensor components.      
+ </pre>

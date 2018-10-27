@@ -1,0 +1,102 @@
+ <pre>
+ SUBOUTINE <a href=ststd2.html>STSTD2</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Stiffness matrix computation for elements of class STDARD          
+                                                                    
+ This routine computes the tangent stiffness matrix for all         
+ elements of the class STDARD: standard isoparametric 2-D elements  
+ for plane strain, plane stress and axisymmetric analysis.          
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            IELEM  >  Number of the element whose stiffness   
+                              matrix is to be computed.               
+
+ integer            KUNLD  >  Unloading flag. KUNLD is set to 1 if the
+                              loading programme is currently          
+                              unloading.                              
+
+ integer            MDIME  >  Maximum permissible number of spatial   
+                              dimensions.                             
+
+ integer            MELEM  >  Maximum permissible number of elements. 
+
+ integer            MPOIN  >  Maximum permissible number of nodal     
+                              points in a mesh.                       
+
+ integer            MSTRE  >  Maximum permissible number of stress    
+                              (or resultant force) components.        
+
+ integer            MTOTV  >  Maximum permissible number degrees of   
+                              freedom in a mesh.                      
+
+ integer            NAXIS  >  Symmetry axis flag. Used only for       
+                              axisymmetric analysis. NAXIS=1 if       
+                              symmetric about the X-axis and          
+                              NAXIS=2 if symmetric about the Y-axis.  
+
+ integer            NLARGE >  Large deformation flag. Large           
+                              deformation analysis if NLARGE=1 and    
+                              infinitesimal deformation analysis      
+                              otherwise.                              
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ logical            UNSYM  >  Tangent stiffness symmetry flag.        
+                              .TRUE. if tangent stiffness is          
+                              unsymmetric, .FALSE. otherwise.         
+
+ double precision   COORD1 >  Array of coordinates of all nodes of    
+                              the mesh in the current configuration.  
+
+ double precision   DINCR  >  Global array of incremental             
+                              displacements of the entire mesh.       
+
+ double precision   ESTIF  <  Tangent stiffness matrix of the current 
+                              element.                                
+
+ integer            IELPRP >  Array of integer element properties     
+                              of the current element group.           
+
+ integer            IPROPS >  Array of integer material properties    
+                              of the current element group.           
+
+ logical            LALGVA >  Array of current logical algorithmic    
+                              variables of all Gauss points of the    
+                              current element.                        
+
+ integer            LNODS  >  Global array of connectivity of the     
+                              entire mesh.                            
+
+ double precision   RALGVA >  Array of current real algorithmic       
+                              variables of all Gauss points of the    
+                              current element.                        
+
+ double precision   RELPRP >  Array of real element properties of     
+                              the current element group.              
+
+ double precision   RPROPS >  Array of real material properties of    
+                              the current element group.              
+
+ double precision   RSTAVA >  Array of current real state             
+                              variables of all Gauss points of the    
+                              current element.                        
+
+ double precision   RSTAV2 >  Array of real state                     
+                              variables of all Gauss points of the    
+                              current element at the previous         
+                              equilibrium (converged) configuration.  
+
+ double precision   STRSG  >  Array of current stress components of   
+                              all Gauss points of the current element.
+
+ double precision   THKGP  >  Array of current thickness of           
+                              all Gauss points of the current element.
+                              Used only in plane stress analysis.     
+
+ double precision   TDISP  >  Global array of total displacement      
+                              of all nodes of the mesh.               
+ </pre>

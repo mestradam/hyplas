@@ -1,0 +1,67 @@
+ <pre>
+ SUBOUTINE <a href=ctdppn.html>CTDPPN</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Consistent tangent for the Drucker-Prager model in plane stress.   
+                                                                    
+ This routine computes the tangent matrix consistent with the       
+ nested iteration algorithm for the Drucker-Prager model in         
+ plane stress coded in subroutine SUDPPN.                           
+ It returns either the elastic tangent or the elasto-plastic        
+ consistent tangent matrix depending on the input value of          
+ the logical argument EPFLAG.                                       
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   RALGVA >  Array of real algorithmic variables.    
+                              For the present plane stress            
+                              implementation, it contains the         
+                              incremental plastic multipliers obtained
+                              in routine SUDPPN and the elastic trial 
+                              thickness strain obtained as the        
+                              solution of the plane stress enforcement
+                              loop of SUDPPN.                         
+                              Note that for the first iteration of a  
+                              load increment the incremental plastic  
+                              multipliers must be set to zero and     
+                              elastic trial thickness strain must be  
+                              set equal to the elastic thickness      
+                              strain of the previous equilibrium      
+                              solution.                               
+
+ double precision   DMATX  <  Plane stress consistent tangent matrix. 
+
+ logical            EPFLAG >  Elasto-plastic flag.                    
+                              If .FALSE., DMATX returns as the elastic
+                              matrix (the standard plane stress linear
+                              elasticity matrix).                     
+                              If .TRUE., DMATX returns as the         
+                              as the elasto-plastic tangent consistent
+                              with the nested iteration algorithm     
+                              implemented in routine SUDPPN.          
+
+ integer            IPROPS >  Array of integer material properties.   
+                              This array is set in routines INDATA    
+                              and RDDP.                               
+                              The number of points on the piece-wise  
+                              linear hardening curve is the only      
+                              element of this array used here.        
+
+ logical            LALGVA >  Array of logical algorithmic flags.     
+                              See list of arguments of SUDP.          
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   RPROPS >  Array of real material properties.      
+                              Same as in the argument list of         
+                              subroutines SUDP or SUDPPN.             
+
+ double precision   RSTAVA >  Array of real state variables other     
+                              than the stress tensor components.      
+                              Output of SUDP or SUDPPN.               
+
+ double precision   STRAT  >  Array of elatic trial engineering       
+                              strains.                                
+ </pre>

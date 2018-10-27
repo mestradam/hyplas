@@ -1,0 +1,29 @@
+ <pre>
+ SUBOUTINE <a href=orvm.html>ORVM</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Output results for the von Mises elasto-plastic material model     
+                                                                    
+ This routine writes to the results file the internal and           
+ algorithmic variables of the von Mises elasto-plastic material     
+ with non-linear isotropic hardening. The results printed here      
+ are the von Mises effective stress, the equivalent plastic strain  
+ and the incremental plastic multiplier obtained by the return      
+ mapping algorithm of routine SUVM or SUVMPS.                       
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DGAMA  >  Incremental plastic multiplier.         
+                              Computed in routine SUVM or SUVMPS.     
+
+ integer            NOUTF  >  Results file unit identifier.           
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   RSTAVA >  Array of real state variables other than
+                              the stress tensor components.           
+
+ double precision   STRES  >  Array of stress tensor components.      
+ </pre>

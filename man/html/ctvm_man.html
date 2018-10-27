@@ -1,0 +1,59 @@
+ <pre>
+ SUBOUTINE <a href=ctvm.html>CTVM</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Computation of consistent tangent matrix for von Mises model.      
+                                                                    
+ This routine computes the tangent matrix consistent with the       
+ fully implicit elastic predictor/return mapping algorithm          
+ for the von Mises model coded in subroutine SUVM.                  
+ It contains the plane strain and axisymmetric implementations.     
+ It returns either the elastic tangent or the elasto-plastic        
+ consistent tangent matrix depending on the input value of EPFLAG.  
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DGAMA  >  Incremental plastic multiplier.         
+
+ double precision   DMATX  <  Consistent tangent matrix.              
+
+ logical            EPFLAG >  Elasto-plastic flag.                    
+                              If .FALSE., DMATX returns as the elastic
+                              matrix. If .TRUE., DMATX returns        
+                              as the elasto-plastic tangent consistent
+                              with the return mapping algorithm       
+                              implemented in routine SUVM.            
+
+ integer            IPROPS >  Array of integer material properties.   
+                              This array is set in routines           
+                              INDATA and RDVM.                        
+                              The number of points on the piece-wise  
+                              linear hardening curve is the only      
+                              element of this array used here.        
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   RPROPS >  Array of real material properties.      
+                              This array contains the density         
+                              (not used in this routine), the elastic 
+                              properties: Young's modulus and         
+                              Poisson's ratio, and the pairs          
+                              ``accumulated plastic strain-uniaxial   
+                              yield stress'' defining the (user       
+                              supplied) piece-wise linear hardening   
+                              curve. This array is set in routine     
+                              RDVM.                                   
+
+ double precision   RSTAVA >  Array of real state variables other     
+                              than the stress tensor components.      
+                              Current values.                         
+                              The state variables stored in           
+                              this array are the (engineering)        
+                              elastic strain components and the       
+                              accumulated plastic strain.             
+
+ double precision   STRES  >  Array of current stress tensor          
+                              components.                             
+ </pre>

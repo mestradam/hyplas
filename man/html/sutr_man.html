@@ -1,0 +1,83 @@
+ <pre>
+ SUBOUTINE <a href=sutr.html>SUTR</a> - MANUAL PAGE
+
+ DESCRIPTION
+ State update procedure for the Tresca elasto-plastic model.        
+                                                                    
+ This routine uses the fully implicit elastic predictor/return      
+ mapping algorithm as the state update procedure for the Tresca     
+ elasto-plastic material model with piece-wise linear isotropic     
+ hardening. It contains the plane strain and the axisymmetric       
+ implementations of the model.                                      
+ The essential return mapping is carried out here in the principal  
+ stress space.                                                      
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DGAM   <  Array of incremental plastic            
+                              multipliers.                            
+
+ integer            IPROPS >  Array of integer material properties.   
+                              The number of points on the piece-wise  
+                              linear hardening curve is the only      
+                              element of this array used here.        
+                              This array is set in routines           
+                              INDATA and RDTR.                        
+
+ logical            LALGVA <  Array of logical algorithmic flags.     
+                              For the present material model, this    
+                              array contains the plastic yielding     
+                              flag, IFPLAS; the return                
+                              algorithm failure flag, SUFAIL;         
+                              the two-vector return flag,             
+                              TWOVEC and the right corner return flag,
+                              RIGHT.                                  
+                              The plastic yielding flag is set        
+                              to .TRUE. if plastic yielding           
+                              has occurred and to .FALSE. if          
+                              the step is elastic. The algorithm      
+                              failure flag is set to .FALSE. if       
+                              the state update algorithm has been     
+                              successful and to .TRUE. if the         
+                              return mapping algorithm has failed     
+                              to converge.                            
+                              TWOVEC is set to .TRUE.                 
+                              if the selected return mapping is to    
+                              a corner (right or left) and is set to  
+                              .FALSE. otherwise.                      
+                              RIGHT is set to .TRUE.                  
+                              if the selected return is to the right  
+                              corner and is set to .FALSE.            
+                              otherwise.                              
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   RPROPS >  Array of real material properties.      
+                              This array contains the density         
+                              (not used in this routine), the elastic 
+                              properties: Young's modulus and         
+                              Poisson's ratio, and the plastic        
+                              properties: the pairs                   
+                              ``accumulated plastic strain-cohesion'' 
+                              defining the (user                      
+                              supplied) piece-wise linear hardening   
+                              curve. This array is set in routine     
+                              RDTR.                                   
+
+ double precision   RSTAVA <> Array of real state variables other     
+                              than the stress tensor components.      
+                              Previous converged values on entry,     
+                              updated values on exit.                 
+                              The state variables stored in           
+                              this array are the (engineering)        
+                              elastic strain components and the       
+                              accumulated plastic strain.             
+
+ double precision   STRAT  >  Array of elastic trial (engineering)    
+                              strain components.                      
+
+ double precision   STRES  <  Array of updated stress tensor          
+                              components.                             
+ </pre>

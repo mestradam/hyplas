@@ -1,0 +1,27 @@
+ <pre>
+ SUBOUTINE <a href=atmdfb.html>ATMDFB</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Computes the additional tangent modulus, q, for F-Bar elements     
+                                                                    
+ This routine computes the additional tangent modulus, q, required  
+ to assemble the tangent stiffness matrix for F-bar elements.       
+ This routine contains the plane strain and axisymmetric            
+ implementations.                                                   
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   AMATX  >  Matrix of components of the current     
+                              spatial tangent modulus, a.             
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   QMATX  <  The additional tangent modulus required 
+                              to assemble the tangent stiffness matrix
+                              for F-bar elements.                     
+
+ double precision   STRES  >  Array of current Cauchy stress tensor   
+                              components.                             
+ </pre>

@@ -1,0 +1,29 @@
+ <pre>
+ SUBOUTINE <a href=conver.html>CONVER</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Checks for convergence of the equilibrium iterations               
+                                                                    
+ This routine computes the global residual (out-of-balance) force   
+ vector and its relative norm and checks whether the convergence    
+ criterion has been satisfied.                                      
+ If convergence has been attained the flag logical CONVRG returns as
+ .TRUE., otherwise it returns as .FALSE.                            
+ Also, if divergence is detected, the flag DIVERG returns as .TRUE. 
+ (and .FALSE. otherwise).                                           
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ logical            CONVRG <  Convergence flag.                       
+
+ logical            DIVERG <  Divergence flag.                        
+
+ integer            IITER  >  Current equilibrium iteration number.   
+
+ double precision   TOLER  >  Equilibrium convergence tolerance.      
+
+ double precision   TFACT  >  Current total load factor.              
+                                                                    
+ </pre>

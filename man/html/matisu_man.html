@@ -1,0 +1,70 @@
+ <pre>
+ SUBOUTINE <a href=matisu.html>MATISU</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Material interface for state update routine calls                  
+                                                                    
+ This routine calls the state update routine according to the       
+ material type. Given the material-independent kinematic quantities 
+ computed at the element level (and passed into the present routine 
+ through its list of arguments) this routine identifies the material
+ type in question and calls the corresponding material-specific     
+ state update routine which updates the stress and other state      
+ variables at one Gauss point.                                      
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DETF   >  Determinant of the total deformation    
+                              gradient at the current Gauss point.    
+                              Used for large strain analysis only.    
+
+ integer            NLARGE >  Large strain flag. Large strain         
+                              analysis if NLARGE=1 and                
+                              infinitesimal strain analysis otherwise.
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ logical            SUFAIL <  State update failure flag. Return value 
+                              set to .FALSE. if the state update      
+                              procedure was performed successfully    
+                              and set to .TRUE. otherwise.            
+
+ double precision   THKGP  <> Thickness of the current Gauss point.   
+                              Used only in plane stress analysis.     
+                              Updated here only in large strain       
+                              analysis. In this case, it is the       
+                              initial (reference config.) thickness on
+                              entry and returns as the current        
+                              thickness.                              
+
+ double precision   EINCR  >  Array of incremental engineering strain 
+                              components. Used in infinitesimal strain
+                              analysis only.                          
+
+ double precision   FINCR  >  Incremental deformation gradient. Used  
+                              in large strain analysis only.          
+
+ integer            IPROPS >  Array of integer material properties.   
+
+ logical            LALGVA <> Array of current logical algorithmic    
+                              variables at the current Gauss point.   
+
+ double precision   RALGVA <> Array of current real algorithmic       
+                              variables at the current Gauss point.   
+                              Previous converged (equilibrium) value  
+                              on entry. Returns as updated value.     
+
+ double precision   RPROPS >  Array of real material properties.      
+
+ double precision   RSTAVA <> Array of current real state variables   
+                              at the current Gauss point. Previous    
+                              converged (equilibrium) value on entry. 
+                              Returns as updated value.               
+
+ double precision   STRES  <> Array of current (Cauchy) stress        
+                              components at the current Gauss point.  
+                              Previous converged (equilibrium) value  
+                              on entry. Returns as updated value.     
+ </pre>

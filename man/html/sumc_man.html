@@ -1,0 +1,87 @@
+ <pre>
+ SUBOUTINE <a href=sumc.html>SUMC</a> - MANUAL PAGE
+
+ DESCRIPTION
+ State update procedure for the Mohr-Coulomb type material model.   
+                                                                    
+ This routine uses the fully implicit elastic predictor/return      
+ mapping algorithm as the state update procedure for the            
+ Mohr-Coulomb elasto-plastic material model with piece-wise linear  
+ isotropic hardening. It contains the plane strain and axisymmetric 
+ implementations of the model. The essential return mapping is      
+ carried out here in principal stress space.                        
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DGAM   <  Array of incremental plastic            
+                              multipliers.                            
+
+ integer            IPROPS >  Array of integer material properties.   
+                              The number of points on the piece-wise  
+                              linear hardening curve is the only      
+                              element of this array used here.        
+                              This array is set in routines           
+                              INDATA and RDMC.                        
+
+ logical            LALGVA <  Array of logical algorithmic flags.     
+                              For the present material model, this    
+                              array contains the plastic yielding     
+                              flag, IFPLAS; the return algorithm      
+                              failure flag, SUFAIL; the edge return   
+                              flag, EDGE; the right edge return flag, 
+                              RIGHT, and; the apex return             
+                              flag, APEX.                             
+                              The plastic yielding flag is set to     
+                              .TRUE. if plastic yielding has occurred 
+                              and to .FALSE. if the step is elastic.  
+                              The algorithm failure flag is set to    
+                              .FALSE. if the state update algorithm   
+                              has been successful and to .TRUE. if the
+                              return mapping algorithm has failed to  
+                              converge.                               
+                              EDGE is set to .TRUE. if the selected   
+                              return mapping is to and edge (right or 
+                              left) and is set to .FALSE. otherwise.  
+                              RIGHT is set to .TRUE. if the selected  
+                              return is to the right edge and is set  
+                              to .FALSE. otherwise.                   
+                              APEX is set to .TRUE. if the selected   
+                              return is to the apex and is .FALSE.    
+                              otherwise.                              
+
+ integer            NTYPE  >  Stress state type flag. This routine is 
+                              compatible only with plane strain       
+                              (NTYPE=2) and axisymmetric states       
+                              (NTYPE=3).                              
+
+ double precision   RPROPS >  Array of real material properties.      
+                              This array contains the density         
+                              (not used in this routine), the elastic 
+                              properties: Young's modulus and         
+                              Poisson's ratio, and the plastic        
+                              properties: Sine and cosine of          
+                              frictional angle, cosine of the         
+                              dilatancy angle and the pairs           
+                              ``accumulated plastic strain-cohesion'' 
+                              defining the (user                      
+                              supplied) piece-wise linear hardening   
+                              curve. This array is set in routine     
+                              RDMC.                                   
+
+ double precision   RSTAVA <> Array of real state variables other     
+                              than the stress tensor components.      
+                              Previous converged values on entry,     
+                              updated values on exit.                 
+                              The state variables stored in           
+                              this array are the (engineering)        
+                              elastic strain components and the       
+                              accumulated plastic strain.             
+
+ double precision   STRAT  >  Array of elastic trial (engineering)    
+                              strain components.                      
+
+ double precision   STRES  <  Array of updated stress tensor          
+                              components.                             
+ </pre>

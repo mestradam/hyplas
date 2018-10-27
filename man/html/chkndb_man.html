@@ -1,0 +1,38 @@
+ <pre>
+ SUBOUTINE <a href=chkndb.html>CHKNDB</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Checks whether a set of nodes matches one of the element boundaries
+                                                                    
+ This routine checks whether a given set of local node numbers match
+ one of the boundaries of an element. If the given set matches one  
+ boundary, NODCHK returns with the appropriate node number ordering 
+ for numerical integration on that boundary.                        
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ logical            FOUND  <  Set to .TRUE. if the given set of local 
+                              node numbers matches one of the         
+                              boundaries of the element. Set to       
+                              .FALSE. otherwise.                      
+
+ integer            NNODE  >  Total number of nodes of the element.   
+
+ integer            NEDGEL >  Total number of edges (facets in 3-D) of
+                              the element.                            
+
+ integer            NODCHK <> On entry, defines the set of local node 
+                              numbers to be matched by a boundary:    
+                              If local node INODE is part of the set, 
+                              then NODCHK(INODE)=1.                   
+                              NODCHK(INODE)=0 otherwise.              
+                              This array returns with the sequence of 
+                              local node numbers on the matching      
+                              boundary.                               
+
+ integer            NORDEB >  Array containing the sequence of local  
+                              node numbers in each edge (facets in    
+                              3-D) of the element.                    
+ </pre>

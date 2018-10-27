@@ -1,0 +1,609 @@
+***********************************************************************************************************
+*                                                                                                         *
+*                                           H Y P L A S  2.0                                              *
+*                                                                                                         *
+*                                      CONCISE INPUT DATA MANUAL                                          *
+*                                                                                                         *
+*                                                                                                         *
+* Copyright (c) 1996-2008   EA de Souza Neto, D Peric & DRJ Owen                                          *
+*---------------------------------------------------------------------------------------------------------*
+*                                                                                                         *
+* Last Updated:  17 October 2008                                                                          *
+*                                                                                                         *
+* This file belongs in the directory ../HYPLAS_v2.0/man                                                   *
+***********************************************************************************************************
+*                                                                                                         *
+* This ASCII file contains a concise manual of input data files for HYPLAS.                               *
+*                                                                                                         *
+*                    USE A WIDE WINDOW (MINIMUM 107 COLUMNS) TO READ IT PROPERLY !                        *
+*                                                                                                         *
+*                                                                                                         *
+* IMPORTANT: The best way to understand the structure of the input data for HYPLAS is probably to go      *
+* =========  through this file and read SIMULTANEOUSLY one or more of the data files provided in the      *
+*            directory ../book_examples/data_files                                                        *
+*                                                                                                         *
+* NOTE:      Most of the input from data file is read by subroutine INDATA (file ../src/GENERAL/indata.f) *
+* ====                                                                                                    *
+*                                                                                                         *
+*---------------------------------------------------------------------------------------------------------*
+*                                                                                                         *
+*       PRELIMINARIES                                                                                     *
+*                                                                                                         *
+*       The input data for HYPLAS are organised in blocks of ASCII-format                                 *
+*       information generally defined by a KEYWORD, possibly followed by data on                          *
+*       the same line and possibly followed by more data on the IMMEDIATELY                               *
+*       SUBSEQUENT lines.                                                                                 *
+*       If any KEYWORD is repeated in a file, then HYPLAS will accept the data                            *
+*       associated with the one it finds first (generally NOT the first                                   *
+*       occurence of the KEYWORD in the data file). Hence, it is important to                             *
+*       ensure that all required keywords appear only once in the data file.                              *
+*                                                                                                         *
+*       In the data format description below, the following convention applies:                           *
+*       Reference to COMPULSORY data is enclosed within < > (e.g., <ntype>                                *
+*       following keyword ANALYSIS_TYPE). Reference to OPTIONAL data is                                   *
+*       enclosed within [ ] (e.g., [title] under  keyword TITLE).                                         *
+*       Reference to data that may or may not be required, is enclosed                                    *
+*       within { }. Data whose reference is NOT ENCLOSED within <>, [] or {}                              *
+*       is normally COMPULSORY within the data block defined by the current                               *
+*       keyword.                                                                                          *
+*                                                                                                         *
+***********************************************************************************************************
+
+
+
+TITLE
+      [title]              # Write whatever you like here (maximum 1 line, 72 columns)
+
+
+
+ANALYSIS_TYPE  <ntype>     # ntype=1 -> plane stress;
+                           # ntype=2 -> plane strain;
+                           # ntype=3 -> axisymmetric.
+
+
+
+AXIS_OF_SYMMETRY  <c>      # keyword required ONLY for axisymmetric analysis (i.e. when ntype=3).
+                           # c=Y -> axisym. about Y axis;
+                           # c=X -> axisym. about X axis.
+
+
+
+LARGE_STRAIN_FORMULATION  <flag>   # flag (string) for large strain analysis
+                                   #
+                                   # flag=ON  -> large strain formulation activated
+                                   # flag=OFF -> small strain analysis
+
+
+
+SOLUTION_ALGORITHM  <nalgo>     # nalgo=1 -> Initial stiffness method;
+                                # nalgo=2 -> Newton-Raphson tangent stiffness method;
+                                # nalgo=3 -> Modified Newton KT1;
+                                # nalgo=4 -> Modified Newton KT2;
+                                # nalgo=5 -> Secant Newton - Initial stiffness;
+                                # nalgo=6 -> Secant Newton - KT1;
+                                # nalgo=7 -> Secant Newton - KT2,
+                                #
+                                #
+                                # IMPORTANT:
+                                # Negative "nalgo" combines the corresponding solution algorithm with
+                                # the Arc-length Method. For example, nalgo=-2 combines the
+                                # Newton-Raphson algorithm with the Arc-length method, and so on.
+                                #
+                                # - If the Arc-Length method is used, then the following additional
+                                #   keyword/data are required:
+                                #
+                                #   ARC_LENGTH_PREDICTOR_OPTION <option>
+				#                               |
+				#                               | "option" is one of the following:
+                                #                               |
+                                #                               | CURRENT_PATH -> This is the recommended
+                                #                               |                 one. The method tries
+                                #                               |                 to stick to the current
+                                #                               |                 equilibrium path.
+                                #                               |
+                                #                               | STIFFNESS_SIGN -> Uses the sign of the
+                                #                               |                   tangent stiffness
+                                #                               |                   determinant to choose
+                                #                               |                   the path direction.
+
+
+
+
+
+ELEMENT_GROUPS  <ngrup>         # ngrup = number of element groups
+   ig       ie       im         #
+    .1        1        1        #
+    .                           #   ig  (i=1,ngrup) =  group identification number
+    .                           #     i
+    .                           #
+    .                           #
+    .                           #   ie  (i=1,ngrup) =  element type identification number
+    .                           #     i                associated with element group  ig
+   ig       ie       im         #                                                       i
+     ngrup    ngrup    ngrup    #
+                                #   im  (i=1,ngrup) =  material type identification number
+                                #     i                associated with element group  ig
+                                #                                                       i
+
+
+
+
+ELEMENT_TYPES  <nelts>          # nelts=number of element types
+   ie        eltnam             #
+     1             1            #
+             ngausp             #   ie  (i=1,nelts) =  element type identification number
+    .              1            #     i
+    .                           #
+    .                           #   eltnam (i=1,nelts) = element type name (refer to the Fortran source
+    .                           #         i              ../src/GENERAL/indata.f for valid names)
+    .                           #
+   ie        eltnam             #   ngausp (i=1,nelts) = number of Gauss-points for element
+     nelts         nelts        #         i              type  ie
+             ngausp             #                                i
+                   nelts        #
+
+
+
+
+MATERIALS  <nmats>                      # nmats = number of distinct materials
+  imat      matnam                      #
+      1           1                     #   imat  (i=1,...,nmats) = material type identification
+            dense                       #       i                   number
+                 1                      #
+     specific_material_properties       #
+   .                             1      #   matnam = material type name (refer to Fortran source file
+   .                                    #            ../src/MATERIALS/matird.f for valid names)
+   .                                    #
+   .                                    #   dense  = density (used only for gravity load)
+   .                                    #
+   .                                    #
+   .                                    #
+   .                                    #   specific_material_properties = set of properties
+   .                                    #                                  required by the specific
+   .                                    #                                  material type "matnam"
+  imat      matnam                      #                                              
+      nmats       nmats                 #
+            dense                       #
+                 nmats                  #   EXAMPLES of "specific_material_properties"
+     specific_material_properties       #   ------------------------------------------
+                                 nmats  #         
+                                        #   Material-specific properties are read by material-specific
+                                        #   data input routines generally named RDxxxx. Refer to the
+                                        #   relevant Fortran source files to find what data are required
+                                        #   by any particular material. Here are some examples of this type
+                                        #   of data:
+                                        #
+                                        #   1) matnam = VON_MISES (elastoplastic, Von-Mises criterion -
+                                        #                          refer to subroutine RDVM)
+                                        #
+                                        #
+                                        #               young  poiss
+                                        #               nhard
+                                        #                 eps       uniax
+                                        #                  . 1           1
+                                        #                  .
+                                        #                  .
+                                        #                  .
+                                        #                 eps       uniax
+                                        #                    nhard       nhard
+                                        #
+                                        #
+                                        #      young = Young's modulus
+                                        #
+                                        #      poiss = Poisson's ratio
+                                        #
+                                        #      nhard = number of hardening points in the
+                                        #              hardening curve
+                                        #
+                                        #      eps ,...,eps      = accumulated plastic strain at the
+                                        #         1        nhard   "nhard" points of the curve supplied.
+                                        #
+                                        #      uniax ,...,uniax    = corresponding uniaxial yield stresses.
+                                        #           1          nhard
+                                        #
+                                        #
+                                        #
+                                        #   2) matnam = MOHR_COULOMB (elastoplastic, Mohr-Coulomb criterion
+                                        #               - refer to subroutine RDMC)
+                                        #
+                                        #
+                                        #               young  poiss   phi   psi
+                                        #               nhard
+                                        #                 eps       cohe
+                                        #                  . 1          1
+                                        #                  .
+                                        #                  .
+                                        #                  .
+                                        #                 eps       cohe
+                                        #                    nhard      nhard
+                                        #
+                                        #
+                                        #      young = Young's modulus
+                                        #
+                                        #      poiss = Poisson's ratio
+                                        #
+                                        #      phi   = internal friction angle
+                                        #
+                                        #      psi   = dilatancy angle (degrees)
+                                        #
+                                        #      nhard = number of hardening points in the
+                                        #              hardening curve
+                                        #
+                                        #      eps ,...,eps      = accumulated plastic strain at the
+                                        #         1        nhard   "nhard" points of the curve supplied.
+                                        #
+                                        #      cohe ,...,cohe      = corresponding cohesion.
+                                        #          1         nhard
+
+
+
+
+
+
+ELEMENTS  <nelem>                     # nelem = total number of elements in the mesh
+   i       ig    nod .... nod         #
+   .1               1        nnode    #
+   .                                  #     i ,...,i         = element numbers
+   .                                  #      1      nelem
+   .                                  #
+   .                                  #     ig               = element group number
+   i       ig    nod .... nod         #
+    nelem           1        nnode    #     nod .... nod     = element modal connectivity
+                                      #        1        nnode
+
+
+
+
+
+
+
+NODE_COORDINATES  <npoin> <coord_syst_type>         #  npoin = total number of nodal points in the mesh
+ < i      xcoord   ycoord > { r    theta }          #  coord_syst_type = type of coordinate system used
+    1           1        1     1        1           #
+   .                                                #  - "coord_syst_type" must be one of the following
+   .                                                #    keywords:
+   .                                                #
+   .                                                #     CARTESIAN   -> cartesian system of coordinates
+                                                    #     CYLINDRICAL -> cylindrical system of coordinates
+ < i      xcoord     ycoord >   { r      theta }    #
+    npoin      npoin      npoin    npoin     npoin  #
+                                                    #
+                                                    #     i ,...,i     = node numbers
+                                                    #      1      npoin
+                                                    #
+                                                    #     xcoord,...,xcoord     = X coordinates
+                                                    #           1         npoin
+                                                    #
+                                                    #     ycoord,...,ycoord      = Y coordinates
+                                                    #           1         npoin
+                                                    #
+                                                    #
+                                                    #  If "coord_syst_type=CYLINDRICAL" then the bracketed 
+						    #  data
+                                                    #
+                                                    #      r, ... ,r        and    theta, ... ,theta 
+                                                    #       1       npoin               1          npoin
+                                                    #
+                                                    #  are required. In this case "xcoord" and "ycoord" are
+						    #  the X- and Y-coordinates of the origin of the
+						    #  coordinate system for the node in question and "r"
+						    #  and "theta" are, respectively, the radial and the
+						    #  angular coordinates of the same node.
+
+
+
+
+THICKNESS <type_def>[nsets] # (required only for plane stress analysis)
+                            #           ----     ------------
+                            #
+                            #
+                            # type_def = type of definition of thickness
+                            #
+                            #
+                            #   - "type_def" must be one or more of the following keywords:
+                            #
+                            #            UNIFORM            -> uniform thickness over the entire mesh
+                            #            DEFINED_BY_ELEMENT -> uniform thickness within each element
+                            #            DEFINED_BY_NODE    -> thickness defined at each node
+                            #
+                            #
+                            #
+                            # nsets = number of sets of nodes/elements with same thickness (optional)
+                            #                                                              ----------
+                            #
+                            #   - If  "type_def=UNIFORM", then the following additional 
+                            #     datum is required:
+                            #
+                            #     thick   | thick = thickness of all elements
+                            #             |
+                            #
+                            #
+                            #
+                            #   - If  "type_def=DEFINED_BY_ELEMENT", then the following additional 
+                            #     data are required:
+                            #
+                            #     .If "nsets" is NOT defined:
+                            #
+                            #        ielem      thick        |  ielem (i=1,..,nelem) = element number
+                            #          .  1          1       |       i
+                            #          .                     |
+                            #          .                     |  thick (i=1,..,nelem) = element thickness
+                            #          .                     |       i
+                            #        ielem      thick        |
+                            #             nelem      nelem   |
+                            #                                |
+                            #
+                            #     .If "nsets" is defined:
+                            #
+                            #        iset    ifirst   ilast    incr     | iset (i=1,..,nsets) = set number
+                            #          . 1         1       1            |     i
+                            #          .                                |
+                            #          .                                | ifirst = number of the first
+                            #          .                                |          element of the set
+                            #          .                                |
+                            #        iset    ifirst   ilast    incr     | 
+                            #            nsets     nsets   nsets   nsets| ilast  = number of the last
+                            #                                           |          element of the set
+                            #                                           |
+                            #                                           |
+                            #                                           | incr = number increment between
+                            #                                           |        element numbers of the set
+                            #                                           |
+                            #
+                            #
+                            #   - If  "type_def=DEFINED_BY_NODE", then the following additional 
+                            #     data are required:
+                            #
+                            #     .If "nsets" is NOT defined:
+                            #
+                            #        inode      thick        |  inode (i=1,..,nnode) = node numbers
+                            #          .  1          1       |       i
+                            #          .                     |
+                            #          .                     |  thick (i=1,..,nnode) = nodal thicknesses
+                            #          .                     |       i
+                            #        inode      thick        |
+                            #             nnode      nnode   |
+                            #                                |
+                            #
+                            #     .If "nsets" is defined:
+                            #
+                            #        iset    ifirst   ilast    incr     | iset (i=1,..,nsets) = set number
+                            #          . 1         1       1       1    |     i
+                            #          .                                |
+                            #          .                                | ifirst  = number of the first
+                            #          .                                |       i   node of the ith set                  
+                            #          .                                |
+                            #        iset    ifirst   ilast    incr     | 
+                            #           nsets     nsets   nsets   nsets | ilast  = number of the last node
+                            #                                           |      i   of the ith set
+                            #                                           |
+                            #                                           |
+                            #                                           | incr  = number increment between
+                            #                                           |     i   node numbers of ith set
+
+
+
+
+
+NODES_WITH_PRESCRIBED_DISPLACEMENTS  <nvfix>        # nvfix = number of nodes with prescribed
+  i     ifix       xdisp     ydisp     angle        #         displacements
+   1        1           1         1         1       #
+  .                                                 #
+  .                                                 #    i ,...,i     = node numbers
+  .                                                 #     1      nvfix
+  .                                                 #
+  .                                                 #
+                                                    #    ifix ,...,ifix    = constraint codes:
+  i      ifix      xdisp     ydisp     angle        #        1        nvfix
+   nvfix    nvfix     nvfix      nvfix     nvfix    #
+                                                    #         01 -> constrained in Y direction only
+                                                    #         10 -> constrained in X direction only
+                                                    #         11 -> constrained in X and Y directions
+                                                    #
+                                                    #
+                                                    #    xdisp ,...,xdisp    = prescribed nodal
+                                                    #         1         nvfix  displacements in X-direction
+                                                    #
+                                                    #    ydisp ,...,ydisp    = prescribed nodal
+                                                    #         1         nvfix  displacements in Y-direction
+                                                    #
+                                                    #    angle ,...,angle     = angles between local and
+                                                    #         1         nvfix   global cartesian systems
+
+
+
+
+
+MASTER_SLAVE_SETS  <nmast>                   # nmast = number of master/slave sets
+  nodem       islav      isfix               #
+       1           1          1              #
+           nodes .........nodes              #    nodem ,...,nodem     = master node numbers
+                1             islav          #         1         nmast
+                                             #
+    .                                        #
+    .                                        #    islav ,...,islav     = numbers of slave nodes for each
+    .                                        #         1         nmast   master/slave set
+    .                                        #
+    .                                        #    isfix ,...,isfix     = fixity codes between master and
+    .                                        #         1         nmast   slave nodes for each set as
+    .                                        #                           follows:
+    .                                        #
+                                             #         01 -> slaves follow master in Y direction only
+                                             #         10 -> slaves follow master in X direction only
+  nodem       islav      isfix               #         11 -> slaves follow master in both directions
+      nmast       nmast      nmast           #
+             nodes .........nodes            #
+                  1             islav        #    nodes ,...,nodes     = slave node numbers for each set
+                                             #         1         islav
+                                             #
+
+
+
+
+
+
+                    # NOTE: These data are read in subroutibe INLOAD (file ../src/GENERAL/inload.f)
+                    #
+LOADINGS [lodnam]   # lodnam = load type name(s)   (optional)
+                    #
+                    #
+                    #   - If no load type names are given or if "lodnam"=0, then no external loads
+                    #     (body forces or surface tractions are applied).
+                    #
+                    #
+                    #
+                    #   - "lodnam" can be one or more of the following load type names:
+                    #
+                    #                     POINT   -> prescribed nodal forces
+                    #                     GRAVITY -> weight load
+                    #                     EDGE    -> prescribed distributed edge load
+                    #
+                    #
+                    #
+                    #   - If "lodnam" contains the keyword POINT, then the following additional 
+                    #     keyword/data are required:
+                    #
+                    #
+                    #     POINT_LOAD <npload>                      | npload = number of nodes with
+                    #      inode       xload       yload           |          prescribed force
+                    #        .  1           1           1          |
+                    #        .                                     |
+                    #        .                                     |   inode (i=1,..npload) = node number
+                    #      inode       xload       yload           |        i
+                    #          npload      npload      npload      |
+                    #                                              |   xload  = force component in X
+                    #                                              |        i   direction
+                    #                                              |
+                    #                                              |   yload  = force component in Y
+                    #                                              |        i   direction
+                    #                                              |
+                    #
+                    #
+                    #
+                    #
+                    #   - If "lodnam" contains the keyword GRAVITY, then the following
+                    #     keyword/additional data are required:
+                    #
+                    #
+                    #     GRAVITY_LOAD     |                                                        
+                    #     angle  gravy     | angle = angle (in degrees) between Y axis and
+                    #                      |         gravitational field direction
+                    #                      |
+                    #                      |
+                    #                      | gravy = gravitational force per unit mass
+                    #                      |
+                    #
+                    #
+                    #
+                    #   - If "lodnam" contains the keyword EDGE, then the following additional 
+                    #     keyword/data are required:
+                    #
+                    #
+                    #     EDGE_LOADS <nloade>                      | nloade = number of element edges with
+                    #      ielem   nnodeg    ipoin ... ipoin       |          prescribed distributed force
+                    #           1        1        1         nnodeg |
+                    #            pn ... pn         pt ... pt       |
+                    #        .     1      nnodeg     1      nnodeg | ielem (i=1,..,nloade) = element number
+                    #        .                                     |      i
+                    #        .                                     |
+                    #        .                                     | nnodeg = number of nodes on the edge
+                    #        .                                     |          in question
+                    #        .                                     |
+                    #        .                                     | ipoin (j=1,..,nnodeg) = global numbers
+                    #        .                                     |      j                  of the nodes
+                    #      ielem   nnodeg    ipoin ... ipoin       |                         on the edge in
+                    #           nloade   nloade   nloade    nloade |                         question
+                    #            pn ... pn         pt ... pt       |
+                    #              nloade nloade     nloade nloade | pn (j=1,..,nnodeg) = nodal value of
+                    #                                              |   j                  NORMAL pressure
+                    #                                              |
+                    #                                              | pt (j=1,..,nnodeg) = nodal value of
+                    #                                              |   j                  TANGENTIAL
+                    #                                              |                      pressure
+
+
+
+
+
+                                                  # INCREMENT CONTROL FOR FIXED INCREMENTS (NOT ARC-LENGTH)
+                                                  #                       -----
+                                                  # NOTE: These data are read by subroutine ININCR (Fortran
+                                                  #       source ../src/GENERAL/inincr.f)
+                                                  #
+                                                  #
+INCREMENTS <nincr>                                # nincr = number of proportional load increments
+  dfact   toler   miter   noutp                   #
+       1       1       1       1                  #
+    .                                             #   dfact  (i=1,..,nincr) = incremental load factor
+    .                                             #        i                  of increment "i"
+    .                                             #
+    .                                             #   toler = equilibrium convergence tolerance for
+    .                                             #        i  increment "i"
+  dfact   toler   miter   noutp                   #
+       nincr   nincr   nincr   nincr              #   miter = maximum number of equilibrium iterations
+                                                  #        i  for increment "i"
+                                                  #
+                                                  #   noutp = output code for increment "i" containing:
+                                                  #        i
+                                                  #
+                                                  #      - five digits N1 N2 N3 N4 N5 (separated by blank
+                                                  #        spaces) with each digit associated to the output
+                                                  #        of problem variables as follows:
+                                                  #
+                                                  #
+                                                  #          nodal               stresses and state
+                                                  #          displacements       variables at gauss points
+                                                  #                       \      |
+                                                  #                        N1 N2 N3 N4 N5 <- restart file
+                                                  #                           |      \
+                                                  #                    reaction     nodal stresses
+                                                  #                    forces       and state variables
+                                                  #
+                                                  #        The corresponding variables will be printed
+						  #        according to:
+                                                  #
+                                                  #        digit = 0     -> variables NOT printed.
+                                                  #        digit .neq. 0 -> variables are printed.
+
+
+
+
+                                                  # INCREMENT CONTROL FOR ARC-LENGTH METHOD
+                                                  #                       ----------
+                                                  # NOTE: These data are read by subroutine ININCR (Fortran
+                                                  #       source ../src/GENERAL/inincr.f)
+                                                  #
+INCREMENTS <nincr>                                # nincr = MAXIMUM number of proportional load increments
+  dfact  toler  miter  noutp  itdes  fstop  dlenp #         allowed.
+                                                  #
+                                                  #   dfact = initial incremental load factor
+                                                  #
+                                                  #   toler = equilibrium convergence tolerance
+                                                  #
+                                                  #   miter = maximum number of equilibrium iterations
+                                                  #           allowed (all increments will be subjected to
+                                                  #           the same prescribed "miter")
+                                                  #
+                                                  #   noutp = output code:
+                                                  #
+                                                  #      - five integers N1 N2 N3 N4 N5 (separated by a
+                                                  #        blank space) with each one associated
+                                                  #        to the output of problem variables as follows:
+                                                  #
+                                                  #          nodal           stresses and state
+                                                  #          displacements   variables at gauss points
+                                                  #                       \      |
+                                                  #                        N1 N2 N3 N4 N5 <- restart file
+                                                  #                           |      \
+                                                  #                    reaction     nodal stresses
+                                                  #                    forces       and state variables
+                                                  #
+                                                  #        for arc-length, N1,...,N5 are the OUTPUT
+                                                  #        FREQUENCIES
+                                                  #
+                                                  #   itdes = desired number of iterations for convergence
+                                                  #
+                                                  #   fstop = maximum load factor, above which the program
+                                                  #           will automaticaly stop
+                                                  #
+                                                  #   dlenp = maximum arc-length parameter

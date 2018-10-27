@@ -1,0 +1,102 @@
+ <pre>
+ SUBOUTINE <a href=ifstd2.html>IFSTD2</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Internal force vector computation for 2-D elements of class STDARD 
+                                                                    
+ This routine computes the element internal force vector for all    
+ 2-D elements of the class STDARD: standard isoparametric elements  
+ for plane strain, plane stress and axisymmetric analysis.          
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            IELEM  >  Number of the element whose internal    
+                              force vector is to be computed.         
+
+ logical            INCCUT <  Increment cutting flag. Return value set
+                              to .FALSE. if internal force vector     
+                              was successfully evaluated and set to   
+                              .TRUE. otherwise. When the return value 
+                              is set to .TRUE., the main program will 
+                              activate increment cutting and the      
+                              current increment will be divided into  
+                              sub-increments.                         
+
+ integer            MDIME  >  Maximum permissible number of spatial   
+                              dimensions.                             
+
+ integer            MELEM  >  Maximum permissible number of elements  
+                              in a mesh.                              
+
+ integer            MPOIN  >  Maximum permissible number of nodal     
+                              points in a mesh.                       
+
+ integer            MSTRE  >  Maximum permissible number of stress    
+                              (or resultant force) components.        
+
+ integer            MTOTV  >  Maximum permissible degrees of freedom  
+                              in a mesh.                              
+
+ integer            NAXIS  >  Symmetry axis flag. Used only for       
+                              axisymmetric analysis. NAXIS=1 if       
+                              symmetric about the X-axis and          
+                              NAXIS=2 if symmetric about Y-axis.      
+
+ integer            NLARGE >  Large deformation flag. Large           
+                              deformation analysis if                 
+                              NLARGE=1 and infinitesimal              
+                              deformation analysis otherwise.         
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   COORD1 >  Array of coordinates of all nodes of    
+                              the mesh in the current configuration.  
+
+ double precision   DINCR  >  Global array of incremental             
+                              displacements of the entire mesh.       
+
+ double precision   ELOAD  <  Internal force vector of the current    
+                              element.                                
+
+ integer            IELPRP >  Array of integer element properties     
+                              of the current element group.           
+
+ integer            IPROPS >  Array of integer material properties    
+                              of the current element group.           
+
+ logical            LALGVA <  Array of current logical algorithmic    
+                              variables of all Gauss points of the    
+                              current element.                        
+
+ integer            LNODS  >  Global array of connectivity of the     
+                              entire mesh.                            
+
+ double precision   RALGVA <  Array of current real algorithmic       
+                              variables of all Gauss points of the    
+                              current element.                        
+
+ double precision   RELPRP >  Array of real element properties of     
+                              the current element group.              
+
+ double precision   RPROPS >  Array of real material properties of    
+                              the current element group.              
+
+ double precision   RSTAVA <  Array of current real state             
+                              variables of all Gauss points of the    
+                              current element.                        
+
+ double precision   STRSG  <  Array of resultant forces of all        
+                              centroids line Gauss points of the      
+                              current element.                        
+
+ double precision   THKGP  <  Array of current thickness of           
+                              all Gauss points of the current element.
+                              Used only in plane stress analysis.     
+                              Updated here only in large strain       
+                              analysis.                               
+
+ double precision   TDISP  >  Global array of total displacement      
+                              of all nodes of the mesh.               
+ </pre>

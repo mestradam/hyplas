@@ -1,0 +1,29 @@
+ <pre>
+ SUBOUTINE <a href=rsq4fb.html>RSQ4FB</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Read input and set properties for element type QUA4FB              
+                                                                    
+ This routine reads data from the input data file and sets the      
+ element properties arrays for elements type QUA4FB: F-bar          
+ 4-noded quadrilateral for plane strain, plane stress               
+ and axisymmetric analysis. It also echoes                          
+ the properties to the results file and sets the unsymmetric        
+ tangent stiffness flag.                                            
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            IELPRP <  Array of integer element properties.    
+
+ integer            NDATF  >  Data file unit identifier.              
+
+ integer            NRESF  >  Results file unit identifier.           
+
+ integer            NTYPE  >  Stress state type.                      
+
+ double precision   RELPRP <  Array of real element properties.       
+
+ logical            UNSYM  <  Unsymmetric tangent stiffness flag.     
+ </pre>

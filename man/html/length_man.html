@@ -1,0 +1,29 @@
+ <pre>
+ SUBOUTINE <a href=length.html>LENGTH</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Adjusts step length for the Arc-Length Method.                     
+                                                                    
+ This subroutine adjusts the step length for the Arc-Length Method  
+ according to the prescribed desired number of iterations for       
+ equilibrium convergence and the actual number of iterations for    
+ convergence in the previous load step.                             
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DLEN   <  Calculated step length.                 
+
+ double precision   DLENM  >  Prescribed maximum permissible step     
+                              length.                                 
+
+ integer            ITACT  >  Actual number of iterations required for
+                              convergence in the previous load step.  
+
+ integer            ITDES  >  Desired number of iterations for        
+                              convergence in the iterative solution of
+                              the non-linear finite element           
+                              equilibrium equations.                  
+                                                                    
+ </pre>

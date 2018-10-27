@@ -1,0 +1,64 @@
+ <pre>
+ SUBOUTINE <a href=rstart.html>RSTART</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Reads (writes) data to input (output) re-start file                
+                                                                    
+ Depending on the entry value of its argument MODE, this            
+ routine either dumps the complete database and current information 
+ about the analysis into an output re-start file or reads this      
+ information from a previously created re-start file.               
+ The information dumped on the output re-start file will enable     
+ HYPLAS to re-start from the point in the analysis where the file   
+ was generated. To re-start, this file will be read as the input    
+ re-start file.                                                     
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DFOLD  <> Incremental load factor of the previous 
+                              load increment.                         
+
+ double precision   DLENG  <> Current arc-length (used for arc-length 
+                              method only).                           
+
+ double precision   DLENGO <> Previous arc-length (used for arc-length
+                              method only).                           
+
+ double precision   DLENM  <> Current maximum arc-length (used for    
+                              arc-length method only).                
+
+ double precision   DLAMD  <> Iterative load factor obtained by the   
+                              arc-length method only.                 
+
+ integer            IFNEG  <> Signum (+1/-1) of the tangent stifness  
+                              matrix determinant (used only by the    
+                              arc-length method).                     
+
+ integer            IINCS  <> Number of the current global            
+                              (equilibrium iteration).                
+
+ integer            MXFRON <> Maximum front encoutered.               
+
+ integer            NOUTP  >  Array of output flags for the current   
+                              load increment.                         
+
+ double precision   TFACT  <> Current total load factor.              
+
+ double precision   TFACTO <> Previous total load factor.             
+
+ logical            UNSYM  <> Global unsymmetric solver flag.         
+
+ character          RSTINP >  Current input re-start file name.       
+
+ character          RSTOUT >  Current output re-start file name.      
+
+ integer            MODE   >  If MODE=0, reads from current           
+                              input re-start file. If MODE=1,         
+                              writes to the current output re-start   
+                              file.                                   
+
+ integer            INCRST <  Increment number corresponding to the   
+                              current output re-start file.           
+ </pre>

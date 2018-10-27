@@ -1,0 +1,35 @@
+ <pre>
+ SUBOUTINE <a href=suel.html>SUEL</a> - MANUAL PAGE
+
+ DESCRIPTION
+ State update procedure for the linear elastic material model.      
+                                                                    
+ Given the total strain, this routine computes the corresponding    
+ stress using the standard generalised Hooke's law for linear       
+ elastic materials. This routine contains the plane stress, plane   
+ strain and axisymmetric implementations of the linear elastic      
+ model.                                                             
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            NTYPE  >  Stress state type flag. The present     
+                              routine is compatible with NTYPE=1      
+                              (plane stress), NTYPE=2 (plane strain)  
+                              and NTYPE=3 (axisymmetric condition).   
+
+ double precision   RPROPS >  Array of real material properties.      
+
+ double precision   RSTAVA <  Array of real state variables other     
+                              than the stress tensor components.      
+                              For the linear elastic model, this array
+                              stores the (engineering) strain         
+                              components.                             
+
+ double precision   STRAN  >  Array of current total (engineering)    
+                              strain components.                      
+
+ double precision   STRES  <  Array of updated stress tensor          
+                              components.                             
+ </pre>

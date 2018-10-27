@@ -1,0 +1,55 @@
+ <pre>
+ SUBOUTINE <a href=rdpdsc.html>RDPDSC</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Read data for planar double-slip single crystal model.             
+                                                                    
+ This routine reads from the data file and echos to the results file
+ the material parameters necessary for the large strain             
+ planar double-slip single crystal elasto-plastic model with        
+ piece-wise linear isotropic Taylor hardening.                      
+ It also sets the array of real properties and some components of   
+ the array of integer material properties.                          
+ These arrays are used by subroutines SUPDSC and CSTPDS.            
+ This routine also checks whether the number of integer and real    
+ material properties, the number of real state variables and the    
+ number of logical and real algorithmic variables required by the   
+ present model is compatible with the dimension of the corresponding
+ global arrays.                                                     
+ It also sets the unsymmetric tangent stiffness flag.               
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            IPROPS <  Array of integer material properties.   
+
+ integer            MIPROP >  Dimension of the global array of integer
+                              material properties.                    
+
+ integer            MLALGV >  Dimension of the global array of logical
+                              algorithmic variables.                  
+
+ integer            MRALGV >  Dimension of the global array of real   
+                              algorithmic variables.                  
+
+ integer            MRPROP >  Dimension of the global array of real   
+                              material variables.                     
+
+ integer            MRSTAV >  Dimension of the global array of real   
+                              state variables.                        
+
+ integer            NLARGE >  Large strain analysis integer flag.     
+                              Used for checking only.                 
+                              Present model is compatible only with   
+                              large strain analysis.                  
+
+ integer            NTYPE  >  Stress state type integer flag.         
+                              Used for checking only.                 
+                              Present model is compatible only with   
+                              plane strain analysis (NTYPE=2).        
+
+ double precision   RPROPS <  Array of real material properties.      
+
+ logical            UNSYM  <  Unsymmetric tangent stiffness flag.     
+ </pre>

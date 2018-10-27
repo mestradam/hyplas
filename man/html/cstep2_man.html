@@ -1,0 +1,32 @@
+ <pre>
+ SUBOUTINE <a href=cstep2.html>CSTEP2</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Consistent spatial tangent modulus for finite elasto-plastic models
+                                                                    
+ This routine computes the spatial tangent modulus, a, for          
+ hyperelastic based (logarithmic strain-based) finite               
+ elasto-plasticity models in 2-D: Plane strain, plane stress and    
+ axisymmetric states.                                               
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   AMATX  <  Matrix of components of the spatial     
+                              tangent modulus, a.                     
+
+ double precision   BETRL  >  Array of components of the elastic trial
+                              left Cauchy-Green strain tensor.        
+
+ double precision   DMATX  >  Array of components of the infinitesimal
+                              consistent tangent modulus.             
+
+ double precision   STRES  >  Array of Cauchy stress tensor           
+                              components                              
+
+ double precision   DETF   >  Determinant of the current deformation  
+                              gradient.                               
+
+ integer            NTYPE  >  Stress state type flag.                 
+ </pre>

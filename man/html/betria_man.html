@@ -1,0 +1,32 @@
+ <pre>
+ SUBOUTINE <a href=betria.html>BETRIA</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Computes the left Cauchy-Green strain tensor                       
+                                                                    
+ Given the previous elastic logarithmic strains and the incremental 
+ deformation gradient between the previous and current              
+ configuration, this routine computes the current elastic trial left
+ Cauchy-Green strain tensor.                                        
+ This routine contains the plane strain, plane stress and           
+ axisymmetric implementations.                                      
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   BETRL  <  Array of components of the current      
+                              elastic trial (or total) left           
+                              Cauchy-Green strain tensor.             
+
+ double precision   EEN    >  Array of previous elastic engineering   
+                              logarithmic strains.                    
+
+ double precision   FINCR  >  Incremental deformation gradient between
+                              the previous and current configuration. 
+
+ integer            NTYPE  >  Stress state type. Present routine is   
+                              compatible with NTYPE=1 (plane stress), 
+                              NTYPE=2 (plane strain) and NTYPE=3      
+                              (axisymmetric condition).               
+ </pre>

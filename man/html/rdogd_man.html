@@ -1,0 +1,37 @@
+ <pre>
+ SUBOUTINE <a href=rdogd.html>RDOGD</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Reads data for the regularised Ogden hyperelastic material model.  
+                                                                    
+ This routine reads from the data file and echoes to the results    
+ file the material parameters required by the regularised Ogden     
+ hyperelastic material model.  It also sets the array of real       
+ properties and some components of the array of integer material    
+ properties.  These arrays are used by subroutines SUOGD and CTOGD. 
+ Note that under plane stress the model implemented here is exactly 
+ incompressible, whereas under plane strain and axisymmetric        
+ conditions the regularised (penalty type) approach is used to      
+ enforce incompressibility. This routine also sets the unsymmetric  
+ tangent stiffness flag.                                            
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            IPROPS <  Array of integer material properties.   
+
+ integer            MIPROP >  Dimension of the global array of integer
+                              material properties.                    
+
+ integer            MRPROP >  Dimension of the global array of real   
+                              material variables.                     
+
+ integer            MRSTAV >  Dimension of the global array of real   
+                              state variables.                        
+
+ double precision   RPROPS <  Array of real material properties.      
+
+ logical            UNSYM  <  Unsymmetric tangent stiffness flag.     
+                              Always returned as .FALSE..             
+ </pre>

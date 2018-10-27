@@ -1,0 +1,31 @@
+ <pre>
+ SUBOUTINE <a href=errprt.html>ERRPRT</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Prints error message and can abort the program if requested        
+                                                                    
+ This routine prints error/warning messages to the standard output  
+ and results file and may abort the program depending on the entry  
+ value of its argument. The character string passed as its argument 
+ is an error code which will be searched for in the file ERROR.RUN, 
+ assumed to be kept in the directory defined by the HYPLASHOME      
+ environment variable. If the correponding character string (error  
+ code) is found, the associated error/warning message is printed    
+ in the standard output and results file.                           
+ The are 5 types of errors/warnings: Input data error, input data   
+ warning, internal error, execution error and execution warning.    
+ These are characterised, respectively, by error codes of the       
+ types: 'ED????', 'WD????', 'EI????', 'EE????' and 'WE????'.        
+ This routine aborts the program in case of input data error        
+ (ED????), internal error ('EI????') or execution error (EE????).   
+ The execution of the program is not interrupted in case of         
+ warnings ('WE????' or 'WD????').                                   
+ See file ERROR.RUN for more details.                               
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ character          ERRCOD >  Character string containing the error   
+                              code.                                   
+ </pre>

@@ -1,14 +1,6 @@
-      SUBROUTINE SWCOVM
-     1(   MODE       ,NTYPE      ,LALGVC     ,LALGVL     ,RALGVC     ,
-     2    RSTAVC     ,RSTAVL     ,STRESC     ,STRESL     )
-      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-! Arguments
-      LOGICAL
-     1    LALGVC             ,LALGVL
-      DIMENSION
-     1    LALGVC(*)          ,LALGVL(*)          ,RALGVC(*)          ,
-     2    RSTAVC(*)          ,RSTAVL(*)          ,STRESC(*)          ,
-     3    STRESL(*)
+      subroutine swcovm
+     .(   mode       ,ntype      ,lalgvc     ,lalgvl     ,ralgvc     ,
+     .    rstavc     ,rstavl     ,stresc     ,stresl     )
 !***********************************************************************
 ! Initialise/Switch data 
 ! for composite material (plane strain and axisymmetric only).
@@ -22,55 +14,70 @@
 !
 !***********************************************************************
 !
-      IF(NTYPE.EQ.1.OR.NTYPE.EQ.2.OR.NTYPE.EQ.3)THEN
-        NSTRE=4
-        NRSTAV=13
-      ENDIF
-      NRALGV=1
-      NLALGV=3
+! Variable declaration
+      implicit double precision (a-h,o-z)
+!      
+! ... arguments
+      logical
+     .    lalgvc             ,lalgvl
+      dimension
+     .    lalgvc(*)          ,lalgvl(*)          ,ralgvc(*)          ,
+     .    rstavc(*)          ,rstavl(*)          ,stresc(*)          ,
+     .    stresl(*)
 !
-      IF(MODE.EQ.0)THEN
-! Initialisation mode
-! ===================
-        CALL RVZERO(STRESC,NSTRE)
-        CALL RVZERO(RALGVC,NRALGV)
-        DO 10 I=1,NLALGV
-          LALGVC(I)=.FALSE.
-   10   CONTINUE
+! Set number of variables of each kind
+      if(ntype.eq.1.or.ntype.eq.2.or.ntype.eq.3)then
+        nstre=4
+        nrstav=13
+      endif
+      nralgv=1
+      nlalgv=3
+!
+! Initialization mode (0)
+! -----------------------
+      if (mode.eq.0) then
+        call rvzero(stresc,nstre)
+        call rvzero(ralgvc,nralgv)
+        do i = 1, nlalgv
+          lalgvc(i) = .false.
+        enddo
 ! RSTAVA stores the infinitesimal elastic egineering strain tensor
 ! (engineering logarithmic strains in large strains) and the effective
 ! plastic strain
-        CALL RVZERO(RSTAVC,NRSTAV)
-      ELSE
-! Switching mode
-! ==============
-        IF(MODE.EQ.1)THEN
-          DO 20 I=1,NSTRE
-            STRESL(I)=STRESC(I)
-   20     CONTINUE
-          DO 30 I=1,NRSTAV
-            RSTAVL(I)=RSTAVC(I)
-   30     CONTINUE
-          DO 40 I=1,NLALGV
-            LALGVL(I)=LALGVC(I)
-   40     CONTINUE
+        call rvzero(rstavc,nrstav)
+      else
+!
+! Switching mode (1)
+! ------------------
+        if (mode.eq.1) then
+          do i = 1, nstre
+            stresl(i) = stresc(i)
+          enddo
+          do i = 1, nrstav
+            rstavl(i) = rstavc(i)
+          enddo
+          do i = 1, nlalgv
+            lalgvl(i) = lalgvc(i)
+          enddo
 ! Zero plastic multipliers before starting a new increment
-          CALL RVZERO(RALGVC,NRALGV)
-        ELSEIF(MODE.EQ.2.OR.MODE.EQ.3)THEN
-          DO 50 I=1,NSTRE
-            STRESC(I)=STRESL(I)
-   50     CONTINUE
-          DO 60 I=1,NRSTAV
-            RSTAVC(I)=RSTAVL(I)
-   60     CONTINUE
-          DO 70 I=1,NLALGV
-            LALGVC(I)=LALGVL(I)
-   70     CONTINUE
-          IF(MODE.EQ.3)THEN
+          call rvzero(ralgvc,nralgv)
+!
+! Switching mode (2 or 3)
+! -----------------------
+        elseif (mode.eq.2 .or. mode.eq.3) then
+          do i = 1, nstre
+            stresc(i) = stresl(i)
+          enddo
+          do i = 1, nrstav
+            rstavc(i) = rstavl(i)
+          enddo
+          do i = 1, nlalgv
+            lalgvc(i) = lalgvl(i)
+          enddo
 ! Zero plastic multipliers before starting a new increment
-            CALL RVZERO(RALGVC,NRALGV)
-          ENDIF
-        ENDIF
-      ENDIF
-      RETURN
-      END
+          call rvzero(ralgvc,nralgv)
+        endif
+      endif
+!
+      return
+      end

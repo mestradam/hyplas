@@ -1,0 +1,11 @@
+  <pre>
+      SUBROUTINE <a href=pexit_man.html>PEXIT</a>                                                             
+C Print message                                                                                               
+      WRITE(*,'(///15X,A,///)')'Program HYPLAS aborted.'                                                      
+      WRITE(16,'(///15X,A,///)')'Program HYPLAS aborted.'                                                     
+C Close files                                                                                                 
+      CALL <a href=fclose.html>FCLOSE</a>                                                                     
+C and exit program                                                                                            
+      STOP ' '                                                                                                
+      END                                                                                                     
+ </pre>                                                                                                       

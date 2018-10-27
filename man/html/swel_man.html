@@ -1,0 +1,32 @@
+ <pre>
+ SUBOUTINE <a href=swel.html>SWEL</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Initialise/switch state variables for the elastic material model   
+                                                                    
+ This initialises and switches state variables (between current and 
+ previous values) for the elastic material model (Hencky material   
+ in large strain analysis).                                         
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            MODE   >  Initialisation/Switching mode.          
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   RSTAVC <> Array of real state variables at Gauss  
+                              point. Current values.                  
+
+ double precision   RSTAVL <> Array of real state variables at Gauss  
+                              point. Last converged (equilibrium)     
+                              values.                                 
+
+ double precision   STRESC <> Array of stress (Cauchy in large strain)
+                              components. Current values.             
+
+ double precision   STRESL <> Array of stress (Cauchy in large strain)
+                              components. Last converged (equilibrium)
+                              values.                                 
+ </pre>

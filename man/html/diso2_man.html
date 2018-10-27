@@ -1,0 +1,44 @@
+ <pre>
+ SUBOUTINE <a href=diso2.html>DISO2</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Derivative of a class of isotropic tensor function of one tensor   
+                                                                    
+ This function computes the derivative, dY(X)/dX, of a particular   
+ class of symmetric isotropic tensor valued function of one         
+ symmetric tensor, Y(X).                                            
+ This implementation is restricted to 2-D with one possible         
+ out-of-plane component (normally needed in axisymmetric problems). 
+ The class of tensor functions Y(X) is assumed to be defined as     
+ Y(X)= Sum[y(xi) ei(x)ei], where the scalar function y(xi) defines  
+ the eigenvalues of the tensor Y and xi the eigenvalues of the      
+ tensor X. ei are the egenvectors of X (which by definition of      
+ Y(X), coincide with those of tensor Y) and "(x)" denotes the       
+ tensor product.                                                    
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DYDX   <  Matrix of components of the derivative  
+                              (fourth order tensor) dY/dX.            
+
+ symbolic name      DFUNC  >  Symbolic name of the double precision   
+                              function defining the derivative        
+                              dy(x)/dx of the eigenvalues of the      
+                              tensor function.                        
+
+ symbolic name      FUNC   >  Symbolic name of the double precision   
+                              function defining the eigenvalues y(x)  
+                              of the tensor fumction.                 
+
+ logical            OUTOFP >  Out-of-plane component flag. If set to  
+                              .TRUE. the out-of-plane                 
+                              component (normally required in         
+                              axisymmetric problems) is computed.     
+                              The out-of-plane component is not       
+                              computed otherwise.                     
+
+ double precision   X      >  Point (argument) at which the           
+                              derivative is to be computed.           
+ </pre>

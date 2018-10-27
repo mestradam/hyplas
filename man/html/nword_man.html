@@ -1,0 +1,29 @@
+ <pre>
+ INTEGER FUNCTION <a href=nword.html>NWORD</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Returns the number of words contained in a character string        
+                                                                    
+ The return value of this function is the number of words contained 
+ in the character string passed in its argument list. The function  
+ also sets the pointers to the beginning and end of each word. The  
+ pointers are returned via argument list.                           
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ character          CHRSTR >  Character string.                       
+
+ integer            IWBEG  <  Array of pointers to the beginning of   
+                              the words contained in CHRSTR.          
+                              For the Nth word, beginning at          
+                              CHRSTR(I:I), the function sets          
+                              IWBEG(N)=I.                             
+
+ integer            IWEND  <  Array of pointers to the end of         
+                              the words contained in CHRSTR.          
+                              For the Nth word, ending at             
+                              CHRSTR(I:I), the function sets          
+                              IWEND(N)=I.                             
+ </pre>

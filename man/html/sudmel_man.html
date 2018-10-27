@@ -1,0 +1,41 @@
+ <pre>
+ SUBOUTINE <a href=sudmel.html>SUDMEL</a> - MANUAL PAGE
+
+ DESCRIPTION
+ State update procedure for damaged elastic/crack closure model.    
+                                                                    
+ Given the total strain, this routine computes the corresponding    
+ stress using for an isotropically damaged isotropic linear elastic 
+ model accounting for partial microcrack/void closure effects       
+ (quasi-unilateral conditions) under compressive stresses.          
+ This routine contains the plane strain and axisymmetric            
+ implementations of the model.                                      
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            NTYPE  >  Stress state type flag. The present     
+                              routine is compatible with NTYPE=1      
+                              (plane stress), NTYPE=2 (plane strain)  
+                              and NTYPE=3 (axisymmetric condition).   
+
+ double precision   RPROPS >  Array of real material properties.      
+
+ double precision   RSTAVA <  Array of real state variables other     
+                              than the stress tensor components.      
+                              For this model , this array stores the  
+                              (engineering) strain components.        
+
+ double precision   STRAN  >  Array of current total (engineering)    
+                              strain components.                      
+
+ double precision   STRES  <  Array of updated stress tensor          
+                              components.                             
+
+ logical            SUFAIL <  Logical flag for stress update procedure
+                              failure. Set to .TRUE. if the algorithm 
+                              failed to update the stress. Set to     
+                              .FALSE. is the stress was successfully  
+                              updated.                                
+ </pre>

@@ -1,0 +1,30 @@
+ <pre>
+ SUBOUTINE <a href=tuel.html>TUEL</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Thickness update for Hencky elastic model in plane stress          
+                                                                    
+ This routine updates the thickness for the (Hencky) elastic model  
+ under plane stress and large strains. It also computes the total   
+ deformation gradient (including the thickness strain contribution).
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DETF   <  Determinant of the current total        
+                              deformation gradient (including the     
+                              thickness strain contribution).         
+
+ double precision   RSTAVA >  Array of current (updated) engineering  
+                              logarithmic strain components.          
+
+ double precision   THICK  <> Initial (reference) thickness on entry. 
+                              Returns as the current (updated)        
+                              thickness.                              
+
+ integer   MODE            >  Flag. If MODE.NE.1, then only the total 
+                              deformation gradient is computed.       
+                              If MODE = 1, then the thickness is      
+                              updated in addition.                    
+ </pre>

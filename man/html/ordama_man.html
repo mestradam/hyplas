@@ -1,0 +1,26 @@
+ <pre>
+ SUBOUTINE <a href=ordama.html>ORDAMA</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Output results Lemaitre's ductile damage elasto-plastic model      
+                                                                    
+ This routine writes to the results file the internal and           
+ algorithmic variables of Lemaitre's ductile damage elasto-plastic  
+ material with non-linear (piece-wise linear) isotropic hardening.  
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DGAMA  >  Incremental plastic multiplier. Computed
+                              in routine SUDAMA.                      
+
+ integer            NOUTF  >  Results file unit identifier.           
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   RSTAVA >  Array of real state variables other than
+                              the stress tensor components.           
+
+ double precision   STRES  >  Array of stress tensor components.      
+ </pre>

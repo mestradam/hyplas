@@ -10,17 +10,19 @@ mstre = 4
 # -----------------------------------------------------------------------------
 # Real material properties                                      rprops(:,group)
 
-1   :   matrix young modulus        :   youngm
-2   :   matrix poisson ratio        :   poissm
-3   :   matrix yield stress         :   sigmaum
-4   :   matrix fracture energy      :   gfvalm
-11  :   fibers young modulus        :   youngf
-12  :   fibers poisson ratio        :   poissf
-13  :   fibers ultimate stress      :   sigmauf
-14  :   fibers Weibull shape factor :   alphaf
-15  :   fibers Weibull scale factor :   betaf
-16  :   fibers volume fraction      :   volfrf
-17  :   fibers inclination angle    :   anglef
+1   :   matrix density              :   dense
+2   :   matrix young modulus        :   young
+3   :   matrix poisson ratio        :   poiss
+4   :   matrix yield stress         :   sigmau
+5   :   matrix fracture energy      :   gfval
+11  :   fibers density              :   densef
+12  :   fibers young modulus        :   youngf
+13  :   fibers poisson ratio        :   poissf
+14  :   fibers ultimate stress      :   sigmauf
+15  :   fibers Weibull shape factor :   alphaf
+16  :   fibers Weibull scale factor :   betaf
+17  :   fibers volume fraction      :   volfrf
+18  :   fibers inclination angle    :   anglef
 21  22  :   mhardstrain     mhardstress
   .           .               .               .
   .           .               .               .
@@ -50,6 +52,7 @@ mstre = 4
 11  :   dgama for matrix
 12  :   qmaxf : damage threshold
 13  :   variable to smooth (effective plastic strain?)
+14  :   qtrial : q of fibers
 
 # -----------------------------------------------------------------------------
 # Logical material algorithmic variables                    lalgva(:,gp,elem,2)

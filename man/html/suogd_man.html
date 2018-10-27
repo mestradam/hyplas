@@ -1,0 +1,43 @@
+ <pre>
+ SUBOUTINE <a href=suogd.html>SUOGD</a> - MANUAL PAGE
+
+ DESCRIPTION
+ State update procedure for the Ogden hyperelastic material model.  
+                                                                    
+ This routine updates the Cauchy stress and other state variables   
+ for the regularised (compressible) Ogden hyperelastic material     
+ model under plane stress, plane strain and axisymmetric states.    
+ Under plane stress, the model is exactly incompressible rather     
+ than regularised. Under plane strain and axisymmetric conditions,  
+ the regularised (penalty type) approach is adopted to enforce      
+ incompressibility. In the regularised approach, the bulk modulus   
+ plays the role of the incompressibility penalty factor.            
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   B      >  Array of components of the Left         
+                              Cauchy-Green strain tensor.             
+
+ integer            IPROPS >  Array of integer material properties.   
+
+ integer            NTYPE  >  Stress state type flag. This routine    
+                              accepts NTYPE=1 (plane stress)          
+                              NTYPE=2 (plane strain) and              
+                              NTYPE=3 (axisymmetric).                 
+
+ double precision   RPROPS >  Array of real material properties.      
+
+ double precision   RSTAVA <  Array of real state variables other than
+                              stress tensor components. Use here to   
+                              store the left Cauchy-Green strain      
+                              tensor.                                 
+
+ double precision   STRES  <  Array of Cauchy stress components.      
+
+ double precision   THICK  <> Thickness of the current point. Initial 
+                              (reference) value on entry, current     
+                              updated value on return.                
+                              Used only in plane stress analysis.     
+ </pre>

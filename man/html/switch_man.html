@@ -1,0 +1,32 @@
+ <pre>
+ SUBOUTINE <a href=switch.html>SWITCH</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Switches the stored value of the problem variables.                
+                                                                    
+ This routine switches the stored values of the problem variables   
+ (displacements, coordinates, stresses and other state and          
+ algorithmic variables) between current values and values at the    
+ last converged (equilibrium) solution. The value of the argument   
+ MODE defines what switching operation is carried out. If MODE=1,   
+ the current value of the variables is assigned to the converged    
+ solution and the equilibrium values of the previous step are       
+ discarded (this is required when convergence is achieved at the end
+ of the current equilibrium iteration).  If MODE=2, the values at   
+ the last converged solution are assigned to the current values and 
+ the values at the end of the previous iteration (if any) are       
+ discarded (this operation is carried out whenever a new iteration  
+ is required by the iterative method for equilibrium solution). If  
+ MODE=3, the values at the last converged solution are assigned to  
+ the current values when increment cutting is required. Gauss-point 
+ thicknesses are also switched accordingly (for large strains under 
+ plane stress only).                                                
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            MODE   >  Flag determining which switching        
+                              operation is to be carried out.         
+                                                                    
+ </pre>

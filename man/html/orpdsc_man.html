@@ -1,0 +1,30 @@
+ <pre>
+ SUBOUTINE <a href=orpdsc.html>ORPDSC</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Output results for the planar double-slip single crystal model     
+                                                                    
+ This routine writes to the results file the internal and           
+ algorithmic variables of the planar double-slip single crystal     
+ elasto-plastic material model with non-linear isotropic Taylor     
+ hardening.                                                         
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   DGAM   >  Array of incremental plastic            
+                              multipliers.                            
+                              Computed in routine SUTR.               
+
+ integer            NOUTF  >  Results file unit identifier.           
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   RPROPS >  Array of real material properties.      
+
+ double precision   RSTAVA >  Array of real state variables other than
+                              the stress tensor components.           
+
+ double precision   STRES  >  Array of stress tensor components.      
+ </pre>

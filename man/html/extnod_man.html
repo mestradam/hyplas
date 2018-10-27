@@ -1,0 +1,38 @@
+ <pre>
+ SUBOUTINE <a href=extnod.html>EXTNOD</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Extrapolates Gauss point values of a given field to nodes          
+                                                                    
+ This routine extrapolates the Gauss point values of a given field  
+ to the nodes of a finite element. It simply multiplies the         
+ coefficients matrix for extrapolation EXMATX by the matrix VARGP   
+ which contains the value of each component of the given field in   
+ all integration points of the element.                             
+ The results stored in the argument VARNOD are the extrapolated     
+ (or locally smoothed) values of the components of the given field  
+ at the nodes of the element.                                       
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   EXMATX >  Extrapolation matrix. Dimension         
+                              NNODE x NGAUSP.                         
+
+ double precision   VARGP  >  Matrix containing, in each column,      
+                              the Gauss point value of all            
+                              components of the given field.          
+                              Dimension NVAR x NGAUSP.                
+
+ double precision   VARNOD <  Matrix containing, in each column,      
+                              the (extrapolated) nodal value of all   
+                              components of the given field.          
+                              Dimension NVAR x NNODE.                 
+
+ integer            NVAR   >  Number of components of the given field.
+
+ integer            NGAUSP >  Number of Gauss points.                 
+
+ integer            NNODE  >  Number of nodes of the element.         
+ </pre>

@@ -1,0 +1,34 @@
+ <pre>
+ SUBOUTINE <a href=increm.html>INCREM</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Increments the applied external load for fixed load increments.    
+                                                                    
+ This routine increments the applied external (proportional) load,  
+ sets the global unloading flag KUNLD and outputs the current load  
+ increment parameters to the results output file, when HYPLAS is    
+ running under the fixed load increments option.                    
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            IINCS  >  Current load increment number.          
+
+ double precision   TFACT  <> Total load factor.                      
+
+ double precision   TOLER  <> Equilibrium convergence tolerance.      
+
+ integer            MITER  >  Maximum permissible number of           
+                              equilibrium iterations.                 
+
+ integer            NOUTP  >  Printing output flag.                   
+
+ double precision   DFACT  >  Incremental load factor.                
+
+ double precision   DFOLD  <  Stores the incremental load factor of   
+                              previous load step.                     
+
+ integer            KUNLD  <  Unloading flag.                         
+                                                                    
+ </pre>

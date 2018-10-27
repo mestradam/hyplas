@@ -1,0 +1,41 @@
+ <pre>
+ SUBOUTINE <a href=getbmx.html>GETBMX</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Computes the discrete symmetric gradient operator for 2-D elements 
+                                                                    
+ This routine assembles the discrete symmetric gradient operator    
+ (strain-displacement matrix in small strains), the B-matrix, for   
+ isoparametric 2-D finite elements: Plane strain, plane stress and  
+ axisymmetric cases.                                                
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   BMATX  <  The discrete symmetric gradient         
+                              operator, B-matrix.                     
+
+ double precision   CARTCO >  Cartesian coordinates of the point where
+                              the B-matrix is to be computed.         
+
+ double precision   CARTD  >  Array of cartesian derivatives of the   
+                              element shape functions at the point of 
+                              interest.                               
+
+ integer            NDIME  >  Dimensioning parameter: Number of rows  
+                              of CARTCO and CARTD.                    
+
+ integer            MBDIM  >  Dimensioning parameter: Number of rows  
+                              of BMATX.                               
+
+ integer            NAXIS  >  Axis of symmetry flag. Used only for the
+                              axisymmetric case.                      
+
+ integer            NNODE  >  Number of nodes of the element.         
+
+ integer            NTYPE  >  Stress state type flag.                 
+
+ double precision   SHAPE  >  Array containing the value of the shape 
+                              functions at the point of interest.     
+ </pre>

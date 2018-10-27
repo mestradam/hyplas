@@ -1,0 +1,26 @@
+ <pre>
+ SUBOUTINE <a href=spdec2.html>SPDEC2</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Closed form spectral decomposition of 2-D symmetric tensors        
+                                                                    
+ This routine performs the spectral decomposition of 2-D symmetric  
+ tensors in closed form. The tensor is passed as argument (stored in
+ vector form).                                                      
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ double precision   EIGPRJ <  Matrix with one eigenprojection tensor  
+                              of X stored in each column.             
+
+ double precision   EIGX   <  Array containing the eigenvalues of X.  
+
+ logical            REPEAT <  Repeated eigenvalues flag. Set to       
+                              .TRUE. if the eigenvalues of X          
+                              are repeated (within a small tolerance).
+
+ double precision   X      >  Array containing the components of a    
+                              symmetric tensor.                       
+ </pre>

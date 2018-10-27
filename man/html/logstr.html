@@ -1,0 +1,37 @@
+  <pre>
+      SUBROUTINE <a href=logstr_man.html>LOGSTR</a>                                                           
+     1(   B          ,E          ,NTYPE      )                                                                
+      IMPLICIT DOUBLE PRECISION (A-H,O-Z)                                                                     
+      EXTERNAL  <a href=dlgd2.html>DLGD2</a>                                                                                                          
+      LOGICAL   OUTOFP                                                                                        
+      DIMENSION                                                                                               
+     1    B(*)               ,E(*)                                                                            
+      DATA  R2   /2.0D0/                                                                                      
+C***********************************************************************                                      
+C COMPUTES THE LOGARITHMIC STRAIN TENSOR:                                                                     
+C                                                                                                             
+C                       E :=  1/2 ln[ B ]                                                                     
+C                                                                                                             
+C REFERENCE: Box 14.3, item (ii)                                                                              
+C***********************************************************************                                      
+      IF(NTYPE.EQ.2.OR.NTYPE.EQ.3)THEN                                                                        
+        OUTOFP=.TRUE.                                                                                         
+      ELSEIF(NTYPE.EQ.1)THEN                                                                                  
+        OUTOFP=.FALSE.                                                                                        
+      ELSE                                                                                                    
+        CALL <a href=errprt.html>ERRPRT</a>('EI0022')                                                         
+      ENDIF                                                                                                   
+C                                                                                                             
+C Use isotropic tensor function to compute the logarithmic (physical)                                         
+C strain components                                                                                           
+C                                                                                                             
+      CALL <a href=iso2.html>ISO2</a>                                                                         
+     1(   <a href=dlgd2.html>DLGD2</a>      ,OUTOFP     ,B          ,E          )                                                                     
+C                                                                                                             
+C Convert physical components into engineering strain components                                              
+C                                                                                                             
+      E(3)=R2*E(3)                                                                                            
+C                                                                                                             
+      RETURN                                                                                                  
+      END                                                                                                     
+ </pre>                                                                                                       

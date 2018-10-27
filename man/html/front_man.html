@@ -1,0 +1,33 @@
+ <pre>
+ SUBOUTINE <a href=front.html>FRONT</a> - MANUAL PAGE
+
+ DESCRIPTION
+ Frontal solver                                                     
+                                                                    
+ Assembles and solves the global system of linear algebraic finite  
+ element equilibrium equations by the frontal method. For non-linear
+ problems, assembles and solves the corresponding linearised (or    
+ approximately linearised system of) equations.                     
+                                                                    
+
+ ARGUMENT LIST
+ Type               Name      Description
+
+ integer            IITER  >  Current equilibrium iteration number.   
+
+ integer            KRESL  >  Equation resolution index.              
+
+ integer            IFNEG  <  Signum (+1/-1) of the determinant of the
+                              stiffness matrix.                       
+
+ integer            KUNLD  <> Unloading flag.                         
+
+ double precision   MXFRON >  Maximum frontwidth encountered in the   
+                              system of linear finite element         
+                              equations.                              
+
+ logical            UNSYM  >  Stiffness matrix unsymmetry flag.       
+
+ logical            INCCUT <  Load increment cutting flag.            
+                                                                    
+ </pre>
